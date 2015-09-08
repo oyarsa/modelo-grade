@@ -262,14 +262,15 @@ bool geraAlunos(string caminho, CursoPtr curso, int numAlunos) {
 
 	// Nome padrão do aluno
 	string nome = "aln";
+	ostringstream saida{};
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = nome + to_string(i + 1);
 		// Chama a função de resolução de forma assíncrona e insere o future no vector
 		futures.push_back(async(resolveAluno, instancia.curso(), aln));
+		//saida << resolveAluno(instancia.curso(), aln);
 	}
 
 	// String stream que irá receber cada retorno
-	ostringstream saida{};
 	for (auto& solucao : futures) {
 		saida << solucao.get();
 	}

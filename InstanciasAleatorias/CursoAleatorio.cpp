@@ -115,7 +115,8 @@ void CursoAleatorio::geraOfertadas() {
 	//! Enquanto não tiverem sido escolhidas todas as ofertadas,
 	//! gera uma e insere no conjunto. Se já tiver sido escolhida
 	//! o tamanho não será afetado
-	while (disciplinasEscolhidas.size() < numOfertadas) {
+	size_t numOfertadaSizeT(numOfertadas);
+	while (disciplinasEscolhidas.size() < numOfertadaSizeT) {
 		auto disc = randomInt() % numDisciplinas;
 		auto inserido = disciplinasEscolhidas.insert(disc).second;
 		if (inserido)

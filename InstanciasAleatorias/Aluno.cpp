@@ -36,7 +36,7 @@ void Aluno::geraAprovacoes() {
 
 	//! Preenche o vetor de aprovações com tantos 1's quanto o número de disciplinas
 	//! que o aluno foi aprovado e depois sorteia
-	fill(begin(aprovacoes_), begin(aprovacoes_) + numAprovacoes, 1);
+	fill(begin(aprovacoes_), begin(aprovacoes_) + numAprovacoes, true);
 	shuffle(begin(aprovacoes_), end(aprovacoes_), aleatorio::geradorAleatorio());
 
 	std::queue<int> preReqAnalisar{};

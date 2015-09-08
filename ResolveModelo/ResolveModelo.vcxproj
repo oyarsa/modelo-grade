@@ -253,6 +253,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Fast|Win32'">true</DeploymentContent>
       <FileType>Document</FileType>
     </ClCompile>
+    <ClCompile Include="ResolveInstancia.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ResolveInstancia.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -119,7 +119,7 @@ bool geraAlunos(std::string destino, CursoPtr curso, int numAlunos) {
 	std::string nome = "aln";
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = destino + nome;
-		inst.novoAluno(aln + std::to_string(i + 1) + ext);
+		inst.novoAlunoAleatorio(aln + std::to_string(i + 1) + ext);
 		if (!inst.gravaAluno("Italo"))
 			return false;
 	}

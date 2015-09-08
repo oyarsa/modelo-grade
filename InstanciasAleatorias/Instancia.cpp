@@ -8,11 +8,20 @@
 //! \param curso unique_ptr<Curso>, passado por rvalue
 Instancia::Instancia(CursoPtr curso) : curso_(std::move(curso)), aluno_(nullptr) {}
 
-void Instancia::novoAluno(std::string nome) {
+Instancia::Instancia(Instancia&& outro) {
+	curso_ = move(outro.curso_);
+	aluno_ = move(outro.aluno_);
+}
+
+void Instancia::novoAlunoAleatorio(std::string nome) {
 	//! Cria um novo objeto da classe AlunoAleatorio dentro do unique_ptr,
 	//! apontando sua matriz de pré-requisitos para a do curso
 	aluno_ = AlunoPtr{new AlunoAleatorio(curso_->preRequisitos(),
 									 curso_->coRequisitos(), nome)};
+}
+
+void Instancia::novoAluno(AlunoPtr aluno) {
+	aluno_ = move(aluno);
 }
 
 bool Instancia::gravaAluno(std::string autor) const {

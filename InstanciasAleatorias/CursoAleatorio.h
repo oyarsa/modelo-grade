@@ -45,4 +45,6 @@ private:
 	int maxMinistradas;
 	//! Número máximo de professores que podem ministrar uma disciplina
 	int maxProfessores;
+	//! Número total de créditos oferecidos no período
+	int creditosTotaisOfertados;
 };

@@ -117,7 +117,9 @@ void CursoAleatorio::geraOfertadas() {
 	//! o tamanho não será afetado
 	while (disciplinasEscolhidas.size() < numOfertadas) {
 		auto disc = randomInt() % numDisciplinas;
-		disciplinasEscolhidas.insert(disc);
+		auto inserido = disciplinasEscolhidas.insert(disc).second;
+		if (inserido)
+			creditosTotaisOfertados += creditos_[disc];
 	}
 
 	//! Percorre o conjunto de disciplinas escolhidas e as marca como
@@ -146,11 +148,13 @@ void CursoAleatorio::geraHorario() {
 	geraOfertadas();
 
 	auto disciplinasAlocadas = 0;
+	auto creditosAlocadosTotal = 0;
 	std::vector<int> creditosAlocados(numDisciplinas, 0);
 
 	//! Executa o laço até todas as disciplinas ofertadas terem sido alocadas
 	//! em um horário
-	while (disciplinasAlocadas < numOfertadas) {
+	while (disciplinasAlocadas < numOfertadas 
+		   || creditosAlocadosTotal < creditosTotaisOfertados) {
 		//! Percorre todos os horários
 		for (auto i = 0; i < numHorarios; i++) {
 			//! Gera uma disciplina para ser alocada naquele horário
@@ -158,7 +162,7 @@ void CursoAleatorio::geraHorario() {
 			//! Testa se essa disciplina já teve todos os seus créditos alocados,
 			//! ou se já foi alocada nesse horário, ou então se não está sendo ofertada
 			if (!ofertadas_[discAtual]
-				|| creditosAlocados[discAtual] > creditos_[discAtual]
+				|| creditosAlocados[discAtual] >= creditos_[discAtual]
 				|| horarios_[i][discAtual]) {
 				continue;
 			}
@@ -170,6 +174,7 @@ void CursoAleatorio::geraHorario() {
 				disciplinasAlocadas++;
 
 			creditosAlocados[discAtual]++;
+			creditosAlocadosTotal++;
 		}
 	}
 }

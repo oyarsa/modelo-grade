@@ -24,9 +24,11 @@ tuple<CursoPtr, string, int> menu() {
 	string pasta;
 	CursoPtr curso;
 
+	cout << "\nSOLUCIONADOR DE INSTANCIAS DO MODELO DE GRADE\n";
+	cout << string(60, '*') << "\n\n";
 	cout << "Selecione a opcao desejada:\n\n";
-	cout << "1 - Valores padrao\n";
-	cout << "2 - Valores customizados\n";
+	cout << "1 - Valores aleatorios padrao\n";
+	cout << "2 - Valores aleatorios customizados\n";
 	cout << "3 - Modelo FAGOC\n";
 	cout << "\nOpcao: ";
 
@@ -97,7 +99,7 @@ tuple<CursoPtr, string, int> menu() {
 	}
 }
 
-string resolveAluno(Curso* curso, string aln) {
+string resolveAluno(Curso const* curso, string aln) {
 	// Stream de saída, uma string que será retornada.
 	// Como vários modelos são resolvidos em paralelo, não é possível
 	// escrever diretamente no arquivo

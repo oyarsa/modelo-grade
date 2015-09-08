@@ -258,6 +258,7 @@
   <ItemGroup>
     <ClCompile Include="aleatorio.cpp" />
     <ClCompile Include="Aluno.cpp" />
+    <ClCompile Include="AlunoAleatorio.cpp" />
     <ClCompile Include="CompFagoc.cpp" />
     <ClCompile Include="Curso.cpp" />
     <ClCompile Include="CursoAleatorio.cpp" />
@@ -268,6 +269,7 @@
   <ItemGroup>
     <ClInclude Include="aleatorio.h" />
     <ClInclude Include="Aluno.h" />
+    <ClInclude Include="AlunoAleatorio.h" />
     <ClInclude Include="CompFagoc.h" />
     <ClInclude Include="Curso.h" />
     <ClInclude Include="CursoAleatorio.h" />

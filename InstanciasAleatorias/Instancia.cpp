@@ -1,5 +1,7 @@
 ﻿#include "Instancia.h"
 #include <GeraArquivos.h>
+#include "Aluno.h"
+#include "AlunoAleatorio.h"
 
 //! Inicializa a classe recebendo um rvalue de um unique_ptr para o curso, e
 //! o aluno apontando para o nulo
@@ -7,10 +9,10 @@
 Instancia::Instancia(CursoPtr curso) : curso_(std::move(curso)), aluno_(nullptr) {}
 
 void Instancia::novoAluno(std::string nome) {
-	//! Cria um novo objeto da classe Aluno dentro do unique_ptr,
+	//! Cria um novo objeto da classe AlunoAleatorio dentro do unique_ptr,
 	//! apontando sua matriz de pré-requisitos para a do curso
-	aluno_ = std::make_unique<Aluno>(curso_->preRequisitos(), 
-									 curso_->coRequisitos(), nome);
+	aluno_ = AlunoPtr{new AlunoAleatorio(curso_->preRequisitos(),
+									 curso_->coRequisitos(), nome)};
 }
 
 bool Instancia::gravaAluno(std::string autor) const {

@@ -33,10 +33,13 @@
     <ClCompile Include="CompFagoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Aluno.cpp">
+    <ClCompile Include="Instancia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Instancia.cpp">
+    <ClCompile Include="AlunoAleatorio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Aluno.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +59,13 @@
     <ClInclude Include="CompFagoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aluno.h">
+    <ClInclude Include="Instancia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Instancia.h">
+    <ClInclude Include="AlunoAleatorio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aluno.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

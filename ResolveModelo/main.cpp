@@ -12,6 +12,7 @@
 #include <CompFagoc.h>
 #include <windows.h>
 #include <future>
+#include <AlunoAleatorio.h>
 
 ILOSTLBEGIN
 
@@ -116,7 +117,7 @@ string resolveAluno(Curso const* curso, string aln) {
 	const auto numHorarios = horarios.size();
 
 	// Gera o novo aluno
-	Aluno aluno(preRequisitos, coRequisitos, aln);
+	AlunoAleatorio aluno(preRequisitos, coRequisitos, aln);
 	const auto& aprovacoes = aluno.aprovacoes();
 	const auto& cursadas = aluno.cursadas();
 
@@ -211,7 +212,7 @@ string resolveAluno(Curso const* curso, string aln) {
 		}
 
 		// Imprime detalhes do aluno
-		saida << "Aluno: " << aln << "\n";
+		saida << "AlunoAleatorio: " << aln << "\n";
 
 		saida << "Materias aprovadas:\n";
 		for (size_t d = 0; d < numDisciplinas; d++) {
@@ -267,7 +268,6 @@ bool geraAlunos(string caminho, CursoPtr curso, int numAlunos) {
 		auto aln = nome + to_string(i + 1);
 		// Chama a função de resolução de forma assíncrona e insere o future no vector
 		futures.push_back(async(resolveAluno, instancia.curso(), aln));
-		//saida << resolveAluno(instancia.curso(), aln);
 	}
 
 	// String stream que irá receber cada retorno

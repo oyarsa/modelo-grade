@@ -8,6 +8,8 @@
 */
 class Aluno {
 public:
+	virtual ~Aluno() {}
+
 	/*!
 	* Recebe o nome do aluno e a matriz de pré-requisitos de seu curso
 	* e partir dela gera aleatoriamente as matérias cursadas e aprovadas
@@ -19,8 +21,8 @@ public:
 	* \param nome Nome do aluno
 	*/
 	Aluno(const std::vector<std::vector<bool>>& preRequisitos,
-		  const std::vector<std::vector<bool>>& coRequisitos,
-	      std::string nome);
+				   const std::vector<std::vector<bool>>& coRequisitos,
+				   std::string nome);
 
 	/*! \brief Retorna um referência const para o vetor de aprovações do aluno
 	*  \return Referência const para o vetor de aprovações
@@ -37,7 +39,7 @@ public:
 	*/
 	std::string nome() const;
 
-private:
+protected:
 	//!< Número de disciplinas do curso
 	int numDisciplinas;
 	//!< Número de disciplinas em que o aluno foi aprovado (aleatório)
@@ -56,7 +58,7 @@ private:
 	std::vector<bool> cursadas_;
 
 	//! Gera aleatoriamente as disciplinas que o aluno cursou
-	void geraCursadas();
+	virtual void geraCursadas() = 0;
 	//! Gera aleatoriamente as disciplinas em que o aluno foi aprovado
-	void geraAprovacoes();
+	virtual void geraAprovacoes() = 0;
 };

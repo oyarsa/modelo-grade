@@ -110,26 +110,35 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 	std::vector<std::future<void>> futures{};
 
 	// Inicializa uma instância que guarda o curso passado como argumento
-	std::vector<ResolveInstancia> solvers{};
+	//std::vector<ResolveInstancia> solvers{};
 
 	// Nome padrão do aluno
 	std::string nome = "aln";
 	std::ostringstream saida{};
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = nome + std::to_string(i + 1);
-		ResolveInstancia solver(curso.get(), AlunoAleatorio{curso->preRequisitos(),
-			curso->coRequisitos(), aln});
-		// Chama a função de resolução de forma assíncrona e insere o future no vector
-		futures.push_back(std::async(&ResolveInstancia::solve, &solvers[i]));
+
+		ResolveInstancia solver(curso.get(), std::move(std::unique_ptr<Aluno>(
+			std::make_unique<AlunoAleatorio>(AlunoAleatorio{curso->preRequisitos(), 
+											 curso->coRequisitos(), aln}))));
+		solver.solve();
+		saida << aln << "\n";
+		const auto& nomeDisciplinas = solver.disciplinas();
+		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
+			 std::ostream_iterator<std::string>(saida, " "));
+		saida << "\n\n";
+		//solvers.push_back(std::move(solver));
+		//// Chama a função de resolução de forma assíncrona e insere o future no vector
+		//futures.push_back(std::async(&ResolveInstancia::solve, &solvers[i]));
 	}
 
 	// String stream que irá receber cada retorno
-	for (auto i = 0; i < numAlunos; i++) {
-		futures[i].get();
-		const auto& nomeDisciplinas = solvers[i].disciplinas();
-		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
-		     std::ostream_iterator<std::string>(saida, " "));
-	}
+	//for (auto i = 0; i < numAlunos; i++) {
+	//	futures[i].get();
+	//	const auto& nomeDisciplinas = solvers[i].disciplinas();
+	//	copy(begin(nomeDisciplinas), end(nomeDisciplinas),
+	//	     std::ostream_iterator<std::string>(saida, " "));
+	//}
 
 	// Cria a stream de escrita do arquivo
 	std::ofstream arquivoSaida(caminho + "\\" + "resultado.txt");

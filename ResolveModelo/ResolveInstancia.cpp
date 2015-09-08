@@ -4,9 +4,9 @@
 #include <Instancia.h>
 #include <ilcp/cp.h>
 
-ResolveInstancia::ResolveInstancia(Curso const* curso, const Aluno& aluno)
+ResolveInstancia::ResolveInstancia(Curso const* curso, AlunoPtr aluno)
 	: curso_{curso},
-	  aluno_{aluno},
+	  aluno_{move(aluno)},
 	  env{},
 	  solucao_{},
 	  valorFinal_{} {}
@@ -24,8 +24,8 @@ void ResolveInstancia::solve() {
 	const auto numHorarios = horarios.size();
 
 	// Variáveis do aluno
-	const auto& aprovacoes = aluno_.aprovacoes();
-	const auto& cursadas = aluno_.cursadas();
+	const auto& aprovacoes = aluno_->aprovacoes();
+	const auto& cursadas = aluno_->cursadas();
 
 	// ------ Elaboração do modelo ----------
 	IloModel mod(env);

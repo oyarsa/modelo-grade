@@ -4,7 +4,7 @@
 #include "Professor.h"
 #include <algorithm>
 #include <sstream>
-#include <set>
+#include <unordered_set>
 
 using aleatorio::randomInt;
 
@@ -110,12 +110,11 @@ void CursoAleatorio::geraCoRequisitos() {
 
 void CursoAleatorio::geraOfertadas() {
 	//! Conjunto de disciplinas que serão ofertadas
-	std::set<int> disciplinasEscolhidas;
+	std::unordered_set<int> disciplinasEscolhidas;
 
 	//! Enquanto não tiverem sido escolhidas todas as ofertadas,
 	//! gera uma e insere no conjunto. Se já tiver sido escolhida
 	//! o tamanho não será afetado
-	size_t numOfertadas(numOfertadas);
 	while (disciplinasEscolhidas.size() < numOfertadas) {
 		auto disc = randomInt() % numDisciplinas;
 		disciplinasEscolhidas.insert(disc);

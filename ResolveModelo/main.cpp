@@ -137,8 +137,9 @@ int main() {
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	auto begin = std::chrono::system_clock::now();
+	std::cout << "\n\n";
 	if (!geraAlunos(dir + pasta, move(curso), numAlunos)) {
-		std::cout << "Nao foi possivel resolver os modelos.\n";
+		std::cout << "Nao foi possivel resolver os modelos.\n\n";
 	}
 	else {
 		std::cout << "Modelos resolvidos com sucesso.\n\n";

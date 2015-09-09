@@ -104,8 +104,8 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 		return false;
 
 	// Nome padrão do aluno
-	string nome = "aln";
-	ostringstream saida{};
+	std::string nome = "aln";
+	std::ostringstream saida{};
 	saida << std::nounitbuf;
 
 	for (auto i = 0; i < numAlunos; i++) {

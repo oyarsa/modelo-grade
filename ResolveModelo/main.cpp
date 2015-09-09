@@ -12,7 +12,7 @@
 #include <windows.h>
 #include <AlunoAleatorio.h>
 #include <future>
-#include "ResolveInstancia.h"
+#include "SolverHandler.h"
 
 using CursoPtr = std::unique_ptr<Curso>;
 

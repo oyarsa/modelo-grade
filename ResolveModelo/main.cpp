@@ -265,6 +265,7 @@ bool geraAlunos(string caminho, CursoPtr curso, int numAlunos) {
 	string nome = "aln";
 	ostringstream saida{};
 	for (auto i = 0; i < numAlunos; i++) {
+<<<<<<< Updated upstream
 		auto aln = nome + to_string(i + 1);
 		// Chama a função de resolução de forma assíncrona e insere o future no vector
 		futures.push_back(async(resolveAluno, instancia.curso(), aln));
@@ -273,6 +274,17 @@ bool geraAlunos(string caminho, CursoPtr curso, int numAlunos) {
 	// String stream que irá receber cada retorno
 	for (auto& solucao : futures) {
 		saida << solucao.get();
+=======
+		auto aln = nome + std::to_string(i + 1);
+		SolverHandler solver{curso.get(), std::move(std::unique_ptr<Aluno>{
+			new AlunoAleatorio{curso->preRequisitos(), curso->coRequisitos(), aln}})};
+		solver.solve();
+		saida << aln << "\n";
+		const auto& nomeDisciplinas = solver.disciplinas();
+		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
+		     std::ostream_iterator<std::string>(saida, " "));
+		saida << solver.valorFinal() << "\n\n";
+>>>>>>> Stashed changes
 	}
 
 	// Cria a stream de escrita do arquivo

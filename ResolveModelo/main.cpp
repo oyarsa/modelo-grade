@@ -11,7 +11,6 @@
 #include <CompFagoc.h>
 #include <windows.h>
 #include <AlunoAleatorio.h>
-#include <future>
 #include "SolverHandler.h"
 
 using CursoPtr = std::unique_ptr<Curso>;
@@ -35,7 +34,7 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	while (true) {
 		std::cin >> opcao;
 		switch (opcao) {
-		case 1: 
+		case 1:
 			numDisciplinas = 50;
 			numPreRequisitos = 10;
 			numCoRequisitos = 5;
@@ -55,8 +54,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 				numOfertadas, numProfessores,
 				maxMinistradas}};
 			return make_tuple(move(curso), pasta, numAlunos);
-		
-		case 2: 
+
+		case 2:
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
 			std::cout << "\nNumero de disciplinas: ";
@@ -82,8 +81,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 				maxMinistradas}};
 
 			return make_tuple(move(curso), pasta, numAlunos);
-		
-		case 3: {
+
+		case 3:
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
 			std::cout << "Numero de alunos: ";
@@ -92,62 +91,45 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			curso = std::unique_ptr<Curso>{new CompFagoc{}};
 
 			return make_tuple(move(curso), pasta, numAlunos);
-		}
+
 		default:
 			std::cout << "\nOpcao invalida. Tente de novo: ";
 		}
 	}
 }
 
-
 bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
-
 	// Cria o diretório, e encerra a função se for malsucedido
 	if (!CreateDirectory(caminho.c_str(), nullptr))
 		return false;
 
-	// Inicializa vector de futures que retornam strings
-	std::vector<std::future<void>> futures{};
-
-	// Inicializa uma instância que guarda o curso passado como argumento
-	//std::vector<SolverHandler> solvers{};
-
 	// Nome padrão do aluno
 	std::string nome = "aln";
 	std::ostringstream saida{};
+	saida << std::nounitbuf;
+
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = nome + std::to_string(i + 1);
-
-		SolverHandler solver(curso.get(), std::move(std::unique_ptr<Aluno>(
-			std::make_unique<AlunoAleatorio>(AlunoAleatorio{curso->preRequisitos(), 
-											 curso->coRequisitos(), aln}))));
+		SolverHandler solver{curso.get(), std::move(std::unique_ptr<Aluno>{
+			new AlunoAleatorio{curso->preRequisitos(), curso->coRequisitos(), aln}})};
 		solver.solve();
 		saida << aln << "\n";
 		const auto& nomeDisciplinas = solver.disciplinas();
 		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
-			 std::ostream_iterator<std::string>(saida, " "));
+		     std::ostream_iterator<std::string>(saida, " "));
 		saida << "\n\n";
-		//solvers.push_back(std::move(solver));
-		//// Chama a função de resolução de forma assíncrona e insere o future no vector
-		//futures.push_back(std::async(&SolverHandler::solve, &solvers[i]));
 	}
-
-	// String stream que irá receber cada retorno
-	//for (auto i = 0; i < numAlunos; i++) {
-	//	futures[i].get();
-	//	const auto& nomeDisciplinas = solvers[i].disciplinas();
-	//	copy(begin(nomeDisciplinas), end(nomeDisciplinas),
-	//	     std::ostream_iterator<std::string>(saida, " "));
-	//}
 
 	// Cria a stream de escrita do arquivo
 	std::ofstream arquivoSaida(caminho + "\\" + "resultado.txt");
-	arquivoSaida << saida.str() << std::endl;
+	arquivoSaida << std::nounitbuf << saida.str() << std::flush;
 
 	return true;
 }
 
 int main() {
+	std::ios_base::sync_with_stdio(false);
+
 	auto opcoes = menu();
 	auto curso = std::get<0>(move(opcoes));
 	auto pasta = std::get<1>(opcoes);
@@ -155,12 +137,13 @@ int main() {
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	auto begin = std::chrono::system_clock::now();
-	if (!geraAlunos(dir + pasta, std::move(curso), numAlunos)) {
+	if (!geraAlunos(dir + pasta, move(curso), numAlunos)) {
 		std::cout << "Nao foi possivel resolver os modelos.\n";
 	}
 	else {
 		std::cout << "Modelos resolvidos com sucesso.\n\n";
 	}
+
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> diferenca = end - begin;
 	std::cout << "Tempo total: " << diferenca.count() << "s\n\n";

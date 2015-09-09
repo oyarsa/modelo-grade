@@ -18,12 +18,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResolveInstancia.cpp">
+    <ClCompile Include="SolverHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ResolveInstancia.h">
+    <ClInclude Include="SolverHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

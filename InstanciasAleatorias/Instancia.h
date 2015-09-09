@@ -12,9 +12,13 @@ public:
 	//! Construtor que recebe um ponteiro para um Curso, que será usado com parte
 	//! principal da geração das instâncias
 	explicit Instancia(CursoPtr curso);
+	Instancia(Instancia&& outro);
 	//! Gera um novo aluno, a partir um nome (padrão é vazio)
 	//! \param nome Nome do aluno
-	void novoAluno(std::string nome = "");
+	void novoAlunoAleatorio(std::string nome = "");
+	//! Recebe aluno gerado a partir de objeto pronto
+	//! \param aluno Unique pointer para um objeto aluno
+	void novoAluno(AlunoPtr aluno);
 	//! Grava o aluno em um arquivo, cujo autor é especificado
 	//! no argumento (padrão é vazio)
 	//! \param autor Autor do arquivo

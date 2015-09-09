@@ -1,17 +1,17 @@
 ﻿#pragma warning(disable: 4996)
 
-#include "ResolveInstancia.h"
+#include "SolverHandler.h"
 #include <Instancia.h>
 #include <ilcp/cp.h>
 
-ResolveInstancia::ResolveInstancia(Curso const* curso, AlunoPtr aluno)
+SolverHandler::SolverHandler(Curso const* curso, AlunoPtr aluno)
 	: curso_{curso},
 	  aluno_{move(aluno)},
 	  env{},
 	  solucao_{},
 	  valorFinal_{} {}
 
-void ResolveInstancia::solve() {
+void SolverHandler::solve() {
 
 	// Inicialização das variáveis do curso
 	const auto& nomeDisciplinas = curso_->nomeDisciplinas();
@@ -120,18 +120,18 @@ void ResolveInstancia::solve() {
 	}
 }
 
-std::vector<int> ResolveInstancia::solucao() const {
+std::vector<int> SolverHandler::solucao() const {
 	return solucao_;
 }
 
-std::vector<std::string> ResolveInstancia::disciplinas() const {
+std::vector<std::string> SolverHandler::disciplinas() const {
 	return disciplinas_;
 }
 
-int ResolveInstancia::valorFinal() const {
+int SolverHandler::valorFinal() const {
 	return static_cast<int>(valorFinal_);
 }
 
-ResolveInstancia::~ResolveInstancia() {
+SolverHandler::~SolverHandler() {
 	env.end();
 }

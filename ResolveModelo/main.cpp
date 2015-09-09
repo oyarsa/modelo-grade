@@ -110,7 +110,7 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 	std::vector<std::future<void>> futures{};
 
 	// Inicializa uma instância que guarda o curso passado como argumento
-	//std::vector<ResolveInstancia> solvers{};
+	//std::vector<SolverHandler> solvers{};
 
 	// Nome padrão do aluno
 	std::string nome = "aln";
@@ -118,7 +118,7 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = nome + std::to_string(i + 1);
 
-		ResolveInstancia solver(curso.get(), std::move(std::unique_ptr<Aluno>(
+		SolverHandler solver(curso.get(), std::move(std::unique_ptr<Aluno>(
 			std::make_unique<AlunoAleatorio>(AlunoAleatorio{curso->preRequisitos(), 
 											 curso->coRequisitos(), aln}))));
 		solver.solve();
@@ -129,7 +129,7 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 		saida << "\n\n";
 		//solvers.push_back(std::move(solver));
 		//// Chama a função de resolução de forma assíncrona e insere o future no vector
-		//futures.push_back(std::async(&ResolveInstancia::solve, &solvers[i]));
+		//futures.push_back(std::async(&SolverHandler::solve, &solvers[i]));
 	}
 
 	// String stream que irá receber cada retorno

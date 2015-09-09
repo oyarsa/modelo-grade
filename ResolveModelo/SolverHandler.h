@@ -3,14 +3,14 @@
 #include <Instancia.h>
 #include <ilcplex/ilocplexi.h>
 
-class ResolveInstancia {
+class SolverHandler {
 	using AlunoPtr = std::unique_ptr<Aluno>;
 public:
 	//! Recebe referência para um curso e para um aluno, e os uso para construir
 	//! o modelo. Instancia o ambiente para o solver (RAII)
 	//! \param curso Referência const para um curso
 	//! \param aluno Referência const para um aluno
-	explicit ResolveInstancia(Curso const* curso, AlunoPtr aluno);
+	explicit SolverHandler(Curso const* curso, AlunoPtr aluno);
 	//! Resolve o modelo a partir dos dados inseridos
 	void solve();
 	//! Retorna os números das disciplinas selecionadas, ou vazio se solve()
@@ -27,7 +27,7 @@ public:
 	//! disciplinas selecionadas
 	int valorFinal() const;
 	//! Termina o ambiente do solver
-	~ResolveInstancia();
+	~SolverHandler();
 private:
 	//! Ponteiro const para o curso a ser utilizado
 	Curso const* curso_;

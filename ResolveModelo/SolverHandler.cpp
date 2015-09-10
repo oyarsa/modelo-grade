@@ -135,3 +135,7 @@ int SolverHandler::valorFinal() const {
 SolverHandler::~SolverHandler() {
 	env.end();
 }
+
+Aluno const* SolverHandler::aluno() const {
+	return aluno_.get();
+}

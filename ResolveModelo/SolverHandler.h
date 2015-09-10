@@ -28,6 +28,8 @@ public:
 	int valorFinal() const;
 	//! Termina o ambiente do solver
 	~SolverHandler();
+	//! Ponteiro observador para o aluno
+	Aluno const* aluno() const;
 private:
 	//! Ponteiro const para o curso a ser utilizado
 	Curso const* curso_;

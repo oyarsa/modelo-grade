@@ -36,7 +36,7 @@ namespace geraArquivo
 
 	bool escolheCSS(std::string nomeArquivoCSS);
 
-	bool escreveHTML(Curso const* curso,
+	std::string escreveHTML(Curso const* curso,
 					 const std::vector<bool>& solucao,
 					 std::string caminho,
 					 std::string nomeAluno);

@@ -9,4 +9,3 @@ suporta.
 * CPLEX 12.62
 * Concert 12.62
 * Microsoft Visual C++ 12 (Visual Studio 2013)
-* JagPDF 1.4.0 Win32 x86

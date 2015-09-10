@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Aluno.h"
+#include "aleatorio.h"
 
 /*!Representa um aluno de um Curso, e tem suas apravoções e
 * disciplinas cursadas geradas aleatoriamente a partir da matriz
@@ -31,4 +32,6 @@ private:
 	void geraCursadas() override;
 	//! Gera aleatoriamente as disciplinas em que o aluno foi aprovado
 	void geraAprovacoes() override;
+	//! Funções para geração de números aleatórios
+	Aleatorio rand;
 };

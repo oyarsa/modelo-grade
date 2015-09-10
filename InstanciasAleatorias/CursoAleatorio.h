@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Curso.h"
+#include "AlunoAleatorio.h"
 
 //! Gera aleatoriamente a estrutura de um curso de ensino superior, com horários, disciplinas etc
 class CursoAleatorio : public Curso {
@@ -47,4 +48,6 @@ private:
 	int maxProfessores;
 	//! Número total de créditos oferecidos no período
 	int creditosTotaisOfertados;
+	//! Funções para geração de números aleatórios
+	Aleatorio rand;
 };

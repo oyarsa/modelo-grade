@@ -1,15 +1,13 @@
 ﻿#include "AlunoAleatorio.h"
 #include "Aluno.h"
-#include "aleatorio.h"
 #include <algorithm>
 #include <queue>
-
-using aleatorio::randomInt;
 
 AlunoAleatorio::AlunoAleatorio(const std::vector<std::vector<bool>>& preRequisitos,
              const std::vector<std::vector<bool>>& coRequisitos,
              std::string nome)
-	: Aluno(preRequisitos, coRequisitos, nome) {
+	: Aluno(preRequisitos, coRequisitos, nome),
+	 rand() {
 
 	init();
 }
@@ -23,12 +21,12 @@ void AlunoAleatorio::init() {
 void AlunoAleatorio::geraAprovacoes() {
 	//! Gera aleatoriamente o número de disciplinas em que o aluno foi aprovado,
 	//! sendo esse número no máximo metade do número de disciplinas do curso
-	numAprovacoes = randomInt() % (numDisciplinas / 3);
+	numAprovacoes = rand.randomInt() % (numDisciplinas / 3);
 
 	//! Preenche o vetor de aprovações com tantos 1's quanto o número de disciplinas
 	//! que o aluno foi aprovado e depois sorteia
 	fill(begin(aprovacoes_), begin(aprovacoes_) + numAprovacoes, true);
-	shuffle(begin(aprovacoes_), end(aprovacoes_), aleatorio::geradorAleatorio());
+	shuffle(begin(aprovacoes_), end(aprovacoes_), rand.geradorAleatorio());
 
 	std::queue<int> preReqAnalisar{};
 	//! Percorre o vetor de apravoções enfileirando as disciplinas aprovadas para analisar
@@ -63,7 +61,7 @@ void AlunoAleatorio::geraCursadas() {
 	//! Então ele o copia;
 	cursadas_ = aprovacoes_;
 
-	numCursadas = randomInt() % (numDisciplinas / 2);
+	numCursadas = rand.randomInt() % (numDisciplinas / 2);
 	auto numCursadasAlocar = numCursadas - numAprovacoes;
 
 	if (numCursadasAlocar < 0) {
@@ -81,7 +79,7 @@ void AlunoAleatorio::geraCursadas() {
 			if (!aprovacoes_[i])
 				break;
 		}
-		if (!cursadas_[i] && randomInt() % 3) {
+		if (!cursadas_[i] && rand.randomInt() % 3) {
 			cursadas_[i] = true;
 			for (size_t j = 0; j < preRequisitos_.size(); j++) {
 				if (preRequisitos_[i][j] && !aprovacoes_[j]) {

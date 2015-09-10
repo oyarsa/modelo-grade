@@ -1,7 +1,9 @@
 ﻿#include "GeraArquivos.h"
 #include <fstream>
+#include <sstream>
 #include <ctime>
 #include <string>
+#include "../InstanciasAleatorias/Curso.h"
 
 namespace
 {
@@ -107,6 +109,8 @@ namespace
 		saida << " " << std::string(45, '*') << "/\n\n";
 	}
 
+	std::string css;
+
 } // namespace interno
 
 namespace geraArquivo
@@ -146,5 +150,78 @@ namespace geraArquivo
 
 		return true;
 	}
+
+	bool escolheCSS(std::string nomeArquivoCSS) {
+		std::ifstream entrada{nomeArquivoCSS};
+
+		if (!entrada.is_open())
+			return false;
+
+		std::ostringstream buffer{};
+		buffer << entrada.rdbuf();
+
+		css = buffer.str();
+		return true;
+	}
+
+	bool escreveHTML(Curso const* curso, const std::vector<bool>& solucao,
+					 std::string caminho, std::string nomeAluno) {
+		std::ostringstream saida{};
+
+		const auto& horario = curso->horarios();
+		const auto& nomeDisciplinas = curso->nomeDisciplinas();
+		const auto numDisciplinas = curso->creditos().size();
+		const auto numHorarios = horario.size();
+
+		saida << std::nounitbuf;
+		saida << "<!DOCTYPE html>\n"
+			<< "<html>\n"
+			<< "<style type=\"text/css\">"
+			<< css
+			<< "</style>"
+			<< "<body>\n"
+			<< "<table align=\"center\" style=\"width:70%\" border=\"1\">\n";
+
+		saida << "<tr>\n"
+			<< "<th>Segunda</th>\n"
+			<< "<th>Terça</th>\n"
+			<< "<th>Quarta</th>\n"
+			<< "<th>Quinta</th>\n"
+			<< "<th>Sexta</th>\n"
+			<< "</tr>\n";
+
+		for (auto i = 0; i < numHorarios / 5; i++) {
+			saida << "<tr>\n";
+			for (auto j = 0; j <= numHorarios - 4; j += 4) {
+				auto encontrou = false;
+				for (auto k = 0; k < numDisciplinas; k++) {
+					if (horario[j + i][k] && solucao[k]) {
+						saida << "<td style='text-align:center;vertical-align:middle'>"
+							<< nomeDisciplinas[k] << "</td>\n";
+						encontrou = true;
+						break;
+					}
+				}
+				if (!encontrou) {
+					saida << "<td  style='text-align:center;vertical-align:middle'> ----- </td>\n";
+				}
+			}
+			saida << "</tr>\n";
+		}
+
+		saida << "</table>\n"
+			<< "</body>\n"
+			<< "</html>\n";
+
+		std::ofstream arquivoSaida(caminho + "\\" + nomeAluno + ".html");
+
+		if (!arquivoSaida.is_open())
+			return false;
+
+		arquivoSaida << std::nounitbuf << saida.str() << std::endl;
+
+		return true;
+	}
+
 
 } // namespace público

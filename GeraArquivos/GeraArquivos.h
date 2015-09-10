@@ -2,6 +2,8 @@
 
 #include <vector>
 
+class Curso;
+
 namespace geraArquivo
 {
 	/*!
@@ -31,4 +33,11 @@ namespace geraArquivo
 						  const std::vector<std::vector<bool>>& grade,
 						  const std::vector<bool>& aprovacoes,
 						  const std::vector<bool>& cursadas);
+
+	bool escolheCSS(std::string nomeArquivoCSS);
+
+	bool escreveHTML(Curso const* curso,
+					 const std::vector<bool>& solucao,
+					 std::string caminho,
+					 std::string nomeAluno);
 }

@@ -94,7 +94,7 @@ void CompFagoc::geraHorario() {
 	horarios_[4][11] = true;
 	horarios_[4][21] = true;
 	horarios_[4][29] = true;
-	horarios_[5][45] = true;
+	horarios_[4][45] = true;
 	horarios_[5][11] = true;
 	horarios_[5][21] = true;
 	horarios_[5][29] = true;

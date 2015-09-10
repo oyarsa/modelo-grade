@@ -4,7 +4,7 @@
 
 Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
              int numHorarios, int numOfertadas, int numProfessores)
-	: numDisciplinas(numDisciplinas),
+	: numDisciplinas_(numDisciplinas),
 	  numPreRequisitos(numPreRequisitos),
 	  numCoRequisitos(numCoRequisitos),
 	  numHorarios(numHorarios),
@@ -53,6 +53,10 @@ const std::vector<std::string>& Curso::nomeHorarios() const {
 
 const std::vector<Professor>& Curso::professores() const {
 	return professores_;
+}
+
+int Curso::numDisciplinas() const {
+	return numDisciplinas_;
 }
 
 void Curso::geraNomeHorarios() {

@@ -99,7 +99,7 @@ std::tuple<CursoPtr, std::string, int> menu() {
 }
 
 
-bool escreveHTML(Curso const* curso, const std::vector<int>& solucao,
+bool escreveHTML(Curso const* curso, const std::vector<bool>& solucao,
 				 std::string caminho, std::string nomeAluno) {
 	std::ofstream saida(caminho + "\\" + nomeAluno + ".html");
 
@@ -190,7 +190,7 @@ int main() {
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	auto begin = std::chrono::system_clock::now();
-	std::cout << "\n\n";
+	std::cout << "\n";
 	if (!geraAlunos(dir + pasta, move(curso), numAlunos)) {
 		std::cout << "Nao foi possivel resolver os modelos.\n\n";
 	}

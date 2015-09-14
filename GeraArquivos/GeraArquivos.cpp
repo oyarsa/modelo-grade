@@ -1,7 +1,6 @@
 ﻿#include "GeraArquivos.h"
 #include <fstream>
 #include <sstream>
-#include <ctime>
 #include <string>
 #include "../InstanciasAleatorias/Curso.h"
 
@@ -86,15 +85,9 @@ namespace {
 	* \param saida Stream de saída para o arquivo
 	*/
 	void imprimeCabecalho(std::string autor, std::ofstream& saida) {
-		auto t = std::time(nullptr);
-		struct tm timeinfo;
-		localtime_s(&timeinfo, &t);
-		char buffer[101];
-		asctime_s(buffer, &timeinfo);
 		saida << "/" << std::string(45, '*') << "\n";
 		saida << " * OPL 12.6.2.0 Data\n";
 		saida << " * Author: " << autor << "\n";
-		saida << " * Creation Date: " << std::string(buffer);
 		saida << " " << std::string(45, '*') << "/\n\n";
 	}
 
@@ -157,8 +150,8 @@ namespace geraArquivo {
 
 		const auto& horario = curso->horarios();
 		const auto& nomeDisciplinas = curso->nomeDisciplinas();
-		const auto numDisciplinas = curso->creditos().size();
-		const auto numHorarios = horario.size();
+		const auto numDisciplinas = curso->numDisciplinas();
+		const auto numHorarios = curso->numHorarios();
 
 		saida << std::nounitbuf;
 		saida << "<!DOCTYPE html>\n"

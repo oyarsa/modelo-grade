@@ -21,7 +21,7 @@ void SolverHandler::solve() {
 	const auto& horarios = curso_->horarios();
 	const auto& ofertadas = curso_->ofertadas();
 	const auto numDisciplinas = curso_->numDisciplinas();
-	const auto numHorarios = horarios.size();
+	const auto numHorarios = curso_->numHorarios();
 
 	// Variáveis do aluno
 	const auto& aprovacoes = aluno_->aprovacoes();
@@ -35,7 +35,7 @@ void SolverHandler::solve() {
 
 	// Função objetivo
 	IloExpr obj(env);
-	for (size_t d = 0; d < numDisciplinas; d++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
 		obj += creditos[d] * y[d];
 	}
 	mod.add(IloMaximize(env, obj));
@@ -44,10 +44,10 @@ void SolverHandler::solve() {
 	// ------ Restrições --------------------
 
 	// Pré-requisitos
-	for (size_t d = 0; d < numDisciplinas; d++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
 		auto numPreRequisitos = 0;
 		auto preReqAprovados = 0;
-		for (size_t p = 0; p < numDisciplinas; p++) {
+		for (auto p = 0; p < numDisciplinas; p++) {
 			if (preRequisitos[d][p]) {
 				numPreRequisitos++;
 				if (aprovacoes[p]) {
@@ -59,8 +59,8 @@ void SolverHandler::solve() {
 	}
 
 	// Co-requisitos
-	for (size_t d = 0; d < numDisciplinas; d++) {
-		for (size_t c = 0; c < numDisciplinas; c++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
+		for (auto c = 0; c < numDisciplinas; c++) {
 			if (coRequisitos[d][c]) {
 				mod.add(y[d] <= y[c] + cursadas[c]);
 			}
@@ -68,9 +68,9 @@ void SolverHandler::solve() {
 	}
 
 	// Horários, cria as restrições dois a dois
-	for (size_t h = 0; h < numHorarios - 1; h += 2) {
+	for (auto h = 0; h < numHorarios - 1; h += 2) {
 		IloExpr disciplinasConcorrentes(env);
-		for (size_t d = 0; d < numDisciplinas; d++) {
+		for (auto d = 0; d < numDisciplinas; d++) {
 			disciplinasConcorrentes += 
 				(horarios[h][d] + horarios[h + 1][d]) * y[d];
 		}
@@ -79,12 +79,12 @@ void SolverHandler::solve() {
 	}
 
 	// Disciplinas já aprovadas
-	for (size_t d = 0; d < numDisciplinas; d++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
 		mod.add(y[d] <= 1 - aprovacoes[d]);
 	}
 
 	// Disciplinas ofertadas
-	for (size_t d = 0; d < numDisciplinas; d++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
 		mod.add(y[d] <= ofertadas[d]);
 	}
 
@@ -112,7 +112,7 @@ void SolverHandler::solve() {
 	}
 
 	// Atribui resposta às variáveis membro
-	for (size_t d = 0; d < numDisciplinas; d++) {
+	for (auto d = 0; d < numDisciplinas; d++) {
 		if (solucao[d]) {
 			solucao_[d] = true;
 			disciplinas_.push_back(nomeDisciplinas[d]);

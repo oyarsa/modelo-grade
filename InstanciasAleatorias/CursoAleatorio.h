@@ -12,7 +12,7 @@ public:
 	* \param numDisciplinas_ Número total de disciplinas do curso
 	* \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
 	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
-	* \param numHorarios Número de horários (perído de 1 hora ou 50 minutos) em uma semana
+	* \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
 	* \param numOfertadas Número de disciplinas ofertadas no período
 	* \param numProfessores Número de professores do curso
 	* \param maxMinistradas Número máximo de matérias que um professor ministra

@@ -155,7 +155,7 @@ void CursoAleatorio::geraHorario() {
 	while (disciplinasAlocadas < numOfertadas
 		|| creditosAlocadosTotal < creditosTotaisOfertados) {
 		//! Percorre todos os horários
-		for (auto i = 0; i < numHorarios; i++) {
+		for (auto i = 0; i < numHorarios_; i++) {
 			//! Gera uma disciplina para ser alocada naquele horário
 			auto discAtual = rand.randomInt() % numDisciplinas_;
 			//! Testa se essa disciplina já teve todos os seus créditos alocados,

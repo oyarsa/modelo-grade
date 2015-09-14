@@ -12,7 +12,7 @@ public:
 	* \param numDisciplinas_ Número total de disciplinas do curso
 	* \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
 	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
-	* \param numHorarios Número de horários (perído de 1 hora ou 50 minutos) em uma semana
+	* \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
 	* \param numOfertadas Número de disciplinas ofertadas no período
 	* \param numProfessores Número de professores do curso
 	*/
@@ -57,6 +57,10 @@ public:
 	//! \return Inteiro, número de disciplinsa do curso
 	int numDisciplinas() const;
 
+	//! Retorna o número de horários por semana do curso
+	//! \return Inteiro, número de horários por semana
+	int numHorarios() const;
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -65,7 +69,7 @@ protected:
 	//! Número de co-requisitos do curso
 	int numCoRequisitos;
 	//! Número de horários do curso
-	int numHorarios;
+	int numHorarios_;
 	//! Número de disciplinas ofertadas no período
 	int numOfertadas;
 	//! Número de professores do curso

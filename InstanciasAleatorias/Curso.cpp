@@ -7,7 +7,7 @@ Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	: numDisciplinas_(numDisciplinas),
 	  numPreRequisitos(numPreRequisitos),
 	  numCoRequisitos(numCoRequisitos),
-	  numHorarios(numHorarios),
+	  numHorarios_(numHorarios),
 	  numOfertadas(numOfertadas),
 	  numProfessores(numProfessores),
 	  nomeDisciplinas_(),
@@ -59,8 +59,12 @@ int Curso::numDisciplinas() const {
 	return numDisciplinas_;
 }
 
+int Curso::numHorarios() const {
+	return numHorarios_;
+}
+
 void Curso::geraNomeHorarios() {
-	for (auto i = 0; i < numHorarios; i++) {
+	for (auto i = 0; i < numHorarios_; i++) {
 		nomeHorarios_.push_back("HOR" + std::to_string(i + 1));
 	}
 }

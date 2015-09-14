@@ -2,10 +2,8 @@
 
 #include "Curso.h"
 
-/*!
-* Representação do Curso de Ciências da Computação da FAGOC no mesmo modelo dos cursos gerados aleatoriamente
-* Herda da classe abstrata Curso de forma a ser usada polimorficamente no mesmo ambiente que o CursoAleatorio
-*/
+
+//! Representação do Curso de Ciências da Computação da FAGOC no mesmo modelo dos cursos gerados aleatoriamente
 class CompFagoc : public Curso {
 public:
 	//! Executa o construtor da superclasse Curso com os valores de Ciências da Computação da FAGOC 

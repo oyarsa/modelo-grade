@@ -8,10 +8,12 @@
 CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
                                int numCoRequisitos, int numHorarios,
                                int numOfertadas, int numProfessores,
-                               int maxMinistradas)
+                               int maxMinistradas, int numDiasLetivos,
+							   int numPeriodos)
 	: Curso(numDisciplinas, numPreRequisitos,
 	        numCoRequisitos, numHorarios,
-	        numOfertadas, numProfessores),
+	        numOfertadas, numProfessores,
+			numDiasLetivos, numPeriodos),
 	  maxMinistradas(maxMinistradas),
 	  maxProfessores(numProfessores / 3),
 	  rand() {
@@ -146,13 +148,14 @@ void CursoAleatorio::geraNomeDisciplinas() {
 void CursoAleatorio::geraHorario() {
 	geraOfertadas();
 
-	auto disciplinasAlocadas = 0;
+	auto disciplinasAlocadasTotal = 0;
 	auto creditosAlocadosTotal = 0;
 	std::vector<int> creditosAlocados(numDisciplinas_, 0);
+	std::vector<int> disciplinasAlocadas(numHorarios_, 0);
 
 	//! Executa o laço até todas as disciplinas ofertadas terem sido alocadas
 	//! em um horário
-	while (disciplinasAlocadas < numOfertadas
+	while (disciplinasAlocadasTotal < numOfertadas
 		|| creditosAlocadosTotal < creditosTotaisOfertados) {
 		//! Percorre todos os horários
 		for (auto i = 0; i < numHorarios_; i++) {
@@ -162,7 +165,8 @@ void CursoAleatorio::geraHorario() {
 			//! ou se já foi alocada nesse horário, ou então se não está sendo ofertada
 			if (!ofertadas_[discAtual]
 				|| creditosAlocados[discAtual] >= creditos_[discAtual]
-				|| horarios_[i][discAtual]) {
+				|| horarios_[i][discAtual]
+				|| disciplinasAlocadas[i] >= numPeriodos_) {
 				continue;
 			}
 			//! Se passar nos testes, ela é alocada para esse horário. Se ela ainda
@@ -170,8 +174,9 @@ void CursoAleatorio::geraHorario() {
 			//! Depois incrementa o contador de créditos alocados dessa disciplina
 			horarios_[i][discAtual] = true;
 			if (creditosAlocados[discAtual] == 0)
-				disciplinasAlocadas++;
+				disciplinasAlocadasTotal++;
 
+			disciplinasAlocadas[i]++;
 			creditosAlocados[discAtual]++;
 			creditosAlocadosTotal++;
 		}

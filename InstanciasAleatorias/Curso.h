@@ -4,6 +4,7 @@
 #include <vector>
 #include "Professor.h"
 
+//! Curso que possui disciplinas e matrizes de horários, pré e co-requisitos
 class Curso {
 public:
 	/*!
@@ -15,9 +16,12 @@ public:
 	* \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
 	* \param numOfertadas Número de disciplinas ofertadas no período
 	* \param numProfessores Número de professores do curso
+	* \param numDiasLetivos Número de dias letivos por semana do curso
+	* \param numPeriodos Número de períodos ofertados simultaneamente no curso
 	*/
 	Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
-	      int numHorarios, int numOfertadas, int numProfessores);
+	      int numHorarios, int numOfertadas, int numProfessores, int numDiasLetivos,
+		  int numPeriodos);
 
 	virtual ~Curso() {}
 
@@ -90,23 +94,27 @@ protected:
 	std::vector<std::vector<bool>> horarios_;
 	//! Vetor de professores do curso
 	std::vector<Professor> professores_;
+	//! Dias letivos por semana
+	int numDiasLetivos_;
+	//! Número de períodos simultâneos no curso
+	int numPeriodos_;
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraCreditos() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraPreRequisitos() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraCoRequisitos() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraOfertadas() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraNomeDisciplinas() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraDisciplinas() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraHorario() = 0;
-	//! Pure virtual - definida pelas class filhas
+	//! Pure virtual - definida pelas classes filhas
 	virtual void geraProfessores() = 0;
 };

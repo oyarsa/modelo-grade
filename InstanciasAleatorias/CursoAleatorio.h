@@ -20,7 +20,8 @@ public:
 	CursoAleatorio(int numDisciplinas, int numPreRequisitos,
 	               int numCoRequisitos, int numHorarios,
 	               int numOfertadas, int numProfessores,
-	               int maxMinistradas);
+	               int maxMinistradas, int numDiasLetivos,
+				   int numPeriodos);
 	//! Executa as subrotinas que geram os elementos aleatórios
 	void init();
 private:

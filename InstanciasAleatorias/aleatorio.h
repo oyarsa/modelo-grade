@@ -1,6 +1,7 @@
 ﻿#include <random>
 #include <chrono>
 
+//! Classe de geração de números aleatórios usando Mersenne Twister (mt19937)
 class Aleatorio {
 	//! Alias para o tipo de valor que a engine mt19337 toma como seed
 	using TipoSeed = std::mt19937::result_type;

@@ -2,10 +2,9 @@
 
 #include <vector>
 
-/*!Representa um aluno de um Curso, e tem suas apravoções e
-* disciplinas cursadas geradas aleatoriamente a partir da matriz
-* de pré-requisitos do curso.
-*/
+//! Representa um aluno de um Curso, e tem suas apravoções e
+//! disciplinas cursadas geradas aleatoriamente a partir da matriz
+//! de pré-requisitos do curso.
 class Aluno {
 public:
 	virtual ~Aluno() {}

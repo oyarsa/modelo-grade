@@ -2,6 +2,7 @@
 
 #include <set>
 
+//! Professor de um curso, que pode ministrar um determinad número disciplinas
 class Professor {
 public:
 	//! Construtor vazio. Inicializa os membros com os valores padrões

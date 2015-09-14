@@ -4,6 +4,7 @@
 #include "Aluno.h"
 #include <memory>
 
+//! Classe que relaciona um curso e um aluno aleatório
 class Instancia {
 	//! Aliases para os smartpointers usados pela classe
 	using CursoPtr = std::unique_ptr<Curso>;

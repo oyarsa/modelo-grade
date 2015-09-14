@@ -4,14 +4,13 @@
 #include "Aluno.h"
 #include "aleatorio.h"
 
-/*!Representa um aluno de um Curso, e tem suas apravoções e
-* disciplinas cursadas geradas aleatoriamente a partir da matriz
-* de pré-requisitos do curso.
-*/
+//! \brief Representa um aluno de um Curso, e tem suas apravoções e
+//! disciplinas cursadas geradas aleatoriamente a partir da matriz
+//! de pré-requisitos do curso.
 class AlunoAleatorio : public Aluno {
 public:
 	/*!
-	* Recebe o nome do aluno e a matriz de pré-requisitos de seu curso
+	* \brief Recebe o nome do aluno e a matriz de pré-requisitos de seu curso
 	* e partir dela gera aleatoriamente as matérias cursadas e aprovadas
 	*
 	* \param preRequisitos Referência const para uma matriz booleana, os pré-requisitos

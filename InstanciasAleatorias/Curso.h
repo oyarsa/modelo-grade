@@ -9,7 +9,7 @@ public:
 	/*!
 	* \brief Constroi um curso aleatório a partir de parâmetros arbitrários
 	*
-	* \param numDisciplinas Número total de disciplinas do curso
+	* \param numDisciplinas_ Número total de disciplinas do curso
 	* \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
 	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
 	* \param numHorarios Número de horários (perído de 1 hora ou 50 minutos) em uma semana
@@ -53,9 +53,13 @@ public:
 	//! \return Referência const para um vector de Professor
 	const std::vector<Professor>& professores() const;
 
+	//! Retorna o número de disciplinas do curso
+	//! \return Inteiro, número de disciplinsa do curso
+	int numDisciplinas() const;
+
 protected:
 	//! Número de disciplinas do curso
-	int numDisciplinas;
+	int numDisciplinas_;
 	//! Número de pré-requisitos do curso
 	int numPreRequisitos;
 	//! Número de co-requisitos do curso

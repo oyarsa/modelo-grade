@@ -8,7 +8,7 @@ SolverHandler::SolverHandler(Curso const* curso, AlunoPtr aluno)
 	: curso_{curso},
 	  aluno_{move(aluno)},
 	  env{},
-	  solucao_{},
+	  solucao_(curso->numDisciplinas(), false),
 	  valorFinal_{} {}
 
 void SolverHandler::solve() {
@@ -20,7 +20,7 @@ void SolverHandler::solve() {
 	const auto& coRequisitos = curso_->coRequisitos();
 	const auto& horarios = curso_->horarios();
 	const auto& ofertadas = curso_->ofertadas();
-	const auto numDisciplinas = creditos.size();
+	const auto numDisciplinas = curso_->numDisciplinas();
 	const auto numHorarios = horarios.size();
 
 	// Variáveis do aluno
@@ -114,13 +114,13 @@ void SolverHandler::solve() {
 	// Atribui resposta às variáveis membro
 	for (size_t d = 0; d < numDisciplinas; d++) {
 		if (solucao[d]) {
-			solucao_.push_back(d);
+			solucao_[d] = true;
 			disciplinas_.push_back(nomeDisciplinas[d]);
 		}
 	}
 }
 
-std::vector<int> SolverHandler::solucao() const {
+std::vector<bool> SolverHandler::solucao() const {
 	return solucao_;
 }
 
@@ -134,4 +134,8 @@ int SolverHandler::valorFinal() const {
 
 SolverHandler::~SolverHandler() {
 	env.end();
+}
+
+Aluno const* SolverHandler::aluno() const {
+	return aluno_.get();
 }

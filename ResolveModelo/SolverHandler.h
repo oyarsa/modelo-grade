@@ -16,7 +16,7 @@ public:
 	//! Retorna os números das disciplinas selecionadas, ou vazio se solve()
 	//! ainda não foi chamado
 	//! \return Um vector de inteiros com os números das disciplinas selecionadas
-	std::vector<int> solucao() const;
+	std::vector<bool> solucao() const;
 	//! Retorna os nomes das disciplinas selecionadas, ou vazio se solve()
 	//! ainda não foi chamado
 	//! \return Um vector de strings com os números das disciplinas selecionadas
@@ -28,6 +28,8 @@ public:
 	int valorFinal() const;
 	//! Termina o ambiente do solver
 	~SolverHandler();
+	//! Ponteiro observador para o aluno
+	Aluno const* aluno() const;
 private:
 	//! Ponteiro const para o curso a ser utilizado
 	Curso const* curso_;
@@ -36,7 +38,7 @@ private:
 	//! Ambiente do solver. É inicializado no ctor liberado no dtor
 	IloEnv env;
 	//! Vector com os números das disciplinas selecionadas
-	std::vector<int> solucao_;
+	std::vector<bool> solucao_;
 	//! Vector com os nomes das disciplinas selecionadas
 	std::vector<std::string> disciplinas_;
 	//! Soma dos créditos das disciplinas selecionadas

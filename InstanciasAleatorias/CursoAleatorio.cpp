@@ -1,12 +1,9 @@
 ﻿#include "CursoAleatorio.h"
-#include "aleatorio.h"
 #include "Curso.h"
 #include "Professor.h"
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-
-using aleatorio::randomInt;
 
 CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
                                int numCoRequisitos, int numHorarios,
@@ -16,7 +13,8 @@ CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
 	        numCoRequisitos, numHorarios,
 	        numOfertadas, numProfessores),
 	  maxMinistradas(maxMinistradas),
-	  maxProfessores(numProfessores / 3) {
+	  maxProfessores(numProfessores / 3),
+	  rand() {
 	init();
 }
 
@@ -29,9 +27,9 @@ void CursoAleatorio::init() {
 
 void CursoAleatorio::geraCreditos() {
 	//! Gera a quantidade de disciplinas que recebem 2, 4 e 6 créditos a partir de porcentagens
-	auto discSeisCreditos = int(0.2 * numDisciplinas);
-	auto discQuatroCreditos = int(0.6 * numDisciplinas);
-	auto discDoisCreditos = numDisciplinas - discSeisCreditos - discQuatroCreditos;
+	auto discSeisCreditos = int(0.2 * numDisciplinas_);
+	auto discQuatroCreditos = int(0.6 * numDisciplinas_);
+	auto discDoisCreditos = numDisciplinas_ - discSeisCreditos - discQuatroCreditos;
 	int i, j, k;
 
 	//! Aloca cada grupo de disciplinas linearmente
@@ -45,7 +43,7 @@ void CursoAleatorio::geraCreditos() {
 		creditos_[k] = 2;
 
 	//! Embaralha o vector para aleatorizar a distribuiçãp
-	shuffle(begin(creditos_), end(creditos_), aleatorio::geradorAleatorio());
+	shuffle(begin(creditos_), end(creditos_), rand.geradorAleatorio());
 }
 
 void CursoAleatorio::geraPreRequisitos() {
@@ -54,13 +52,13 @@ void CursoAleatorio::geraPreRequisitos() {
 	//! Enquanto não foram alocados todos os pré-requisitos
 	while (requisitosAlocados < numPreRequisitos) {
 		//! Percorre a lista de disciplinas
-		for (auto i = 0; i < numDisciplinas; i++) {
+		for (auto i = 0; i < numDisciplinas_; i++) {
 			//! Gera uma chance de essa disciplina receber um pré-requisito
-			if (randomInt() % 100 < 25) {
+			if (rand.randomInt() % 100 < 25) {
 				//! Percorre um número igual ao número de disciplinas
-				for (auto j = 0; j < numDisciplinas; j++) {
+				for (auto j = 0; j < numDisciplinas_; j++) {
 					//! Gera o índice de uma disciplina para ser o pré-requisito
-					auto preReq = randomInt() % numDisciplinas;
+					auto preReq = rand.randomInt() % numDisciplinas_;
 
 					//! Se a gerada não for um pré-requisito desta (isso geraria um deadlock)
 					//! e não for ela mesma, escolhe como pré-requisito
@@ -84,12 +82,12 @@ void CursoAleatorio::geraCoRequisitos() {
 	//! Enquanto não foram alocados todos os pré-requisitos
 	while (coRequisitosAlocados < numCoRequisitos) {
 		//! Percorre a lista de disciplinas
-		for (auto i = 0; i < numDisciplinas; i++) {
+		for (auto i = 0; i < numDisciplinas_; i++) {
 			//! Gera uma chance desta disciplina receber um co-requisito
-			if (randomInt() % 100 < 10) {
-				for (auto j = 0; j < numDisciplinas; j++) {
+			if (rand.randomInt() % 100 < 10) {
+				for (auto j = 0; j < numDisciplinas_; j++) {
 					//! Gera o índice de uma disciplina
-					auto coReq = randomInt() % numDisciplinas;
+					auto coReq = rand.randomInt() % numDisciplinas_;
 
 					//! Testa se não é ela mesma, e se essa disciplina já não é
 					//! co-requisito nem pré-requisito
@@ -117,7 +115,7 @@ void CursoAleatorio::geraOfertadas() {
 	//! o tamanho não será afetado
 	size_t numOfertadaSizeT(numOfertadas);
 	while (disciplinasEscolhidas.size() < numOfertadaSizeT) {
-		auto disc = randomInt() % numDisciplinas;
+		auto disc = rand.randomInt() % numDisciplinas_;
 		auto inserido = disciplinasEscolhidas.insert(disc).second;
 		if (inserido)
 			creditosTotaisOfertados += creditos_[disc];
@@ -140,7 +138,7 @@ void CursoAleatorio::geraDisciplinas() {
 void CursoAleatorio::geraNomeDisciplinas() {
 	//! Percorre a lista de disciplinas e atribui nomes genéricos
 	//! baseados no seu índice
-	for (auto i = 0; i < numDisciplinas; i++) {
+	for (auto i = 0; i < numDisciplinas_; i++) {
 		nomeDisciplinas_.push_back("DISC" + std::to_string(i + 1));
 	}
 }
@@ -150,16 +148,16 @@ void CursoAleatorio::geraHorario() {
 
 	auto disciplinasAlocadas = 0;
 	auto creditosAlocadosTotal = 0;
-	std::vector<int> creditosAlocados(numDisciplinas, 0);
+	std::vector<int> creditosAlocados(numDisciplinas_, 0);
 
 	//! Executa o laço até todas as disciplinas ofertadas terem sido alocadas
 	//! em um horário
-	while (disciplinasAlocadas < numOfertadas 
-		   || creditosAlocadosTotal < creditosTotaisOfertados) {
+	while (disciplinasAlocadas < numOfertadas
+		|| creditosAlocadosTotal < creditosTotaisOfertados) {
 		//! Percorre todos os horários
 		for (auto i = 0; i < numHorarios; i++) {
 			//! Gera uma disciplina para ser alocada naquele horário
-			auto discAtual = randomInt() % numDisciplinas;
+			auto discAtual = rand.randomInt() % numDisciplinas_;
 			//! Testa se essa disciplina já teve todos os seus créditos alocados,
 			//! ou se já foi alocada nesse horário, ou então se não está sendo ofertada
 			if (!ofertadas_[discAtual]
@@ -187,12 +185,12 @@ void CursoAleatorio::distribuiProfessores() {
 	* (ou seja, se ficarem disciplinas sem professores), o algoritmo reinicia
 	*/
 	auto totalDistribuidas = 0;
-	while (totalDistribuidas < numDisciplinas) {
+	while (totalDistribuidas < numDisciplinas_) {
 		//! Limpa os números distribuídos e começa do zero
 		professores_.erase(professores_.begin(), professores_.end());
-		for(auto i = 0; i < numProfessores; i++) {
+		for (auto i = 0; i < numProfessores; i++) {
 			//! Gera um número para o professor em questão e soma às distribuidas
-			auto ministradas = (randomInt() % maxMinistradas) + 1;
+			auto ministradas = (rand.randomInt() % maxMinistradas) + 1;
 			totalDistribuidas += ministradas;
 
 			//! Cria um objeto professor com um nome genérico e com a quantidade gerada
@@ -207,7 +205,7 @@ void CursoAleatorio::distribuiProfessores() {
 
 void CursoAleatorio::geraProfessores() {
 	//! Aloca as disciplinas ao professores, de forma que não excedam o número que possam ministrar
-	std::vector<int> disciplinasAlocadas(numDisciplinas);
+	std::vector<int> disciplinasAlocadas(numDisciplinas_);
 	std::vector<int> contadorMinistradas(numProfessores);
 	auto numAlocadas = 0;
 
@@ -226,7 +224,7 @@ void CursoAleatorio::geraProfessores() {
 				//! gera uma chance de o professor ministrá-la e testa se ela já está sendo ministrada
 				//! pelo número máximo de professores que podem simultaneamente ministrar uma disciplina
 				if (disciplinasAlocadas[j] < maxProfessores &&
-					!professor.ministra(j) && randomInt() % 100 < 25) {
+					!professor.ministra(j) && rand.randomInt() % 100 < 25) {
 
 					//! Se todas as condições forem satisfeitas, testa-se se a disciplina não havia
 					//! sido alocada antes. Se não, incrementa o número de alocadas

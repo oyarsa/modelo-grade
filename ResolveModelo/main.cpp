@@ -12,6 +12,7 @@
 #include <windows.h>
 #include <AlunoAleatorio.h>
 #include "SolverHandler.h"
+#include "../GeraArquivos/GeraArquivos.h"
 
 using CursoPtr = std::unique_ptr<Curso>;
 
@@ -98,6 +99,7 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	}
 }
 
+
 bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 	// Cria o diretório, e encerra a função se for malsucedido
 	if (!CreateDirectory(caminho.c_str(), nullptr))
@@ -105,24 +107,50 @@ bool geraAlunos(std::string caminho, CursoPtr curso, int numAlunos) {
 
 	// Nome padrão do aluno
 	std::string nome = "aln";
-	std::ostringstream saida{};
-	saida << std::nounitbuf;
+	std::ostringstream saidaTxt{};
+	std::ostringstream saidaHtml{};
+	saidaTxt << std::nounitbuf;
+	saidaHtml << std::nounitbuf;
+
+	geraArquivo::escolheCSS("etc\\estilos.css");
 
 	for (auto i = 0; i < numAlunos; i++) {
 		auto aln = nome + std::to_string(i + 1);
 		SolverHandler solver{curso.get(), std::move(std::unique_ptr<Aluno>{
 			new AlunoAleatorio{curso->preRequisitos(), curso->coRequisitos(), aln}})};
 		solver.solve();
-		saida << aln << "\n";
+		saidaTxt << aln << "\n";
 		const auto& nomeDisciplinas = solver.disciplinas();
+		const auto& aprovacoesAluno = solver.aluno()->aprovacoes();
+		const auto& cursadasAluno = solver.aluno()->cursadas();
+
+		saidaTxt << "Aprovações:\n";
+		for (auto j = 0; j < aprovacoesAluno.size(); j++) {
+			if (aprovacoesAluno[j]) {
+				saidaTxt << curso->nomeDisciplinas()[j] << " ";
+			}
+		}
+		saidaTxt << "\n";
+		saidaTxt << "Cursadas:\n";
+		for (auto j = 0; j < cursadasAluno.size(); j++) {
+			if (cursadasAluno[j]) {
+				saidaTxt << curso->nomeDisciplinas()[j] << " ";
+			}
+		}
+		saidaTxt << "\n";
+
 		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
-		     std::ostream_iterator<std::string>(saida, " "));
-		saida << solver.valorFinal() << "\n\n";
+		     std::ostream_iterator<std::string>(saidaTxt, " "));
+		saidaTxt << "\nResultado final: " << solver.valorFinal() << "\n\n";
+		saidaHtml << geraArquivo::escreveHTML(curso.get(), solver.solucao(), caminho, aln)
+			<< "\n\n";
 	}
 
 	// Cria a stream de escrita do arquivo
-	std::ofstream arquivoSaida(caminho + "\\" + "resultado.txt");
-	arquivoSaida << std::nounitbuf << saida.str() << std::flush;
+	std::ofstream arquivoSaidaTxt(caminho + "\\" + "resultado.txt");
+	std::ofstream arquivoSaidaHtml(caminho + "\\" + "resultado.html");
+	arquivoSaidaTxt << std::nounitbuf << saidaTxt.str() << std::endl;
+	arquivoSaidaHtml << std::nounitbuf << saidaHtml.str() << std::endl;
 
 	return true;
 }
@@ -137,9 +165,9 @@ int main() {
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	auto begin = std::chrono::system_clock::now();
-	std::cout << "\n\n";
+	std::cout << "\n";
 	if (!geraAlunos(dir + pasta, move(curso), numAlunos)) {
-		std::cout << "Nao foi possivel resolver os modelos.\n\n";
+		std::cout << "Nao foi possivel criar a pasta.\n\n";
 	}
 	else {
 		std::cout << "Modelos resolvidos com sucesso.\n\n";

@@ -1,10 +1,11 @@
 ﻿#include "GeraArquivos.h"
 #include <fstream>
+#include <sstream>
 #include <ctime>
 #include <string>
+#include "../InstanciasAleatorias/Curso.h"
 
-namespace
-{
+namespace {
 	/*!
 	* \brief Imprime um vector em notação de conjunto da OPL, com "{}"
 	*
@@ -12,16 +13,13 @@ namespace
 	* \param conjunto Conjunto a ser impresso
 	* \param saida Stream de saída para o arquivo
 	*/
-	template<class T>
+	template <class T>
 	void imprimeConjunto(std::string nome,
-						 const std::vector<T>& conjunto,
-						 std::ofstream &saida)
-	{
+	                     const std::vector<T>& conjunto,
+	                     std::ofstream& saida) {
 		saida << " " << nome << " = {";
-		for (std::size_t i = 0; i < conjunto.size(); i++)
-		{
-			if (i > 0)
-			{
+		for (std::size_t i = 0; i < conjunto.size(); i++) {
+			if (i > 0) {
 				saida << ", ";
 			}
 			saida << "\"" << conjunto[i] << "\"";
@@ -36,16 +34,13 @@ namespace
 	* \param vetor Vetor a ser impresso
 	* \param saida Stream de saída para o arquivo
 	*/
-	template<class T>
+	template <class T>
 	void imprimeVetor(std::string nome,
-					  const std::vector<T>& vetor,
-					  std::ofstream &saida)
-	{
+	                  const std::vector<T>& vetor,
+	                  std::ofstream& saida) {
 		saida << " " << nome << " = [";
-		for (std::size_t i = 0; i < vetor.size(); i++)
-		{
-			if (i > 0)
-			{
+		for (std::size_t i = 0; i < vetor.size(); i++) {
+			if (i > 0) {
 				saida << ", ";
 			}
 			saida << vetor[i];
@@ -60,18 +55,15 @@ namespace
 	* \param matriz Matriz a ser impressa
 	* \param saida Stream de saída para o arquivo
 	*/
-	template<class T>
+	template <class T>
 	void imprimeMatriz(std::string nome,
-					   const std::vector<std::vector<T>>& matriz,
-					   std::ofstream &saida)
-	{
+	                   const std::vector<std::vector<T>>& matriz,
+	                   std::ofstream& saida) {
 		saida << " " << nome << " = [\n";
-		for (size_t i = 0; i < matriz.size(); i++)
-		{
+		for (size_t i = 0; i < matriz.size(); i++) {
 			saida << std::string(12, ' ');
 
-			for (size_t j = 0; j < matriz[i].size(); j++)
-			{
+			for (size_t j = 0; j < matriz[i].size(); j++) {
 				if (j == 0)
 					saida << '[';
 
@@ -93,8 +85,7 @@ namespace
 	* \param autor Nome do autor do arquivo
 	* \param saida Stream de saída para o arquivo
 	*/
-	void imprimeCabecalho(std::string autor, std::ofstream &saida)
-	{
+	void imprimeCabecalho(std::string autor, std::ofstream& saida) {
 		auto t = std::time(nullptr);
 		struct tm timeinfo;
 		localtime_s(&timeinfo, &t);
@@ -107,23 +98,23 @@ namespace
 		saida << " " << std::string(45, '*') << "/\n\n";
 	}
 
+	std::string css;
+
 } // namespace interno
 
-namespace geraArquivo
-{
+namespace geraArquivo {
 
 	bool geraArquivoCplex(std::string nomeDoArquivo,
-						  std::string autor,
-						  const std::vector<std::string>& disciplinas,
-						  const std::vector<int>& creditos,
-						  const std::vector<bool>& ofertadas,
-						  const std::vector<std::vector<bool>>& pre_requisitos,
-						  const std::vector<std::vector<bool>>& co_requisitos,
-						  const std::vector<std::string>& horarios,
-						  const std::vector<std::vector<bool>>& grade,
-						  const std::vector<bool>& aprovacoes,
-						  const std::vector<bool>& cursadas)
-	{
+	                      std::string autor,
+	                      const std::vector<std::string>& disciplinas,
+	                      const std::vector<int>& creditos,
+	                      const std::vector<bool>& ofertadas,
+	                      const std::vector<std::vector<bool>>& pre_requisitos,
+	                      const std::vector<std::vector<bool>>& co_requisitos,
+	                      const std::vector<std::string>& horarios,
+	                      const std::vector<std::vector<bool>>& grade,
+	                      const std::vector<bool>& aprovacoes,
+	                      const std::vector<bool>& cursadas) {
 		//! Instancia uma stream de saída com o nome do arquivo de saída dado como argumento
 		//! Ela será repassada para os funções de escrita
 		std::ofstream saida(nomeDoArquivo);
@@ -145,6 +136,76 @@ namespace geraArquivo
 		imprimeVetor("cursadas", cursadas, saida);
 
 		return true;
+	}
+
+	bool escolheCSS(std::string nomeArquivoCSS) {
+		std::ifstream entrada{nomeArquivoCSS};
+
+		if (!entrada.is_open())
+			return false;
+
+		std::ostringstream buffer{};
+		buffer << entrada.rdbuf();
+
+		css = buffer.str();
+		return true;
+	}
+
+	std::string escreveHTML(Curso const* curso, const std::vector<bool>& solucao,
+	                 std::string caminho, std::string nomeAluno) {
+		std::ostringstream saida{};
+
+		const auto& horario = curso->horarios();
+		const auto& nomeDisciplinas = curso->nomeDisciplinas();
+		const auto numDisciplinas = curso->creditos().size();
+		const auto numHorarios = horario.size();
+
+		saida << std::nounitbuf;
+		saida << "<!DOCTYPE html>\n"
+				<< "<html align='center' id='nome'>\n"
+				<< "<style type=\"text/css\">"
+				<< css
+				<< "</style>"
+				<< "<body>\n"
+				<< "<h1>" + nomeAluno + ":<br></h1>"
+				<< "<table align='center' id='horarios'>\n";
+
+		saida << "<tr>\n"
+				<< "<th>Segunda</th>\n"
+				<< "<th>Terça</th>\n"
+				<< "<th>Quarta</th>\n"
+				<< "<th>Quinta</th>\n"
+				<< "<th>Sexta</th>\n"
+				<< "</tr>\n";
+
+		for (auto i = 0; i < numHorarios / 5; i++) {
+			saida << "<tr>\n";
+			for (auto j = 0; j <= numHorarios - 4; j += 4) {
+				auto encontrou = false;
+				for (auto k = 0; k < numDisciplinas; k++) {
+					if (horario[j + i][k] && solucao[k]) {
+						saida << "<td>"
+								<< nomeDisciplinas[k] << "</td>\n";
+						encontrou = true;
+						break;
+					}
+				}
+				if (!encontrou) {
+					saida << "<td> ----- </td>\n";
+				}
+			}
+			saida << "</tr>\n";
+		}
+
+		saida << "</table>\n"
+				<< "</body>\n"
+				<< "</html>\n";
+
+		std::ofstream arquivoSaida(caminho + "\\" + nomeAluno + ".html");
+
+		arquivoSaida << std::nounitbuf << saida.str() << std::endl;
+
+		return saida.str();
 	}
 
 } // namespace público

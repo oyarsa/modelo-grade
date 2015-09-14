@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Curso.h"
+#include "AlunoAleatorio.h"
 
 //! Gera aleatoriamente a estrutura de um curso de ensino superior, com horários, disciplinas etc
 class CursoAleatorio : public Curso {
@@ -8,7 +9,7 @@ public:
 	/*!
 	* \brief Constroi um curso aleatório a partir de parâmetros arbitrários
 	*
-	* \param numDisciplinas Número total de disciplinas do curso
+	* \param numDisciplinas_ Número total de disciplinas do curso
 	* \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
 	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
 	* \param numHorarios Número de horários (perído de 1 hora ou 50 minutos) em uma semana
@@ -47,4 +48,6 @@ private:
 	int maxProfessores;
 	//! Número total de créditos oferecidos no período
 	int creditosTotaisOfertados;
+	//! Funções para geração de números aleatórios
+	Aleatorio rand;
 };

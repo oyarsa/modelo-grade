@@ -145,7 +145,8 @@ namespace geraArquivo {
 	}
 
 	std::string escreveHTML(Curso const* curso, const std::vector<bool>& solucao,
-	                 std::string caminho, std::string nomeAluno) {
+	                        std::string caminho, std::string nomeAluno, int numPeriodos,
+							int numDiasLetivos) {
 		std::ostringstream saida{};
 
 		const auto& horario = curso->horarios();
@@ -171,9 +172,10 @@ namespace geraArquivo {
 				<< "<th>Sexta</th>\n"
 				<< "</tr>\n";
 
-		for (auto i = 0; i < numHorarios / 5; i++) {
+		auto dias = int(ceil(numHorarios / double(numDiasLetivos)));
+		for (auto i = 0; i <= dias; i++) {
 			saida << "<tr>\n";
-			for (auto j = 0; j <= numHorarios - 4; j += 4) {
+			for (auto j = 0; j <= numHorarios - numPeriodos; j += numPeriodos) {
 				auto encontrou = false;
 				for (auto k = 0; k < numDisciplinas; k++) {
 					if (horario[j + i][k] && solucao[k]) {
@@ -202,3 +204,4 @@ namespace geraArquivo {
 	}
 
 } // namespace público
+

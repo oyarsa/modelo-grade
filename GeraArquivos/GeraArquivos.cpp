@@ -154,6 +154,9 @@ namespace geraArquivo {
 		const auto numDisciplinas = curso->numDisciplinas();
 		const auto numHorarios = curso->numHorarios();
 
+		const std::string diasDaSemana[] = {"Segunda", "Terça", "Quarta", "Quinta", 
+									"Sexta", "Sábado", "Domingo"};
+
 		saida << std::nounitbuf;
 		saida << "<!DOCTYPE html>\n"
 				<< "<html align='center' id='nome'>\n"
@@ -163,17 +166,24 @@ namespace geraArquivo {
 				<< "<body>\n"
 				<< "<h1>" + nomeAluno + ":<br></h1>"
 				<< "<table align='center' id='horarios'>\n";
-
+/*
 		saida << "<tr>\n"
 				<< "<th>Segunda</th>\n"
 				<< "<th>Terça</th>\n"
 				<< "<th>Quarta</th>\n"
 				<< "<th>Quinta</th>\n"
 				<< "<th>Sexta</th>\n"
-				<< "</tr>\n";
+				<< "</tr>\n";*/
 
-		auto dias = int(ceil(numHorarios / double(numDiasLetivos)));
-		for (auto i = 0; i <= dias; i++) {
+
+		saida << "<tr>\n";
+		for (auto i = 0; i < numDiasLetivos; i++) {
+			saida << "<th>" << diasDaSemana[i] << "</th>\n";
+		}
+		saida << "</tr>\n";
+
+		auto horariosDia = int(ceil(numHorarios / double(numDiasLetivos)));
+		for (auto i = 0; i < horariosDia; i++) {
 			saida << "<tr>\n";
 			for (auto j = 0; j <= numHorarios - numPeriodos; j += numPeriodos) {
 				auto encontrou = false;

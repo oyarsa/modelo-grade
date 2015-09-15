@@ -6,17 +6,17 @@
 //! Gera aleatoriamente a estrutura de um curso de ensino superior, com horários, disciplinas etc
 class CursoAleatorio : public Curso {
 public:
-	/*!
-	* \brief Constroi um curso aleatório a partir de parâmetros arbitrários
-	*
-	* \param numDisciplinas_ Número total de disciplinas do curso
-	* \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
-	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
-	* \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
-	* \param numOfertadas Número de disciplinas ofertadas no período
-	* \param numProfessores Número de professores do curso
-	* \param maxMinistradas Número máximo de matérias que um professor ministra
-	*/
+	//! \brief Constroi um curso aleatório a partir de parâmetros arbitrários
+	//!
+	//! \param numDisciplinas_ Número total de disciplinas do curso
+	//! \param numPreRequisitos Soma total do número de pré-requisitos de cada matéria do curso
+	//! \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
+	//! \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
+	//! \param numOfertadas Número de disciplinas ofertadas no período
+	//! \param numProfessores Número de professores do curso
+	//! \param maxMinistradas Número máximo de matérias que um professor ministra
+	//! \param numDiasLetivos Número de dias letivos por semana
+	//! \param numPeriodos Número de períodos simultaneamente oferecidos pelo curso
 	CursoAleatorio(int numDisciplinas, int numPreRequisitos,
 	               int numCoRequisitos, int numHorarios,
 	               int numOfertadas, int numProfessores,

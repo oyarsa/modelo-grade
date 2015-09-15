@@ -72,3 +72,11 @@ void Curso::geraNomeHorarios() {
 		nomeHorarios_.push_back("HOR" + std::to_string(i + 1));
 	}
 }
+
+int Curso::numPeriodos() const {
+	return numPeriodos_;
+}
+
+int Curso::numDiasLetivos() const {
+	return numDiasLetivos_;
+}

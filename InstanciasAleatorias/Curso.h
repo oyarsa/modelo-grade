@@ -65,6 +65,14 @@ public:
 	//! \return Inteiro, número de horários por semana
 	int numHorarios() const;
 
+	//! Retorna o número de períodos simultaneamente ofertados pelo curso
+	//! \return Inteiro, número de períodos simultaneamente ofertados pelo curso
+	int numPeriodos() const;
+
+	//! Retorna o número de dias letivos por semana do curso
+	//! \return Inteiro, número de dias letivos por semana
+	int numDiasLetivos() const;
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;

@@ -11,8 +11,9 @@
 using CursoPtr = std::unique_ptr<Curso>;
 
 std::tuple<CursoPtr, std::string, std::string, int> menu() {
-	int numDisciplinas{}, numPreRequisitos{}, numCoRequisitos{}, numHorarios{},
-			numOfertadas{}, numAlunos{}, numProfessores{}, maxMinistradas{};
+	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
+	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
+	    numPeriodos, numDiasLetivos;
 	int opcao;
 	std::string pasta, engine;
 	CursoPtr curso;
@@ -34,6 +35,8 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 				numOfertadas = numDisciplinas / 2;
 				numProfessores = 20;
 				maxMinistradas = 10;
+				numPeriodos = 4;
+				numDiasLetivos = 5;
 
 				std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 				std::cin >> pasta;
@@ -45,7 +48,8 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 				curso = CursoPtr{new CursoAleatorio(numDisciplinas, numPreRequisitos,
 													numCoRequisitos, numHorarios,
 													numOfertadas, numProfessores,
-													maxMinistradas)};
+													maxMinistradas, numDiasLetivos,
+													numPeriodos)};
 				return make_tuple(std::move(curso), pasta, engine, numAlunos);
 
 			case 2:
@@ -67,13 +71,18 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 				std::cin >> numProfessores;
 				std::cout << "Numero maximo de disciplinas que um professor pode ministrar: ";
 				std::cin >> maxMinistradas;
+				std::cout << "Numero de dias letivos por semana: ";
+				std::cin >> numDiasLetivos;
+				std::cout << "Numero de peridos simultaneamente ofertados: ";
+				std::cin >> numPeriodos;
 
 				engine = numDisciplinas <= 15 ? "CPLEX" : "CP";
 
 				curso = CursoPtr{new CursoAleatorio(numDisciplinas, numPreRequisitos,
 													numCoRequisitos, numHorarios,
 													numOfertadas, numProfessores,
-													maxMinistradas)};
+													maxMinistradas, numDiasLetivos,
+													numPeriodos)};
 
 				return make_tuple(std::move(curso), pasta, engine, numAlunos);
 

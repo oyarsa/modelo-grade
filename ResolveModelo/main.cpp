@@ -21,10 +21,11 @@ using CursoPtr = std::unique_ptr<Curso>;
 //! o nome da pasta de destino e o número de aluno
 std::tuple<CursoPtr, std::string, int> menu() {
 	// Inicializa as variáveis com o padrão
-	int numDisciplinas{}, numPreRequisitos{}, numCoRequisitos{}, numHorarios{},
-			numOfertadas{}, numAlunos{}, numProfessores{}, maxMinistradas{};
-	int opcao{};
-	std::string pasta{};
+	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
+	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
+	    numDiasLetivos, numPeriodos;
+	int opcao;
+	std::string pasta;
 	CursoPtr pCurso;
 
 	// Exibe as opções do menu
@@ -39,15 +40,17 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	while (true) {
 		std::cin >> opcao;
 		switch (opcao) {
-		// Se a opção for a padrão, utiliza esses valores e gera um curso aleatório
+			// Se a opção for a padrão, utiliza esses valores e gera um curso aleatório
 		case 1:
 			numDisciplinas = 50;
 			numPreRequisitos = 10;
 			numCoRequisitos = 5;
 			numHorarios = 20;
-			numOfertadas = numDisciplinas / 2;
+			numOfertadas = 20;
 			numProfessores = 20;
 			maxMinistradas = 10;
+			numDiasLetivos = 5;
+			numPeriodos = 4;
 
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
@@ -55,13 +58,14 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			std::cin >> numAlunos;
 
 
-			pCurso = std::unique_ptr<Curso>{new CursoAleatorio{numDisciplinas, numPreRequisitos,
-				numCoRequisitos, numHorarios,
-				numOfertadas, numProfessores,
-				maxMinistradas}};
+			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
+			                                                   numCoRequisitos, numHorarios,
+			                                                   numOfertadas, numProfessores,
+			                                                   maxMinistradas, numDiasLetivos,
+															   numPeriodos)};
 			return make_tuple(move(pCurso), pasta, numAlunos);
 
-		// Caso seja desejado fornecer os valores, capitura-os e cria o curso aleatório
+			// Caso seja desejado fornecer os valores, capitura-os e cria o curso aleatório
 		case 2:
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
@@ -81,15 +85,23 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			std::cin >> numProfessores;
 			std::cout << "Numero maximo de disciplinas que um professor pode ministrar: ";
 			std::cin >> maxMinistradas;
+			std::cout << "Numero de dias letivos por semana: ";
+			std::cin >> numDiasLetivos;
+			std::cout << "Numero de peridos simultaneamente ofertados: ";
+			std::cin >> numPeriodos;
 
-			pCurso = std::unique_ptr<Curso>{new CursoAleatorio{numDisciplinas, numPreRequisitos,
-				numCoRequisitos, numHorarios,
-				numOfertadas, numProfessores,
-				maxMinistradas}};
+			if (numDiasLetivos > 7)
+				numDiasLetivos = 7;
+
+			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
+			                                                   numCoRequisitos, numHorarios,
+			                                                   numOfertadas, numProfessores,
+			                                                   maxMinistradas, numDiasLetivos,
+															   numPeriodos)};
 
 			return make_tuple(move(pCurso), pasta, numAlunos);
 
-		// Se for escolhido o modelo da fagoc, pede-se apenas o número de alunos
+			// Se for escolhido o modelo da fagoc, pede-se apenas o número de alunos
 		case 3:
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
@@ -152,15 +164,15 @@ bool geraAlunos(std::string caminho, CursoPtr pCurso, int numAlunos) {
 				saidaTxt << pCurso->nomeDisciplinas()[j] << " ";
 			}
 		}
-		saidaTxt << "\n";
-
+		saidaTxt << "\nDisciplinas escolhidas: ";
 		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
 		     std::ostream_iterator<std::string>(saidaTxt, " "));
 		saidaTxt << "\nResultado final: " << solver.valorFinal() << "\n\n";
 
 		// Escreve o horário do aluno num HTML separado, mas também escreve no buffer
-		saidaHtml << geraArquivo::escreveHTML(pCurso.get(), solver.solucao(), caminho, aln)
-			<< "\n\n";
+		saidaHtml << geraArquivo::escreveHTML(pCurso.get(), solver.solucao(), caminho, aln,
+		                                      pCurso->numPeriodos(), pCurso->numDiasLetivos())
+				<< "\n\n";
 	}
 
 	// Cria as streams de escrita dos arquivo

@@ -29,7 +29,8 @@ void CursoAleatorio::init() {
 
 void CursoAleatorio::geraCreditos() {
 	//! Gera a quantidade de disciplinas que recebem 2, 4 e 6 créditos a partir de porcentagens
-	auto discSeisCreditos = int(0.2 * numDisciplinas_);
+	//! Se o número de dias letivos for pequeno, não gera disciplinas de 6 créditos
+	auto discSeisCreditos = int(0.2 * numDisciplinas_* (numDiasLetivos_ > 3 ? 1 : 0 ));
 	auto discQuatroCreditos = int(0.6 * numDisciplinas_);
 	auto discDoisCreditos = numDisciplinas_ - discSeisCreditos - discQuatroCreditos;
 	int i, j, k;

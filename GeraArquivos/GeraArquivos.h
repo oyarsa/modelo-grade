@@ -46,5 +46,6 @@ namespace geraArquivo {
 	                        const std::vector<bool>& solucao,
 	                        std::string caminho,
 	                        std::string nomeAluno,
-							int numPeriodos);
+							int numPeriodos,
+							int numDiasLetivos);
 }

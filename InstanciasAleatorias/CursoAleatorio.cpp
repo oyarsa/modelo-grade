@@ -29,7 +29,6 @@ void CursoAleatorio::init() {
 }
 
 void CursoAleatorio::geraCreditos() {
-	std::cout << "Gera creditos\n";
 	//! Gera a quantidade de disciplinas que recebem 2, 4 e 6 créditos a partir de porcentagens
 	//! Se o número de dias letivos for pequeno, não gera disciplinas de 6 créditos
 	auto discSeisCreditos = int(0.2 * numDisciplinas_ * (numDiasLetivos_ > 3 ? 1 : 0));
@@ -52,7 +51,6 @@ void CursoAleatorio::geraCreditos() {
 }
 
 void CursoAleatorio::geraPreRequisitos() {
-	std::cout << "Gera prereq\n";
 	auto requisitosAlocados = 0;
 
 	//! Enquanto não foram alocados todos os pré-requisitos
@@ -83,7 +81,6 @@ void CursoAleatorio::geraPreRequisitos() {
 }
 
 void CursoAleatorio::geraCoRequisitos() {
-	std::cout << "Gera coreq\n";
 	auto coRequisitosAlocados = 0;
 
 	//! Enquanto não foram alocados todos os pré-requisitos
@@ -114,7 +111,6 @@ void CursoAleatorio::geraCoRequisitos() {
 }
 
 void CursoAleatorio::geraOfertadas() {
-	std::cout << "Ofertads\n";
 	//! Conjunto de disciplinas que serão ofertadas
 	std::unordered_set<int> disciplinasEscolhidas;
 
@@ -153,7 +149,6 @@ void CursoAleatorio::geraNomeDisciplinas() {
 
 void CursoAleatorio::geraHorario() {
 	geraOfertadas();
-	std::cout << "Horario\n";
 	auto disciplinasAlocadasTotal = 0;
 	auto creditosAlocadosTotal = 0;
 	std::vector<int> creditosAlocados(numDisciplinas_, 0);

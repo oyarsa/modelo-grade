@@ -12,29 +12,33 @@
 #include <numeric>
 #include <cstdio>
 
-std::vector<bool> convert(unsigned long long x) {
-	std::vector<bool> ret;
+//! Converte um número em um vector de bools, do tamanho de n bits
+//! \param x Número a ser convertido
+//! \param bits Número de bits do número
+//! \return Um vector bools que representa 'x'
+std::vector<bool> geraCandidata(unsigned long long x, int bits) {
+	std::vector<bool> candidata;
+	// Contador de quantos bits já foram atribuídos. Será usado pra completar
+	// os zeros
+	auto bitsAtribuidos = 0;
+	// Enquanto x não for zero, pega o último bit, e testa se é 1. Se for, insere
+	// 'true' no vector. Se não, insere false. Depois faz um shift para a direita, o
+	// que descarta o último bit, e incrementa o contador de bits atribuídos
 	while (x) {
 		if (x & 1)
-			ret.push_back(true);
+			candidata.push_back(true);
 		else
-			ret.push_back(false);
+			candidata.push_back(false);
 		x >>= 1;
-	}
-	reverse(ret.begin(), ret.end());
-	return ret;
-}
-
-std::vector<std::vector<bool>> geraSolucoes(int numDisc) {
-	std::vector<std::vector<bool>> out{};
-	auto numCombinacoes = pow(2, unsigned long long(numDisc));
-
-	for (unsigned long long i = 0; i < numCombinacoes; i++) {
-		out.push_back(convert(i));
-		std::cout << i << "\n";
+		bitsAtribuidos++;
 	}
 
-	return out;
+	// Percorre o restante dos bits não atribuitos e insere zeros
+	for (auto i = bitsAtribuidos; i < bits; i++) {
+		candidata.push_back(false);
+	}
+
+	return candidata;
 }
 
 using CursoPtr = std::unique_ptr<Curso>;
@@ -151,14 +155,13 @@ solucionaAluno(const Instancia& instancia) {
 	const auto& aprovacoes = instancia.aluno()->aprovacoes();
 	auto numDisciplinas = instancia.curso()->numDisciplinas();
 	auto numHorarios = instancia.curso()->numHorarios();
-	auto candidatas = geraSolucoes(numDisciplinas);
 	auto solucaoOtima = 0;
 	auto valorFinal = 0;
+	auto possibilidades = pow(2, numDisciplinas);
 	std::vector<std::vector<bool>> solucoes{};
 
-	for (auto i = 0; i < candidatas.size(); i++) {
-		const auto& atual = candidatas[i];
-		std::cout << "Atual: " << i << "\n";
+	for (auto i = 0; i < possibilidades; i++) {
+		auto atual = geraCandidata(i, numDisciplinas);
 		for (auto d = 0; d < numDisciplinas; d++) {
 			if (atual[d] > (1 - aprovacoes[d])) {
 				goto proximo;
@@ -166,26 +169,28 @@ solucionaAluno(const Instancia& instancia) {
 
 			auto numRequisitos = accumulate(begin(preRequisitos[d]),
 			                                 end(preRequisitos[d]), 0);
-			
 			auto requisitosCumpridos = 0;
 			for (auto j = 0; j < numDisciplinas; j++) {
 				if (preRequisitos[d][j] && aprovacoes[j])
 					requisitosCumpridos++;
 			}
 
-			if (numRequisitos > requisitosCumpridos) {
+			if (numRequisitos * atual[d] > requisitosCumpridos) {
 				goto proximo;
 			}
 
 			auto numCoRequisitos = accumulate(begin(coRequisitos[d]),
 											 end(coRequisitos[d]), 0);
+
 			auto coRequisitosCumpridos = 0;
+
 			for (auto j = 0; j < numDisciplinas; j++) {
 				if (coRequisitos[d][j] && (cursadas[j] || atual[j]))
 					coRequisitosCumpridos++;
 			}
 
-			if (numCoRequisitos > coRequisitosCumpridos) {
+
+			if (numCoRequisitos * atual[d] > coRequisitosCumpridos) {
 				goto proximo;
 			}
 		}
@@ -196,12 +201,13 @@ solucionaAluno(const Instancia& instancia) {
 				disciplinasConcorrentes +=
 					(horarios[h][d] + horarios[h + 1][d]) * atual[d];
 			}
+
 			if (disciplinasConcorrentes > 2) {
 				goto proximo;
 			}
 		}
 
-		solucoes.push_back(candidatas[i]);
+		solucoes.push_back(atual);
 		auto valorAtual = 0;
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (atual[j])
@@ -209,7 +215,7 @@ solucionaAluno(const Instancia& instancia) {
 		}
 		if (valorAtual > valorFinal) {
 			valorFinal = valorAtual;
-			solucaoOtima = i;
+			solucaoOtima++;
 		}
 
 	proximo:

@@ -12,7 +12,7 @@
 #include <windows.h>
 #include <AlunoAleatorio.h>
 #include "SolverHandler.h"
-#include "../GeraArquivos/GeraArquivos.h"
+#include <GeraArquivos.h>
 
 using CursoPtr = std::unique_ptr<Curso>;
 

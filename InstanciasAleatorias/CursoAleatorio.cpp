@@ -4,16 +4,17 @@
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
+#include <iostream>
 
 CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
                                int numCoRequisitos, int numHorarios,
                                int numOfertadas, int numProfessores,
                                int maxMinistradas, int numDiasLetivos,
-							   int numPeriodos)
+                               int numPeriodos)
 	: Curso(numDisciplinas, numPreRequisitos,
 	        numCoRequisitos, numHorarios,
 	        numOfertadas, numProfessores,
-			numDiasLetivos, numPeriodos),
+	        numDiasLetivos, numPeriodos),
 	  maxMinistradas(maxMinistradas),
 	  maxProfessores(numProfessores / 3),
 	  rand() {
@@ -28,9 +29,10 @@ void CursoAleatorio::init() {
 }
 
 void CursoAleatorio::geraCreditos() {
+	std::cout << "Gera creditos\n";
 	//! Gera a quantidade de disciplinas que recebem 2, 4 e 6 créditos a partir de porcentagens
 	//! Se o número de dias letivos for pequeno, não gera disciplinas de 6 créditos
-	auto discSeisCreditos = int(0.2 * numDisciplinas_* (numDiasLetivos_ > 3 ? 1 : 0 ));
+	auto discSeisCreditos = int(0.2 * numDisciplinas_ * (numDiasLetivos_ > 3 ? 1 : 0));
 	auto discQuatroCreditos = int(0.6 * numDisciplinas_);
 	auto discDoisCreditos = numDisciplinas_ - discSeisCreditos - discQuatroCreditos;
 	int i, j, k;
@@ -50,6 +52,7 @@ void CursoAleatorio::geraCreditos() {
 }
 
 void CursoAleatorio::geraPreRequisitos() {
+	std::cout << "Gera prereq\n";
 	auto requisitosAlocados = 0;
 
 	//! Enquanto não foram alocados todos os pré-requisitos
@@ -80,6 +83,7 @@ void CursoAleatorio::geraPreRequisitos() {
 }
 
 void CursoAleatorio::geraCoRequisitos() {
+	std::cout << "Gera coreq\n";
 	auto coRequisitosAlocados = 0;
 
 	//! Enquanto não foram alocados todos os pré-requisitos
@@ -110,6 +114,7 @@ void CursoAleatorio::geraCoRequisitos() {
 }
 
 void CursoAleatorio::geraOfertadas() {
+	std::cout << "Ofertads\n";
 	//! Conjunto de disciplinas que serão ofertadas
 	std::unordered_set<int> disciplinasEscolhidas;
 
@@ -148,7 +153,7 @@ void CursoAleatorio::geraNomeDisciplinas() {
 
 void CursoAleatorio::geraHorario() {
 	geraOfertadas();
-
+	std::cout << "Horario\n";
 	auto disciplinasAlocadasTotal = 0;
 	auto creditosAlocadosTotal = 0;
 	std::vector<int> creditosAlocados(numDisciplinas_, 0);
@@ -182,6 +187,7 @@ void CursoAleatorio::geraHorario() {
 			creditosAlocadosTotal++;
 		}
 	}
+
 }
 
 void CursoAleatorio::distribuiProfessores() {
@@ -221,30 +227,29 @@ void CursoAleatorio::geraProfessores() {
 		//! Pega a referência ao professor naquele índice para poder adicionar disciplinas
 		auto& professor = professores_[i];
 		//! Enquanto o professor ainda precisar receber disciplinas
-		while (contadorMinistradas[i] < professor.numMinistradas()) {
-			//! Percorre a lista de disciplinas, parando se elas acabarem ou o professor já
-			//! estiver cheio
-			for (size_t j = 0; j < disciplinasAlocadas.size() &&
-			     contadorMinistradas[i] < professor.numMinistradas(); j++) {
-				//! Verifica se o professor já ministra aquela disciplina,
-				//! gera uma chance de o professor ministrá-la e testa se ela já está sendo ministrada
-				//! pelo número máximo de professores que podem simultaneamente ministrar uma disciplina
-				if (disciplinasAlocadas[j] < maxProfessores &&
-					!professor.ministra(j) && rand.randomInt() % 100 < 25) {
+		//! Percorre a lista de disciplinas, parando se elas acabarem ou o professor já
+		//! estiver cheio
+		for (auto j = 0; j < disciplinasAlocadas.size() &&
+		     contadorMinistradas[i] < professor.numMinistradas(); j++) {
+			//! Verifica se o professor já ministra aquela disciplina,
+			//! gera uma chance de o professor ministrá-la e testa se ela já está sendo ministrada
+			//! pelo número máximo de professores que podem simultaneamente ministrar uma disciplina
+			if (disciplinasAlocadas[j] < maxProfessores &&
+				!professor.ministra(j) && rand.randomInt() % 100 < 25) {
 
-					//! Se todas as condições forem satisfeitas, testa-se se a disciplina não havia
-					//! sido alocada antes. Se não, incrementa o número de alocadas
-					if (disciplinasAlocadas[j] == 0)
-						numAlocadas++;
+				//! Se todas as condições forem satisfeitas, testa-se se a disciplina não havia
+				//! sido alocada antes. Se não, incrementa o número de alocadas
+				if (disciplinasAlocadas[j] == 0)
+					numAlocadas++;
 
-					//! Incrementa o número de vezes que a disciplina foi alocada a um professor
-					disciplinasAlocadas[j]++;
-					//! Adiciona a disciplina à lista de ministradas do professor
-					professor.adicionaDisciplina(j);
-					//! Incrementa o contador de disciplinas que aquele professor recebeu
-					contadorMinistradas[i]++;
-				}
+				//! Incrementa o número de vezes que a disciplina foi alocada a um professor
+				disciplinasAlocadas[j]++;
+				//! Adiciona a disciplina à lista de ministradas do professor
+				professor.adicionaDisciplina(j);
+				//! Incrementa o contador de disciplinas que aquele professor recebeu
+				contadorMinistradas[i]++;
 			}
 		}
+
 	}
 }

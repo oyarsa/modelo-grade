@@ -154,7 +154,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;IL_STD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\include;C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\InstanciasAleatorias;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\GeraArquivos;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\include;C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\InstanciasAleatorias;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>

@@ -10,7 +10,7 @@
 #include <sstream>
 #include <fstream>
 #include <numeric>
-#include <cstdio>
+#include <map>
 
 //! Converte um número em um vector de bools, do tamanho de n bits
 //! \param x Número a ser convertido
@@ -147,6 +147,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 
 std::tuple<std::vector<std::vector<bool>>, int, int>
 solucionaAluno(const Instancia& instancia) {
+	// Inicializa referências para as estruturas de dados necessárias para solucionar
+	// o modelo
 	const auto& preRequisitos = instancia.curso()->preRequisitos();
 	const auto& coRequisitos = instancia.curso()->coRequisitos();
 	const auto& horarios = instancia.curso()->horarios();
@@ -155,46 +157,77 @@ solucionaAluno(const Instancia& instancia) {
 	const auto& aprovacoes = instancia.aluno()->aprovacoes();
 	auto numDisciplinas = instancia.curso()->numDisciplinas();
 	auto numHorarios = instancia.curso()->numHorarios();
+	// Inicializa as variáveis de controle, de qual é o índice da solução ótima no
+	// vector de soluções, e qual é o valor da função objetivo para a solução mais
+	// ótima do momento, assim como qual o número total de possíveis soluções para 
+	// esse problema (podendo as soluções ser apenas 0 ou 1, o número de possibilidades
+	// é 2^n, onde n é o número de variáveis de decisão, nesse caso, as disciplinas
 	auto solucaoOtima = 0;
 	auto valorFinal = 0;
 	auto possibilidades = pow(2, numDisciplinas);
 	std::vector<std::vector<bool>> solucoes{};
 
+	// A valia cada possibilidade (força bruta), e guarda todas as soluções factíveis
+	// no vector, e armazena qual a mais ótima até o momento.
+	// NOTA: esse é um dos poucos casos em que o uso do 'goto' é válido. Utilizar de
+	// outras ferramentas de controle de fluxo só deixariam o código mais complexo.
 	for (auto i = 0; i < possibilidades; i++) {
+		// Gera o próximo vector de possibilidades
 		auto atual = geraCandidata(i, numDisciplinas);
+
 		for (auto d = 0; d < numDisciplinas; d++) {
+			// Verifica se alguma disciplina que a candidata atual marcou como escolhida
+			// já foi cursada pelo aluno (e ele já foi aprovado). Se for verdadeiro, a 
+			// candidata é descartada (um aluno não pode cursar uma matéria que já passou)
+			// e o programa pula para o fim do bloco da possibilidade
+			
 			if (atual[d] > (1 - aprovacoes[d])) {
 				goto proximo;
 			}
 
 			auto numRequisitos = accumulate(begin(preRequisitos[d]),
 			                                 end(preRequisitos[d]), 0);
+			// Calcula o número de requisitos que disciplina possui
 			auto requisitosCumpridos = 0;
+			// Calcula o número de disciplinas que o aluno foi aprovado
+			// e que são pré-requisitos da disciplina atual
 			for (auto j = 0; j < numDisciplinas; j++) {
 				if (preRequisitos[d][j] && aprovacoes[j])
 					requisitosCumpridos++;
 			}
 
+			// Se a disciplina atual está marcada com escolhida, testa
+			// se os requisitos cumpridos são insuficientes. Se forem, passa 
+			// para a próxima solução
 			if (numRequisitos * atual[d] > requisitosCumpridos) {
 				goto proximo;
 			}
 
+			// Calcula o número de co-requisitos que a disciplina possui
 			auto numCoRequisitos = accumulate(begin(coRequisitos[d]),
-											 end(coRequisitos[d]), 0);
+							  end(coRequisitos[d]), 0);
 
 			auto coRequisitosCumpridos = 0;
 
+			// Calcula o número de disciplinas que são co-requisitos da atual
+			// que o aluno já fez ou irá fazer, segundo a candidata
 			for (auto j = 0; j < numDisciplinas; j++) {
 				if (coRequisitos[d][j] && (cursadas[j] || atual[j]))
 					coRequisitosCumpridos++;
 			}
 
 
+			// Se a disciplina atual está marcada como escolhida, testa se os
+			// requisitos cumpridos são insuficientes. Se forem, passsa para a
+			// próxima solução
 			if (numCoRequisitos * atual[d] > coRequisitosCumpridos) {
 				goto proximo;
 			}
 		}
 
+		// Verifica se o as disciplinas do horário do aluno são conflitantes
+		// (se há aulas de duas ou mais ou mesmo tempo). Se houver uma colisão,
+		// a solução é descartada.
 		for (auto h = 0; h < numHorarios - 1; h += 2) {
 			auto disciplinasConcorrentes = 0;
 			for (auto d = 0; d < numDisciplinas; d++) {
@@ -207,6 +240,10 @@ solucionaAluno(const Instancia& instancia) {
 			}
 		}
 
+		// Se a solução passou por todos os testes sem ser descartada, ela é inserida
+		// no vector de soluções factíveis, e então o valor de sua função objetivo é 
+		// calculado, e verifica-se se ela é uma solução mais ótima que a atual. Se for,
+		// seu índice no vector é gravado, assim como seu valor é atribuído ao atual
 		solucoes.push_back(atual);
 		auto valorAtual = 0;
 		for (auto j = 0; j < numDisciplinas; j++) {
@@ -218,10 +255,13 @@ solucionaAluno(const Instancia& instancia) {
 			solucaoOtima++;
 		}
 
+	// Se alguma das restrições não for obedecida, a solução é descartada
 	proximo:
 		continue;
 	}
 
+	// Depois de analisadas todas as soluções, é retornado uma tripla com a
+	// lista de soluções, o índice da solução ótima nessa lista e o valor dela
 	return make_tuple(solucoes, solucaoOtima, valorFinal);
 }
 
@@ -303,8 +343,8 @@ bool geraAlunos(std::string caminho, CursoPtr pCurso, int numAlunos) {
 
 
 int main() {
-	//std::ios_base::sync_with_stdio(false);
-	//freopen("out", "w", stdout);
+	std::ios_base::sync_with_stdio(false);
+
 	// Pega as opções retornadas pelo menu
 	auto opcoes = menu();
 	// Ponteiro para um Curso
@@ -328,5 +368,4 @@ int main() {
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> diferenca = end - begin;
 	std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
-
 }

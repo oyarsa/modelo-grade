@@ -152,6 +152,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeraArquivos\GeraArquivos.vcxproj">
+      <Project>{f92b32d6-57b5-4509-8b04-42f6187f1961}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\InstanciasAleatorias\InstanciasAleatorias.vcxproj">
+      <Project>{53ae7fa3-916b-48fb-aa9b-ba05ff833486}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

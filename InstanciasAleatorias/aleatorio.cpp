@@ -6,9 +6,7 @@ int Aleatorio::randomInt() {
 
 Aleatorio::Aleatorio()
 	: dist{0, MAX_RANDOM}, 
-	seed{static_cast<TipoSeed>(
-		TipoRelogio::now().time_since_epoch().count())},
-	gerador{seed} {
+	gerador{std::random_device()()} {
 	gerador.discard(gerador.state_size);
 }
 

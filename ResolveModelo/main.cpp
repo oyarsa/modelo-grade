@@ -119,10 +119,14 @@ std::tuple<CursoPtr, std::string, int> menu() {
 }
 
 
-bool geraAlunos(std::string caminho, CursoPtr pCurso, int numAlunos) {
+bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlunos) {
 	// Cria o diretório, e encerra a função se for malsucedido
-	if (!CreateDirectory(caminho.c_str(), nullptr))
-		return false;
+	auto caminho = dir + pasta;
+	if (!CreateDirectory(caminho.c_str(), nullptr)) {
+		caminho = ".\\" + pasta;
+		if (!CreateDirectory(caminho.c_str(), nullptr))
+			return false;
+	}
 
 	// Nome padrão do aluno
 	std::string nome = "aln";
@@ -200,7 +204,7 @@ int main() {
 	// Inicialzia relógio e resolve todos os modelos
 	auto begin = std::chrono::system_clock::now();
 	std::cout << "\n";
-	if (!geraAlunos(dir + pasta, move(pCurso), numAlunos)) {
+	if (!geraAlunos(dir, pasta, move(pCurso), numAlunos)) {
 		std::cout << "Nao foi possivel criar a pasta.\n\n";
 	}
 	else {

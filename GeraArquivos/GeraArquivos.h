@@ -37,10 +37,15 @@ namespace geraArquivo {
 	bool escolheCSS(std::string nomeArquivoCSS);
 
 	//! \brief Escreve o horário do aluno numa página HTML
-	//! \param curso Ponteiro para const para um Curso
+	//! \param horario Matriz de horário do curso
+	//! \param nomeDisciplinas Vector com os nomes das disciplinas do curso
 	//! \param solucao Referência const para um vector de booleanos, representando as matérias selecionadas
 	//! \param caminho Caminho para o arquivo de saída
 	//! \param nomeAluno Nome do aluno cuja grade foi gerada
+	//! \param numDisciplinas Número de disciplinas da matriz do curso
+	//! \param numHorarios Número de horários em uma semana
+	//! \param numPeriodos Número de períodos ofertados simultaneamente
+	//! \param numDiasLetivos Número de dias letivos por semana
 	//! \return Uma cópia do arquivo gerado, em string
 	std::string escreveHTML(const std::vector<std::vector<bool>>& horario,
 							const std::vector<std::string>& nomeDisciplinas,

@@ -151,11 +151,13 @@ namespace geraArquivo {
 							int numHorarios,
 							int numPeriodos,
 							int numDiasLetivos) {
+		// String de saída do html gerado
 		std::ostringstream saida{};
 
 		const std::string diasDaSemana[] = {"Segunda", "Terça", "Quarta", "Quinta", 
 									"Sexta", "Sábado", "Domingo"};
 
+		// Imprime o cabeçalho do HTML, juntamente com o CSS carregado, inicia a tabela
 		saida << std::nounitbuf;
 		saida << "<!DOCTYPE html>\n"
 				<< "<html align='center' id='nome'>\n"
@@ -165,25 +167,24 @@ namespace geraArquivo {
 				<< "<body>\n"
 				<< "<h1>" + nomeAluno + ":<br></h1>"
 				<< "<table align='center' id='horarios'>\n";
-/*
-		saida << "<tr>\n"
-				<< "<th>Segunda</th>\n"
-				<< "<th>Terça</th>\n"
-				<< "<th>Quarta</th>\n"
-				<< "<th>Quinta</th>\n"
-				<< "<th>Sexta</th>\n"
-				<< "</tr>\n";*/
 
-
+		// Imprime o cabeçalho da tabela com os dias letivos
 		saida << "<tr>\n";
 		for (auto i = 0; i < numDiasLetivos; i++) {
 			saida << "<th>" << diasDaSemana[i] << "</th>\n";
 		}
 		saida << "</tr>\n";
 
+		// Calcula o número de horários por dia, pegando o menor número inteiro
+		// menor que a divisão entre numHorarios e numDiasLetivos
 		auto horariosDia = int(ceil(numHorarios / double(numDiasLetivos)));
+		// Então percorre todas as linhas do horário, ou seja, aquele horário para
+		// todos os dias
 		for (auto i = 0; i < horariosDia; i++) {
+			// Abre a linha da tabela
 			saida << "<tr>\n";
+			// Percorre aquele horário, naquele dia, procurando uma matéria que possua aula
+			// e que foi escolhida na solução. Se encontrar, imprime seu nome
 			for (auto j = 0; j <= numHorarios - numPeriodos; j += numPeriodos) {
 				auto encontrou = false;
 				for (auto k = 0; k < numDisciplinas; k++) {
@@ -194,6 +195,8 @@ namespace geraArquivo {
 						break;
 					}
 				}
+				// Se chegar ao fim de todas as disciplinas e não encontrar nenhuma que tenha
+				// sido escolhida, imprime um traço
 				if (!encontrou) {
 					saida << "<td> ----- </td>\n";
 				}
@@ -201,14 +204,16 @@ namespace geraArquivo {
 			saida << "</tr>\n";
 		}
 
+		// Fecha as tags da página
 		saida << "</table>\n"
 				<< "</body>\n"
 				<< "</html>\n";
 
+		// Grava um arquivo com a página criada
 		std::ofstream arquivoSaida(caminho + "\\" + nomeAluno + ".html");
-
 		arquivoSaida << std::nounitbuf << saida.str() << std::endl;
 
+		// E também retorna a string (a mesma que foi escrita) para quem chamou
 		return saida.str();
 	}
 

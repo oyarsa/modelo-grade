@@ -2,7 +2,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "../InstanciasAleatorias/Curso.h"
 
 namespace {
 	/*!
@@ -144,15 +143,15 @@ namespace geraArquivo {
 		return true;
 	}
 
-	std::string escreveHTML(Curso const* curso, const std::vector<bool>& solucao,
-	                        std::string caminho, std::string nomeAluno, int numPeriodos,
+	std::string escreveHTML(const std::vector<std::vector<bool>>& horario, 
+							const std::vector<std::string>& nomeDisciplinas,
+							const std::vector<bool>& solucao,
+	                        std::string caminho, std::string nomeAluno,
+							int numDisciplinas,
+							int numHorarios,
+							int numPeriodos,
 							int numDiasLetivos) {
 		std::ostringstream saida{};
-
-		const auto& horario = curso->horarios();
-		const auto& nomeDisciplinas = curso->nomeDisciplinas();
-		const auto numDisciplinas = curso->numDisciplinas();
-		const auto numHorarios = curso->numHorarios();
 
 		const std::string diasDaSemana[] = {"Segunda", "Terça", "Quarta", "Quinta", 
 									"Sexta", "Sábado", "Domingo"};

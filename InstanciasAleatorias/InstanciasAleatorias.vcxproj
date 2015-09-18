@@ -185,7 +185,7 @@
       <Profile>true</Profile>
     </Link>
     <Lib>
-      <AdditionalDependencies>GeraArquivosLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ManipulaArquivosLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

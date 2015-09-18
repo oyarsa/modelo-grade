@@ -29,8 +29,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	CursoPtr pCurso;
 
 	// Exibe as opções do menu
-	std::cout << "\nSOLUCIONADOR DE INSTANCIAS DO MODELO DE GRADE\n";
-	std::cout << std::string(60, '*') << "\n\n";
+	std::cout << "\nSOLUCIONADOR DE INSTANCIAS DO MODELO DE GRADE - PROG. INTEIRA\n";
+	std::cout << std::string(63, '*') << "\n\n";
 	std::cout << "Selecione a opcao desejada:\n\n";
 	std::cout << "1 - Valores aleatorios padrao\n";
 	std::cout << "2 - Valores aleatorios customizados\n";
@@ -168,14 +168,16 @@ bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlun
 				saidaTxt << pCurso->nomeDisciplinas()[j] << " ";
 			}
 		}
-		saidaTxt << "\nDisciplinas escolhidas: ";
+		saidaTxt << "\nDisciplinas escolhidas:\n";
 		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
 		     std::ostream_iterator<std::string>(saidaTxt, " "));
 		saidaTxt << "\nResultado final: " << solver.valorFinal() << "\n\n";
 
 		// Escreve o horário do aluno num HTML separado, mas também escreve no buffer
-		saidaHtml << geraArquivo::escreveHTML(pCurso.get(), solver.solucao(), caminho, aln,
-		                                      pCurso->numPeriodos(), pCurso->numDiasLetivos())
+		saidaHtml << geraArquivo::escreveHTML(pCurso->horarios(), pCurso->nomeDisciplinas(), 
+											  solver.solucao(), caminho, aln, pCurso->numDisciplinas(),
+											  pCurso->numHorarios(), pCurso->numPeriodos(), 
+											  pCurso->numDiasLetivos())
 				<< "\n\n";
 	}
 

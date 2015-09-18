@@ -42,10 +42,12 @@ namespace geraArquivo {
 	//! \param caminho Caminho para o arquivo de saída
 	//! \param nomeAluno Nome do aluno cuja grade foi gerada
 	//! \return Uma cópia do arquivo gerado, em string
-	std::string escreveHTML(Curso const* curso,
-	                        const std::vector<bool>& solucao,
-	                        std::string caminho,
-	                        std::string nomeAluno,
+	std::string escreveHTML(const std::vector<std::vector<bool>>& horario,
+							const std::vector<std::string>& nomeDisciplinas,
+							const std::vector<bool>& solucao,
+							std::string caminho, std::string nomeAluno,
+							int numDisciplinas,
+							int numHorarios,
 							int numPeriodos,
 							int numDiasLetivos);
 }

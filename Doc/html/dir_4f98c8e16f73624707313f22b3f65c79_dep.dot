@@ -1,6 +1,0 @@
-digraph "InstanciasAleatorias" {
-  compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
-  dir_4f98c8e16f73624707313f22b3f65c79 [shape=box, label="InstanciasAleatorias", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_4f98c8e16f73624707313f22b3f65c79.html"];
-}

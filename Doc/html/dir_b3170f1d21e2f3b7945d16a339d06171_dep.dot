@@ -1,6 +1,0 @@
-digraph "GeraArquivos" {
-  compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
-  dir_b3170f1d21e2f3b7945d16a339d06171 [shape=box, label="GeraArquivos", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_b3170f1d21e2f3b7945d16a339d06171.html"];
-}

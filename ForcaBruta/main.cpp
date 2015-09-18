@@ -145,6 +145,12 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	}
 }
 
+//! Soluciona uma instância de teste utilizando força bruta, e retorna a solução
+//! mais ótima, o seu valor para a função objetivo e uma lista com todas as soluções factíveis
+//! \param instancia Referência para const de um objeto da classe Instância
+//! \return Uma tripla contendo 1) um vector de vectors, que são as soluções factíveis
+//! 2) o índice da solução mais ótima nesse vector, 3) o valor da função objetivo para 
+//! a solução mais ótima
 std::tuple<std::vector<std::vector<bool>>, int, int>
 solucionaAluno(const Instancia& instancia) {
 	// Inicializa referências para as estruturas de dados necessárias para solucionar

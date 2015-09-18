@@ -154,7 +154,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;IL_STD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\GeraArquivos;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\include;C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\InstanciasAleatorias;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Italo\Google Drive\Codigos\Visual Studio\modelo-grade\GeraArquivos;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\include;C:\Users\Italo\Google Drive\Codigos\Visual Studio\modelo-grade\InstanciasAleatorias;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
@@ -170,7 +170,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\lib\x86_windows_vs2013\stat_mda;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\lib\x86_windows_vs2013\stat_mda;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\lib\x86_windows_vs2013\stat_mda;C:\Users\Italo\Google Drive\Codigos\Visual Studio\ModeloGrade\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\lib\x86_windows_vs2013\stat_mda;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\lib\x86_windows_vs2013\stat_mda;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cpoptimizer\lib\x86_windows_vs2013\stat_mda;C:\Users\Italo\Google Drive\Codigos\Visual Studio\modelo-grade\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cplex1262.lib;ilocplex.lib;concert.lib;cp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>

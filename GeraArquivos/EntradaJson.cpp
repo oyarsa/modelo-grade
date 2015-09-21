@@ -93,7 +93,7 @@ namespace EntradaJson {
 			auto diaLetivoAtual = horarios[i]["semana"].asInt();
 
 			auto horario = numHorariosDia * diaLetivoAtual + horarioAtual;
-			auto discIndex = discToInt[horarios[i]["disciplinas"].asString()];
+			auto discIndex = discToInt[horarios[i]["disciplina"].asString()];
 
 			matrizHorario[horario][discIndex] = true;
 			ofertadas[discIndex] = true;

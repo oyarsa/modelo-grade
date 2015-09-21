@@ -12,6 +12,8 @@ public:
 				 int numOfertadas, int numProfessores,
 				 int numDiasLetivos, int numPeriodos);
 
+	CursoEntrada(CursoEntrada&& outro);
+
 	//! Setter de todas as estruturas relativas a disciplinas do curso,
 	//! recebendo referências rvalue como parâmetro. Utilize std::move para
 	//! mover as estruturas para a função, a fim de evitar cópias

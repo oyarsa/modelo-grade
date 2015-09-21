@@ -9,6 +9,20 @@ CursoEntrada::CursoEntrada(int numDisciplinas, int numPreRequisitos,
 	        numOfertadas, numProfessores,
 	        numDiasLetivos, numPeriodos) {}
 
+CursoEntrada::CursoEntrada(CursoEntrada&& outro)
+	: Curso(outro.numDisciplinas_, outro.numPreRequisitos,
+	        outro.numCoRequisitos, outro.numHorarios_,
+	        outro.numOfertadas, outro.numProfessores,
+	        outro.numDiasLetivos_, outro.numPeriodos_) {
+	nomeDisciplinas_ = move(outro.nomeDisciplinas_);
+	preRequisitos_ = move(outro.preRequisitos_);
+	coRequisitos_ = move(outro.coRequisitos_);
+	ofertadas_ = move(outro.ofertadas_);
+	creditos_ = move(outro.creditos_);
+	horarios_ = move(outro.horarios_);
+	nomeHorarios_ = move(outro.nomeHorarios_);
+}
+
 void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
                                   std::vector<std::vector<bool>>&& preRequisitos,
                                   std::vector<std::vector<bool>>&& coRequisitos,

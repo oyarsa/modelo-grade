@@ -11,10 +11,12 @@
 #include <CompFagoc.h>
 #include <windows.h>
 #include <AlunoAleatorio.h>
+#include <EntradaJson.h>
 #include "SolverHandler.h"
 #include <GeraArquivos.h>
 
 using CursoPtr = std::unique_ptr<Curso>;
+using AlunoPtr = std::unique_ptr<Aluno>;
 
 //! Exibe um menu e retorna as opções selecionadas para o main
 //! \return Uma triple de CursoPtr, string e int. Respectivamente, um curso,
@@ -119,7 +121,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 }
 
 
-bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlunos) {
+bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso, 
+				   std::vector<AlunoPtr>& alunos) {
 	// Cria o diretório, e encerra a função se for malsucedido
 	auto caminho = dir + pasta;
 	if (!CreateDirectory(caminho.c_str(), nullptr)) {
@@ -141,15 +144,12 @@ bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlun
 	// Carrega o arquivo CSS do HTML
 	geraArquivo::escolheCSS("etc\\estilos.css");
 
-	for (auto i = 0; i < numAlunos; i++) {
-		// Gera um aluno aleatório e o coloca dentr do Solver
-		auto aln = nome + std::to_string(i + 1);
-		SolverHandler solver{pCurso.get(), std::move(std::unique_ptr<Aluno>{
-			new AlunoAleatorio{pCurso->preRequisitos(), pCurso->coRequisitos(), aln}})};
+	for (auto i = 0; i < alunos.size(); i++) {
+		SolverHandler solver{pCurso.get(), std::move(alunos[i])};
 
 		// Resolve o problema e imprime os dados nos arquivos
 		solver.solve();
-		saidaTxt << aln << "\n";
+		saidaTxt << solver.aluno()->nome() << "\n";
 		const auto& nomeDisciplinas = solver.disciplinas();
 		const auto& aprovacoesAluno = solver.aluno()->aprovacoes();
 		const auto& cursadasAluno = solver.aluno()->cursadas();
@@ -175,9 +175,9 @@ bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlun
 
 		// Escreve o horário do aluno num HTML separado, mas também escreve no buffer
 		saidaHtml << geraArquivo::escreveHTML(pCurso->horarios(), pCurso->nomeDisciplinas(), 
-											  solver.solucao(), caminho, aln, pCurso->numDisciplinas(),
-											  pCurso->numHorarios(), pCurso->numPeriodos(), 
-											  pCurso->numDiasLetivos())
+											  solver.solucao(), caminho, solver.aluno()->nome(), 
+											  pCurso->numDisciplinas(), pCurso->numHorarios(), 
+											  pCurso->numPeriodos(), pCurso->numDiasLetivos())
 				<< "\n\n";
 	}
 
@@ -193,20 +193,44 @@ bool geraAlunos(std::string dir, std::string pasta, CursoPtr pCurso, int numAlun
 int main() {
 	std::ios_base::sync_with_stdio(false);
 
-	// Pega as opções retornadas pelo menu
-	auto opcoes = menu();
-	// Ponteiro para um Curso
-	auto pCurso = std::get<0>(move(opcoes));
-	// Pasta de destino
-	auto pasta = std::get<1>(opcoes);
-	// Número de alunos a serem gerados
-	auto numAlunos = std::get<2>(opcoes);
+	//// Pega as opções retornadas pelo menu
+	//auto opcoes = menu();
+	//// Ponteiro para um Curso
+	//auto pCurso = std::get<0>(move(opcoes));
+	//// Pasta de destino
+	//auto pasta = std::get<1>(opcoes);
+	//// Número de alunos a serem gerados
+	//auto numAlunos = std::get<2>(opcoes);
+
+	auto entrada = EntradaJson::lerJson("../input.json");
+	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
+
+	std::vector<AlunoPtr> alunos;
+	for (auto& aluno : entrada.second) {
+		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
+	}
+
+	std::string pasta;
+	std::cout << "Digite o nome da pasta: ";
+	std::cin >> pasta;
+
+	const auto& matrizHorario = pCurso->horarios();
+
+	std::cout << "Horarios: " << matrizHorario.size() << "\n";
+	std::cout << "Disciplinas: " << matrizHorario[0].size() << "\n";
+
+	for (auto i = 0; i < matrizHorario.size(); i++) {
+		for (auto j = 0; j < matrizHorario[i].size(); j++) {
+			std::cout << matrizHorario[i][j] << " ";
+		}
+		std::cout << "\n";
+	}
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	// Inicialzia relógio e resolve todos os modelos
 	auto begin = std::chrono::system_clock::now();
 	std::cout << "\n";
-	if (!geraAlunos(dir, pasta, move(pCurso), numAlunos)) {
+	if (!resolveAlunos(dir, pasta, std::move(pCurso), alunos)) {
 		std::cout << "Nao foi possivel criar a pasta.\n\n";
 	}
 	else {

@@ -11,6 +11,7 @@
 #include <fstream>
 #include <numeric>
 #include <map>
+#include <EntradaJson.h>
 
 //! Converte um número em um vector de bools, do tamanho de n bits
 //! \param x Número a ser convertido
@@ -353,27 +354,50 @@ bool geraAlunos(std::string caminho, CursoPtr pCurso, int numAlunos) {
 int main() {
 	std::ios_base::sync_with_stdio(false);
 
-	// Pega as opções retornadas pelo menu
-	auto opcoes = menu();
-	// Ponteiro para um Curso
-	auto pCurso = std::get<0>(move(opcoes));
-	// Pasta de destino
-	auto pasta = std::get<1>(opcoes);
-	// Número de alunos a serem gerados
-	auto numAlunos = std::get<2>(opcoes);
+	//// Pega as opções retornadas pelo menu
+	//auto opcoes = menu();
+	//// Ponteiro para um Curso
+	//auto pCurso = std::get<0>(move(opcoes));
+	//// Pasta de destino
+	//auto pasta = std::get<1>(opcoes);
+	//// Número de alunos a serem gerados
+	//auto numAlunos = std::get<2>(opcoes);
 
-	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
-	// Inicialzia relógio e resolve todos os modelos
-	auto begin = std::chrono::system_clock::now();
+	//std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
+	//// Inicialzia relógio e resolve todos os modelos
+	//auto begin = std::chrono::system_clock::now();
+	//std::cout << "\n";
+	//if (!geraAlunos(dir + pasta, move(pCurso), numAlunos)) {
+	//	std::cout << "Nao foi possivel criar a pasta.\n\n";
+	//} else {
+	//	std::cout << "Modelos resolvidos com sucesso.\n\n";
+	//}
+
+	//// Imprime o tempo gasto
+	//auto end = std::chrono::system_clock::now();
+	//std::chrono::duration<double> diferenca = end - begin;
+	//std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
+
+	auto entrada = EntradaJson::lerJson("input.json");
+	auto curso = entrada.first;
+	auto alunos = entrada.second;
+
+	copy(begin(curso.nomeDisciplinas()), end(curso.nomeDisciplinas()), 
+		 std::ostream_iterator<std::string>(std::cout, " "));
 	std::cout << "\n";
-	if (!geraAlunos(dir + pasta, move(pCurso), numAlunos)) {
-		std::cout << "Nao foi possivel criar a pasta.\n\n";
-	} else {
-		std::cout << "Modelos resolvidos com sucesso.\n\n";
+	
+	copy(begin(curso.creditos()), end(curso.creditos()),
+		 std::ostream_iterator<int>(std::cout, " "));
+	std::cout << "\n\n";
+
+
+	for (auto& aluno : alunos) {
+		std::cout << aluno.nome() << "\n";
+		for (auto i = 0; i < aluno.aprovacoes().size(); i++) {
+			if (!aluno.aprovacoes()[i])
+				std::cout << curso.nomeDisciplinas()[i] << " ";
+		}
+		std::cout << "\n\n";
 	}
 
-	// Imprime o tempo gasto
-	auto end = std::chrono::system_clock::now();
-	std::chrono::duration<double> diferenca = end - begin;
-	std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
 }

@@ -1,5 +1,5 @@
 ﻿#include "EntradaJson.h"
-#include <json/json.h>
+#include "json/json.h"
 #include <fstream>
 #include <unordered_map>
 #include <numeric>
@@ -8,6 +8,9 @@ namespace EntradaJson {
 
 	std::pair<CursoEntrada, std::vector<AlunoEntrada>> lerJson(std::string nomeArquivo) {
 		std::ifstream entrada(nomeArquivo);
+
+		if (entrada.bad())
+			throw 1;
 
 		std::unordered_map<std::string, int> discToInt{};
 
@@ -101,10 +104,10 @@ namespace EntradaJson {
 			auto restantes = alunos[i]["restantes"];
 			for (auto j = 0; j < restantes.size(); j++) {
 				auto discIndex = discToInt[restantes[j].asString()];
-				ofertadas[discIndex] = false;
+				aprovacoes[discIndex] = false;
 			}
 
-			std::vector<bool> cursadas(ofertadas);
+			std::vector<bool> cursadas(aprovacoes);
 
 			auto discCursadas = alunos[i]["cursadas"];
 			for (auto j = 0; j < discCursadas.size(); j++) {

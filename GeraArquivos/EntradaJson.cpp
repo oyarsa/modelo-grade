@@ -2,10 +2,11 @@
 #include <json/json.h>
 #include <fstream>
 #include <unordered_map>
+#include <numeric>
 
 namespace EntradaJson {
 
-	std::tuple<CursoEntrada, std::vector<AlunoEntrada>> lerJson(std::string nomeArquivo) {
+	std::pair<CursoEntrada, std::vector<AlunoEntrada>> lerJson(std::string nomeArquivo) {
 		std::ifstream entrada(nomeArquivo);
 
 		std::unordered_map<std::string, int> discToInt{};
@@ -66,6 +67,7 @@ namespace EntradaJson {
 		auto numHorarios = numHorariosDia * numDiasLetivos;
 		std::vector<std::vector<bool>> matrizHorario(numHorarios,
 		                                             std::vector<bool>(numDisciplinas, false));
+		std::vector<bool> ofertadas(numDisciplinas, false);
 
 		for (auto i = 0; i < horarios.size(); i++) {
 			auto horarioAtual = horarios[i]["horario"].asInt();
@@ -75,10 +77,47 @@ namespace EntradaJson {
 			auto discIndex = discToInt[horarios[i]["disciplinas"].asString()];
 
 			matrizHorario[horario][discIndex] = true;
+			ofertadas[discIndex] = true;
 		}
 
-		CursoEntrada curso(numDisciplinas, numPreRequisitos, 0, numHorarios, 0, 
-						   numProfessores, numDiasLetivos, numPeriodos);
+		auto numOfertadas = accumulate(begin(ofertadas), end(ofertadas), 0);
+		CursoEntrada curso(numDisciplinas, numPreRequisitos, numCoRequisitos, 
+						   numHorarios, numOfertadas, numProfessores, numDiasLetivos,
+						   numPeriodos);
 
+		curso.setDisciplinas(move(nomeDisc), move(preRequisitos), move(coRequisitos),
+							 move(ofertadas), move(creditos));
+		curso.setHorarios(move(matrizHorario));
+
+		auto alunos = raiz["alunoperfis"];
+		std::vector<AlunoEntrada> vetorAlunos;
+
+		for (auto i = 0; i < alunos.size(); i++) {
+			auto nome = alunos[i]["id"].asString();
+
+			AlunoEntrada aluno{curso.preRequisitos(), curso.coRequisitos(), nome};
+			std::vector<bool> aprovacoes(numDisciplinas, true);
+
+			auto restantes = alunos[i]["restantes"];
+			for (auto j = 0; j < restantes.size(); j++) {
+				auto discIndex = discToInt[restantes[j].asString()];
+				ofertadas[discIndex] = false;
+			}
+
+			std::vector<bool> cursadas(ofertadas);
+
+			auto discCursadas = alunos[i]["cursadas"];
+			for (auto j = 0; j < discCursadas.size(); j++) {
+				auto discIndex = discToInt[restantes[j].asString()];
+				cursadas[discIndex] = true;
+			}
+
+			aluno.setAprovacoes(move(aprovacoes));
+			aluno.setCursadas(move(cursadas));
+
+			vetorAlunos.push_back(std::move(aluno));
+		}
+
+		return make_pair(curso, vetorAlunos);
 	}
 }

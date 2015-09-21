@@ -47,8 +47,8 @@ protected:
 	const std::vector<std::vector<bool>>& coRequisitos_;
 	//! Nome do aluno
 	std::string nome_;
-	//!< Vetor de disciplinas em que o aluno foi aprovado
+	//! Vetor de disciplinas em que o aluno foi aprovado
 	std::vector<bool> aprovacoes_;
-	//!< Vetor de disciplinas que o aluno cursou
+	//! Vetor de disciplinas que o aluno cursou
 	std::vector<bool> cursadas_;
 };

@@ -7,7 +7,9 @@ public:
 				 const std::vector<std::vector<bool>>& coRequisitos,
 				 const std::string& nome);
 
-	void setAprovacoes(std::vector<bool> aprovacoes);
-	void setCursadas(std::vector<bool> cursadas);
+	AlunoEntrada(AlunoEntrada&& outro);
+
+	void setAprovacoes(std::vector<bool>&& aprovacoes);
+	void setCursadas(std::vector<bool>&& cursadas);
 	
 };

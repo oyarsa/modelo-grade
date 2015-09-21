@@ -259,9 +259,11 @@
     <ClCompile Include="aleatorio.cpp" />
     <ClCompile Include="Aluno.cpp" />
     <ClCompile Include="AlunoAleatorio.cpp" />
+    <ClCompile Include="AlunoEntrada.cpp" />
     <ClCompile Include="CompFagoc.cpp" />
     <ClCompile Include="Curso.cpp" />
     <ClCompile Include="CursoAleatorio.cpp" />
+    <ClCompile Include="CursoEntrada.cpp" />
     <ClCompile Include="Instancia.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Professor.cpp" />
@@ -270,9 +272,11 @@
     <ClInclude Include="aleatorio.h" />
     <ClInclude Include="Aluno.h" />
     <ClInclude Include="AlunoAleatorio.h" />
+    <ClInclude Include="AlunoEntrada.h" />
     <ClInclude Include="CompFagoc.h" />
     <ClInclude Include="Curso.h" />
     <ClInclude Include="CursoAleatorio.h" />
+    <ClInclude Include="CursoEntrada.h" />
     <ClInclude Include="Instancia.h" />
     <ClInclude Include="Professor.h" />
   </ItemGroup>

@@ -109,20 +109,4 @@ protected:
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraCreditos() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraPreRequisitos() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraCoRequisitos() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraOfertadas() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraNomeDisciplinas() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraDisciplinas() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraHorario() = 0;
-	//! Pure virtual - definida pelas classes filhas
-	virtual void geraProfessores() = 0;
 };

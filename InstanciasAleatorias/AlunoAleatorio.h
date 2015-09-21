@@ -28,9 +28,9 @@ private:
 	//! Incializa os membros aleatórios
 	void init();
 	//! Gera aleatoriamente as disciplinas que o aluno cursou
-	void geraCursadas() override;
+	void geraCursadas();
 	//! Gera aleatoriamente as disciplinas em que o aluno foi aprovado
-	void geraAprovacoes() override;
+	void geraAprovacoes();
 	//! Funções para geração de números aleatórios
 	Aleatorio rand;
 };

@@ -146,6 +146,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalIncludeDirectories>C:\Users\Italo\Google Drive\Codigos\src\modelo-grade\InstanciasAleatorias;C:\Users\Italo\Google Drive\Codigos\lib\jsoncpp\dist;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -212,9 +213,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntradaJson.h" />
     <ClInclude Include="GeraArquivos.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EntradaJson.cpp" />
     <ClCompile Include="GeraArquivos.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

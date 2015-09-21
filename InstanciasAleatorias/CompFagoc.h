@@ -13,19 +13,19 @@ public:
 
 private:
 	//! Gera um vetor de créditos de disciplinas a partir do curso de Ciências da Computação da FAGOC
-	void geraCreditos() override;
+	void geraCreditos();
 	//! Gera uma matriz de pré-requisitos das disciplinas a partir do curso de Ciências da Computação da FAGOC
-	void geraPreRequisitos() override;
+	void geraPreRequisitos();
 	//! Gera uma matriz de co-requisitos das disciplinas a partir do curso de Ciências da Computação da FAGOC
-	void geraCoRequisitos() override;
+	void geraCoRequisitos();
 	//! Gera um vetor das disciplinas ofertadas no périodo a partir do curso de Ciências da Computação da FAGOC
-	void geraOfertadas() override;
+	void geraOfertadas();
 	//! Gera um vetor com os nomes das disciplinas do curso de Ciências da Computação da FAGOC
-	void geraNomeDisciplinas() override;
+	void geraNomeDisciplinas();
 	//! Gera os créditos, os pré-requisitos e os co-requisitos de cada disciplina do curso de Ciências da Computação da FAGOC
-	void geraDisciplinas() override;
+	void geraDisciplinas();
 	//! Gera uma matriz de horários a partir do curso de Ciências da Computação da FAGOC
-	void geraHorario() override;
+	void geraHorario();
 	//! Gera um vetor de professores a partir do curso de Ciências da Computação da FAGOC
-	void geraProfessores() override;
+	void geraProfessores();
 };

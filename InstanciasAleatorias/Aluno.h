@@ -51,9 +51,4 @@ protected:
 	std::vector<bool> aprovacoes_;
 	//!< Vetor de disciplinas que o aluno cursou
 	std::vector<bool> cursadas_;
-
-	//! Gera aleatoriamente as disciplinas que o aluno cursou
-	virtual void geraCursadas() = 0;
-	//! Gera aleatoriamente as disciplinas em que o aluno foi aprovado
-	virtual void geraAprovacoes() = 0;
 };

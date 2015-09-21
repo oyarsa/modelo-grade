@@ -26,21 +26,21 @@ public:
 	void init();
 private:
 	//! Gera aleatoriamente os créditos de cada matéria do curso
-	void geraCreditos() override;
+	void geraCreditos();
 	//! Gera aleatoriamente os pré-requisitos de cada matéria do curso
-	void geraPreRequisitos() override;
+	void geraPreRequisitos();
 	//! Gera aleatoriamente os co-requisitos de cada matéria do curso
-	void geraCoRequisitos() override;
+	void geraCoRequisitos();
 	//! Gera aleatoriamente as matérias ofertadas no período
-	void geraOfertadas() override;
+	void geraOfertadas();
 	//! Gera sequencialmente os nomes das disciplinas do curso (DISC1, DISC2...)
-	void geraNomeDisciplinas() override;
+	void geraNomeDisciplinas();
 	//! Gera aleatoriamente os créditos, os pré-requisitos e os co-requisitos de cada disciplina do curso
-	void geraDisciplinas() override;
+	void geraDisciplinas();
 	//! Gera aleatoriamente os horários do curso
-	void geraHorario() override;
+	void geraHorario();
 	//! Gera aleatoriamente os professores do curso
-	void geraProfessores() override;
+	void geraProfessores();
 	//! Gera aleatoriamente o número de disciplinas que cada professor ministra
 	void distribuiProfessores();
 	//! Número máximo de disciplinas que um professor pode ministrar

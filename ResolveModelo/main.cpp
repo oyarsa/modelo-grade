@@ -190,6 +190,17 @@ bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso,
 	return true;
 }
 
+std::vector<AlunoAleatorio> geraAlunosAleatorios(Curso const* curso, int numAlunos) {
+	std::vector<AlunoAleatorio> alunos;
+	for (auto i = 0; i < numAlunos; i++) {
+		auto aln = "aln" + std::to_string(i + 1);
+		alunos.push_back(std::move(AlunoAleatorio{
+			curso->preRequisitos(), curso->coRequisitos(), aln}));
+	}
+
+	return alunos;
+}
+
 int main() {
 	std::ios_base::sync_with_stdio(false);
 
@@ -201,7 +212,13 @@ int main() {
 	//auto pasta = std::get<1>(opcoes);
 	//// Número de alunos a serem gerados
 	//auto numAlunos = std::get<2>(opcoes);
-
+	//// Vector com os alunos gerados aleatoriamente
+	//auto alunosAleatorios = geraAlunosAleatorios(pCurso.get(), numAlunos);
+	//std::vector<AlunoPtr> alunos;
+	//for (auto& aluno : alunosAleatorios) {
+	//	alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoAleatorio(std::move(aluno))}));
+	//}
+	
 	auto entrada = EntradaJson::lerJson("../input.json");
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 
@@ -213,18 +230,6 @@ int main() {
 	std::string pasta;
 	std::cout << "Digite o nome da pasta: ";
 	std::cin >> pasta;
-
-	const auto& matrizHorario = pCurso->horarios();
-
-	std::cout << "Horarios: " << matrizHorario.size() << "\n";
-	std::cout << "Disciplinas: " << matrizHorario[0].size() << "\n";
-
-	for (auto i = 0; i < matrizHorario.size(); i++) {
-		for (auto j = 0; j < matrizHorario[i].size(); j++) {
-			std::cout << matrizHorario[i][j] << " ";
-		}
-		std::cout << "\n";
-	}
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	// Inicialzia relógio e resolve todos os modelos

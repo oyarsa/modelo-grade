@@ -67,14 +67,13 @@ void SolverHandler::solve() {
 		}
 	}
 
-	// Horários, cria as restrições dois a dois
-	for (auto h = 0; h < numHorarios - 1; h += 2) {
+	// Cria as restrições dos horários
+	for (auto h = 0; h < numHorarios; h++) {
 		IloExpr disciplinasConcorrentes(env);
 		for (auto d = 0; d < numDisciplinas; d++) {
-			disciplinasConcorrentes += 
-				(horarios[h][d] + horarios[h + 1][d]) * y[d];
+			disciplinasConcorrentes += horarios[h][d] * y[d];
 		}
-		mod.add(disciplinasConcorrentes <= 2);
+		mod.add(disciplinasConcorrentes <= 1);
 		disciplinasConcorrentes.end();
 	}
 
@@ -99,6 +98,7 @@ void SolverHandler::solve() {
 		cplex.setOut(env.getNullStream());
 		cplex.solve();
 
+
 		valorFinal_ = cplex.getObjValue();
 		cplex.getValues(solucao, y);
 	}
@@ -106,7 +106,7 @@ void SolverHandler::solve() {
 		IloCP cp(mod);
 		cp.setOut(env.getNullStream());
 		cp.solve();
-
+		
 		valorFinal_ = cp.getObjValue();
 		cp.getValues(y, solucao);
 	}

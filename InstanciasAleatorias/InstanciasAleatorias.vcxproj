@@ -264,6 +264,7 @@
     <ClCompile Include="Curso.cpp" />
     <ClCompile Include="CursoAleatorio.cpp" />
     <ClCompile Include="CursoEntrada.cpp" />
+    <ClCompile Include="GeraJson.cpp" />
     <ClCompile Include="Instancia.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Professor.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Curso.h" />
     <ClInclude Include="CursoAleatorio.h" />
     <ClInclude Include="CursoEntrada.h" />
+    <ClInclude Include="GeraJson.h" />
     <ClInclude Include="Instancia.h" />
     <ClInclude Include="Professor.h" />
   </ItemGroup>

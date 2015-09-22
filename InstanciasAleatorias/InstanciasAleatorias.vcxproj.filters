@@ -48,6 +48,9 @@
     <ClCompile Include="AlunoEntrada.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeraJson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aleatorio.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AlunoEntrada.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeraJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

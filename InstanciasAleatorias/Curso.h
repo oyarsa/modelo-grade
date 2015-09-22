@@ -15,7 +15,7 @@ public:
 	* \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
 	* \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
 	* \param numOfertadas Número de disciplinas ofertadas no período
-	* \param numProfessores Número de professores do curso
+	* \param numProfessores_ Número de professores do curso
 	* \param numDiasLetivos Número de dias letivos por semana do curso
 	* \param numPeriodos Número de períodos ofertados simultaneamente no curso
 	*/
@@ -73,6 +73,10 @@ public:
 	//! \return Inteiro, número de dias letivos por semana
 	int numDiasLetivos() const;
 
+	//! Retorna o número de professores associados ao curso
+	//! \return Inteiro, número de professores do curso
+	int numProfessores() const;
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -85,7 +89,7 @@ protected:
 	//! Número de disciplinas ofertadas no período
 	int numOfertadas;
 	//! Número de professores do curso
-	int numProfessores;
+	int numProfessores_;
 	//! Vetor de nomes das disciplinas do curso
 	std::vector<std::string> nomeDisciplinas_;
 	//! Vetor de nomes dos horários do curso

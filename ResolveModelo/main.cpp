@@ -14,6 +14,7 @@
 #include <EntradaJson.h>
 #include "SolverHandler.h"
 #include <GeraArquivos.h>
+#include <GeraJson.h>
 
 using CursoPtr = std::unique_ptr<Curso>;
 using AlunoPtr = std::unique_ptr<Aluno>;
@@ -226,12 +227,15 @@ int main() {
 	for (auto& aluno : entrada.second) {
 		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
 	}
-
+		
 	std::string pasta;
 	std::cout << "Digite o nome da pasta: ";
 	std::cin >> pasta;
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
+
+	geraJson::escreveJson(dir + "out.json", pCurso.get(), alunos);
+
 	// Inicialzia relógio e resolve todos os modelos
 	auto begin = std::chrono::system_clock::now();
 	std::cout << "\n";

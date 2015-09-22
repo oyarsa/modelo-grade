@@ -2,8 +2,6 @@
 
 #include <vector>
 
-class Curso;
-
 namespace geraArquivo {
 	//! \brief Recebe estruturas de dados e nomes de arquivo e autor e gera um
 	//! arquivo .dat da OPL, para ser lido pelo CPLEX

@@ -10,7 +10,7 @@ Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	  numCoRequisitos(numCoRequisitos),
 	  numHorarios_(numHorarios),
 	  numOfertadas(numOfertadas),
-	  numProfessores(numProfessores),
+	  numProfessores_(numProfessores),
 	  nomeDisciplinas_(),
 	  nomeHorarios_(),
 	  creditos_(numDisciplinas),
@@ -79,4 +79,8 @@ int Curso::numPeriodos() const {
 
 int Curso::numDiasLetivos() const {
 	return numDiasLetivos_;
+}
+
+int Curso::numProfessores() const {
+	return numProfessores_;
 }

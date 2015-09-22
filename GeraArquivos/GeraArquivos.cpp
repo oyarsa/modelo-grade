@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "json/json.h"
 
 namespace {
 	/*!
@@ -143,19 +144,19 @@ namespace geraArquivo {
 		return true;
 	}
 
-	std::string escreveHTML(const std::vector<std::vector<bool>>& horario, 
-							const std::vector<std::string>& nomeDisciplinas,
-							const std::vector<bool>& solucao,
+	std::string escreveHTML(const std::vector<std::vector<bool>>& horario,
+	                        const std::vector<std::string>& nomeDisciplinas,
+	                        const std::vector<bool>& solucao,
 	                        std::string caminho, std::string nomeAluno,
-							int numDisciplinas,
-							int numHorarios,
-							int numPeriodos,
-							int numDiasLetivos) {
+	                        int numDisciplinas,
+	                        int numHorarios,
+	                        int numPeriodos,
+	                        int numDiasLetivos) {
 		// String de saída do html gerado
 		std::ostringstream saida{};
 
-		const std::string diasDaSemana[] = {"Segunda", "Terça", "Quarta", "Quinta", 
-									"Sexta", "Sábado", "Domingo"};
+		const std::string diasDaSemana[] = {"Segunda", "Terça", "Quarta", "Quinta",
+			"Sexta", "Sábado", "Domingo"};
 
 		// Imprime o cabeçalho do HTML, juntamente com o CSS carregado, inicia a tabela
 		saida << std::nounitbuf;

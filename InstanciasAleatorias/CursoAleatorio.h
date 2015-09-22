@@ -13,7 +13,7 @@ public:
 	//! \param numCoRequisitos Soma total do número de co-requisitos de cada matéria do curso
 	//! \param numHorarios_ Número de horários (perído de 1 hora ou 50 minutos) em uma semana
 	//! \param numOfertadas Número de disciplinas ofertadas no período
-	//! \param numProfessores Número de professores do curso
+	//! \param numProfessores_ Número de professores do curso
 	//! \param maxMinistradas Número máximo de matérias que um professor ministra
 	//! \param numDiasLetivos Número de dias letivos por semana
 	//! \param numPeriodos Número de períodos simultaneamente oferecidos pelo curso

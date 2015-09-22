@@ -195,7 +195,7 @@ void CursoAleatorio::distribuiProfessores() {
 	while (totalDistribuidas < numDisciplinas_) {
 		//! Limpa os números distribuídos e começa do zero
 		professores_.erase(professores_.begin(), professores_.end());
-		for (auto i = 0; i < numProfessores; i++) {
+		for (auto i = 0; i < numProfessores_; i++) {
 			//! Gera um número para o professor em questão e soma às distribuidas
 			auto ministradas = (rand.randomInt() % maxMinistradas) + 1;
 			totalDistribuidas += ministradas;
@@ -213,12 +213,12 @@ void CursoAleatorio::distribuiProfessores() {
 void CursoAleatorio::geraProfessores() {
 	//! Aloca as disciplinas ao professores, de forma que não excedam o número que possam ministrar
 	std::vector<int> disciplinasAlocadas(numDisciplinas_);
-	std::vector<int> contadorMinistradas(numProfessores);
+	std::vector<int> contadorMinistradas(numProfessores_);
 	auto numAlocadas = 0;
 
 	distribuiProfessores();
 
-	for (auto i = 0; i < numProfessores; i++) {
+	for (auto i = 0; i < numProfessores_; i++) {
 		//! Pega a referência ao professor naquele índice para poder adicionar disciplinas
 		auto& professor = professores_[i];
 		//! Enquanto o professor ainda precisar receber disciplinas

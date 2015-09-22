@@ -12,7 +12,7 @@ CursoEntrada::CursoEntrada(int numDisciplinas, int numPreRequisitos,
 CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	: Curso(outro.numDisciplinas_, outro.numPreRequisitos,
 	        outro.numCoRequisitos, outro.numHorarios_,
-	        outro.numOfertadas, outro.numProfessores,
+	        outro.numOfertadas, outro.numProfessores_,
 	        outro.numDiasLetivos_, outro.numPeriodos_) {
 	nomeDisciplinas_ = move(outro.nomeDisciplinas_);
 	preRequisitos_ = move(outro.preRequisitos_);

@@ -59,7 +59,8 @@ namespace EntradaJson {
 		}
 
 		// Captura o número de professores
-		auto numProfessores = raiz["professores"].size();
+		//auto numProfessores = raiz["professores"].size();
+		auto numProfessores = 0;
 
 		// Estabelece qual o número de horários, períodos (camadas) e dias letivos
 		auto horarios = raiz["horario"];

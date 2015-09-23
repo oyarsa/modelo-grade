@@ -21,6 +21,7 @@ CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	creditos_ = move(outro.creditos_);
 	horarios_ = move(outro.horarios_);
 	nomeHorarios_ = move(outro.nomeHorarios_);
+	professores_ = move(outro.professores_);
 }
 
 void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
@@ -38,4 +39,8 @@ void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
 void CursoEntrada::setHorarios(std::vector<std::vector<bool>>&& horarios) {
 	horarios_ = move(horarios);
 	geraNomeHorarios();
+}
+
+void CursoEntrada::setProfessores(std::vector<Professor>&& professores) {
+	professores_ = move(professores);
 }

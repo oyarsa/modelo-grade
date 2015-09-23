@@ -22,6 +22,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::ve
 	const auto numHorarios = pCurso->numHorarios();
 	const auto numProfessores = pCurso->numProfessores();
 	const auto numDiasLetivos = pCurso->numDiasLetivos();
+	const auto numPeriodos = pCurso->numPeriodos();
 
 	for (auto i = 0; i < numDisciplinas; i++) {
 		Json::Value disciplinaAtual;
@@ -94,8 +95,8 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::ve
 			Json::Value horarioAtual;
 			horarioAtual["horario"] = i % horariosDia;
 			horarioAtual["semana"] = i / horariosDia;
-			horarioAtual["camada"] = 0;
-			horarioAtual["disciplina"] = nomeDisciplinas[j];
+			horarioAtual["camada"] = numPeriodos - 1;
+			horarioAtual["professordisciplina"] = nomeDisciplinas[j];
 
 			raiz["horario"].append(horarioAtual);
 		}
@@ -110,7 +111,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	// Abre o arquivo e testa se a leitura foi bem sucedida.
 	std::ifstream entrada(nomeArquivo);
 	if (entrada.bad())
-		throw 1;
+		throw std::runtime_error("Arquivo nao pode ser aberto");
 
 	// Cria um map que vai guardar o índice de uma determinada matéria
 	// nos vetores
@@ -122,7 +123,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	entrada >> raiz;
 
 	// Cria um objeto que aponta para o objeto disciplinas do arquivo JSON
-	const auto disciplinas = raiz["disciplinas"];
+	const auto& disciplinas = raiz["disciplinas"];
 	// Cria um vector de strings que irá guardar os nomes das disciplinas do curso
 	std::vector<std::string> nomeDisc{};
 	// E outro que irá guardar os créditos de cada uma
@@ -148,7 +149,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 												std::vector<bool>(numDisciplinas, false));
 
 	for (auto i = 0; i < disciplinas.size(); i++) {
-		const auto preReq = disciplinas[i]["prerequisitos"];
+		const auto& preReq = disciplinas[i]["prerequisitos"];
 		auto discAtual = discToInt[disciplinas[i]["id"].asString()];
 
 		numPreRequisitos += preReq.size();
@@ -158,12 +159,28 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		}
 	}
 
-	// Captura o número de professores
-	//auto numProfessores = raiz["professores"].size();
+	// Cria os professores e os insere na lista de professores do curso
 	auto numProfessores = 0;
+	const auto& professores = raiz["professores"];
+	std::vector<Professor> vetorProfessores;
+
+	for (auto i = 0; i < professores.size(); i++) {
+		auto nome = professores[i]["nome"].asString();
+		const auto& competencias = professores[i]["competencias"];
+		auto numMinistradas = competencias.size();
+
+		Professor professor(nome, numMinistradas);
+
+		for (auto j = 0; j < numMinistradas; j++) {
+			professor.adicionaDisciplina(discToInt[competencias[j].asString()]);
+		}
+
+		vetorProfessores.push_back(std::move(professor));
+		numProfessores++;
+	}
 
 	// Estabelece qual o número de horários, períodos (camadas) e dias letivos
-	auto horarios = raiz["horario"];
+	const auto& horarios = raiz["horario"];
 	auto numHorariosDia = 0;
 	auto numDiasLetivos = 0;
 	auto numPeriodos = 0;
@@ -194,7 +211,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		auto diaLetivoAtual = horarios[i]["semana"].asInt();
 
 		auto horario = numHorariosDia * diaLetivoAtual + horarioAtual;
-		auto discIndex = discToInt[horarios[i]["disciplina"].asString()];
+		auto discIndex = discToInt[horarios[i]["professordisciplina"].asString()];
 
 		matrizHorario[horario][discIndex] = true;
 		ofertadas[discIndex] = true;
@@ -211,10 +228,11 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	curso.setDisciplinas(move(nomeDisc), move(preRequisitos), move(coRequisitos),
 						 move(ofertadas), move(creditos));
 	curso.setHorarios(move(matrizHorario));
+	curso.setProfessores(move(vetorProfessores));
 
 	// Lê a lista de alunos, criando objetos que armazenam os nomes e
 	// as matérias cursadas e aprovadas
-	auto alunos = raiz["alunoperfis"];
+	const auto& alunos = raiz["alunoperfis"];
 	std::vector<AlunoEntrada> vetorAlunos;
 
 	for (auto i = 0; i < alunos.size(); i++) {
@@ -227,7 +245,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		// aquelas na lista de "restantes" serão marcadas com falso
 		std::vector<bool> aprovacoes(numDisciplinas, true);
 
-		auto restantes = alunos[i]["restantes"];
+		const auto& restantes = alunos[i]["restantes"];
 		for (auto j = 0; j < restantes.size(); j++) {
 			auto discIndex = discToInt[restantes[j].asString()];
 			aprovacoes[discIndex] = false;
@@ -238,11 +256,11 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 
 		// As disciplinas que o aluno cursou mas foi reprovado estão marcadas como 
 		// falso. Agora elas serão marcadas como verdadeiro na lista de cursadas.
-		auto discCursadas = alunos[i]["cursadas"];
-		for (auto j = 0; j < discCursadas.size(); j++) {
-			auto discIndex = discToInt[restantes[j].asString()];
-			cursadas[discIndex] = true;
-		}
+		//const auto& discCursadas = alunos[i]["cursadas"];
+		//for (auto j = 0; j < discCursadas.size(); j++) {
+		//	auto discIndex = discToInt[restantes[j].asString()];
+		//	cursadas[discIndex] = true;
+		//}
 
 		// Estabelece as estruturas do aluno como as lidas agora
 		aluno.setAprovacoes(move(aprovacoes));

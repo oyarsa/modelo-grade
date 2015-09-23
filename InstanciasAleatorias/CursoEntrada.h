@@ -29,8 +29,13 @@ public:
 	                    std::vector<int>&& creditos);
 
 	//! Setter da matriz de horários do curso, recebendo uma referência rvalue
-	//! para uma matriz de booleanso. Utilize std::move para mover as estruturas 
+	//! para uma matriz de booleanos. Utilize std::move para mover as estruturas 
 	//! para a função, a fim de evitar cópias
 	//! \param horarios Rvalue reference para uma matriz de booleanos
 	void setHorarios(std::vector<std::vector<bool>>&& horarios);
+
+	//! Seter da lista de professores do curso, recebdno uma referência rvalue
+	//! para um vector de Professor. Utilize std::move para mover as estruturas 
+	//! para a função, a fim de evitar cópias
+	void setProfessores(std::vector<Professor>&& professores);
 };

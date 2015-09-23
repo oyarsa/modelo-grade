@@ -2,8 +2,8 @@
 
 Professor::Professor() : numMinistradas_(), nome_(), disciplinasMinistradas_() {}
 
-Professor::Professor(std::string nome, int numMinistradas)
-	: numMinistradas_(numMinistradas),
+Professor::Professor(std::string nome, int maxMinistradas)
+	: numMinistradas_(maxMinistradas),
 	  nome_(nome),
 	  disciplinasMinistradas_() {}
 

@@ -51,7 +51,7 @@
     <ClCompile Include="ManipulaJson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="jsoncpp.cpp">
+    <ClCompile Include="jsoncpp.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,10 +89,10 @@
     <ClInclude Include="ManipulaJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="json\json.h">
+    <ClInclude Include="json\json.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="json\json-forwards.h">
+    <ClInclude Include="json\json-forwards.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -264,7 +264,7 @@
     <ClCompile Include="Curso.cpp" />
     <ClCompile Include="CursoAleatorio.cpp" />
     <ClCompile Include="CursoEntrada.cpp" />
-    <ClCompile Include="jsoncpp.cpp" />
+    <ClCompile Include="jsoncpp.cxx" />
     <ClCompile Include="ManipulaJson.cpp" />
     <ClCompile Include="Instancia.cpp" />
     <ClCompile Include="main.cpp" />
@@ -279,8 +279,8 @@
     <ClInclude Include="Curso.h" />
     <ClInclude Include="CursoAleatorio.h" />
     <ClInclude Include="CursoEntrada.h" />
-    <ClInclude Include="json\json-forwards.h" />
-    <ClInclude Include="json\json.h" />
+    <ClInclude Include="json\json-forwards.hxx" />
+    <ClInclude Include="json\json.hxx" />
     <ClInclude Include="ManipulaJson.h" />
     <ClInclude Include="Instancia.h" />
     <ClInclude Include="Professor.h" />

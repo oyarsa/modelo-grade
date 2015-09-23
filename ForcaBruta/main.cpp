@@ -11,7 +11,8 @@
 #include <fstream>
 #include <numeric>
 #include <map>
-#include <EntradaJson.h>
+#include <ManipulaJson.h>
+#include <CursoEntrada.h>
 
 //! Converte um número em um vector de bools, do tamanho de n bits
 //! \param x Número a ser convertido
@@ -378,9 +379,9 @@ int main() {
 	//std::chrono::duration<double> diferenca = end - begin;
 	//std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
 
-	auto entrada = EntradaJson::lerJson("input.json");
-	auto curso = entrada.first;
-	auto alunos = entrada.second;
+	auto entrada = manipulaJson::lerJson("../input.json");
+	auto& curso = entrada.first;
+	auto& alunos = entrada.second;
 
 	copy(begin(curso.nomeDisciplinas()), end(curso.nomeDisciplinas()), 
 		 std::ostream_iterator<std::string>(std::cout, " "));

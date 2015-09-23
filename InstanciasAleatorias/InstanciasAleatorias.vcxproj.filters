@@ -48,7 +48,10 @@
     <ClCompile Include="AlunoEntrada.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeraJson.cpp">
+    <ClCompile Include="ManipulaJson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jsoncpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +86,13 @@
     <ClInclude Include="AlunoEntrada.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeraJson.h">
+    <ClInclude Include="ManipulaJson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json-forwards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

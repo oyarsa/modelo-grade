@@ -11,10 +11,9 @@
 #include <CompFagoc.h>
 #include <windows.h>
 #include <AlunoAleatorio.h>
-#include <EntradaJson.h>
 #include "SolverHandler.h"
 #include <GeraArquivos.h>
-#include <GeraJson.h>
+#include <ManipulaJson.h>
 
 using CursoPtr = std::unique_ptr<Curso>;
 using AlunoPtr = std::unique_ptr<Aluno>;
@@ -220,7 +219,7 @@ int main() {
 	//	alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoAleatorio(std::move(aluno))}));
 	//}
 	
-	auto entrada = EntradaJson::lerJson("../input.json");
+	auto entrada = manipulaJson::lerJson("../input.json");
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 
 	std::vector<AlunoPtr> alunos;
@@ -234,7 +233,7 @@ int main() {
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 
-	geraJson::escreveJson(dir + "out.json", pCurso.get(), alunos);
+	manipulaJson::escreveJson(dir + "out.json", pCurso.get(), alunos);
 
 	// Inicialzia relógio e resolve todos os modelos
 	auto begin = std::chrono::system_clock::now();

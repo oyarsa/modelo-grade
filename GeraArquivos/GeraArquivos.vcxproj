@@ -213,15 +213,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EntradaJson.h" />
     <ClInclude Include="GeraArquivos.h" />
-    <ClInclude Include="json\json-forwards.h" />
-    <ClInclude Include="json\json.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EntradaJson.cpp" />
     <ClCompile Include="GeraArquivos.cpp" />
-    <ClCompile Include="jsoncpp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

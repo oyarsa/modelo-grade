@@ -2,7 +2,7 @@
 
 
 //! Modelo Computacao - FAGOC
-CompFagoc::CompFagoc() : Curso(46, 9, 9, 20, 24, 10, 5, 4) {
+CompFagoc::CompFagoc() : Curso(46, 9, 9, 20, 24, 0, 5, 4) {
 	init();
 }
 

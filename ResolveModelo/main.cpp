@@ -219,6 +219,7 @@ int main() {
 	//	alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoAleatorio(std::move(aluno))}));
 	//}
 	
+	std::cout << "Lendo Json...\n";
 	auto entrada = manipulaJson::lerJson("../input.json");
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 

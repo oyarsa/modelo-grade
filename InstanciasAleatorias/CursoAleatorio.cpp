@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-#include <iostream>
 
 CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
                                int numCoRequisitos, int numHorarios,
@@ -24,8 +23,8 @@ CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
 void CursoAleatorio::init() {
 	geraDisciplinas();
 	geraHorario();
-	geraProfessores();
 	geraNomeHorarios();
+	geraProfessores();
 }
 
 void CursoAleatorio::geraCreditos() {
@@ -154,25 +153,25 @@ void CursoAleatorio::geraHorario() {
 	std::vector<int> creditosAlocados(numDisciplinas_, 0);
 	std::vector<int> disciplinasAlocadas(numHorarios_, 0);
 
-	//! Executa o laço até todas as disciplinas ofertadas terem sido alocadas
-	//! em um horário
+	// Executa o laço até todas as disciplinas ofertadas terem sido alocadas
+	// em um horário
 	while (disciplinasAlocadasTotal < numOfertadas
 		|| creditosAlocadosTotal < creditosTotaisOfertados) {
-		//! Percorre todos os horários
+		// Percorre todos os horários
 		for (auto i = 0; i < numHorarios_; i++) {
-			//! Gera uma disciplina para ser alocada naquele horário
+			// Gera uma disciplina para ser alocada naquele horário
 			auto discAtual = rand.randomInt() % numDisciplinas_;
-			//! Testa se essa disciplina já teve todos os seus créditos alocados,
-			//! ou se já foi alocada nesse horário, ou então se não está sendo ofertada
+			// Testa se essa disciplina já teve todos os seus créditos alocados,
+			// ou se já foi alocada nesse horário, ou então se não está sendo ofertada
 			if (!ofertadas_[discAtual]
 				|| creditosAlocados[discAtual] >= creditos_[discAtual]
 				|| horarios_[i][discAtual]
 				|| disciplinasAlocadas[i] >= numPeriodos_) {
 				continue;
 			}
-			//! Se passar nos testes, ela é alocada para esse horário. Se ela ainda
-			//! não havia sido alocada antes, incrementa o contador de disciplinas alocadas
-			//! Depois incrementa o contador de créditos alocados dessa disciplina
+			// Se passar nos testes, ela é alocada para esse horário. Se ela ainda
+			// não havia sido alocada antes, incrementa o contador de disciplinas alocadas
+			// Depois incrementa o contador de créditos alocados dessa disciplina
 			horarios_[i][discAtual] = true;
 			if (creditosAlocados[discAtual] == 0)
 				disciplinasAlocadasTotal++;

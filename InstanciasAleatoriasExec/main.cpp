@@ -5,101 +5,109 @@
 #include <tuple>
 #include <windows.h>
 #include <memory>
-#include <iterator>
 #include <string>
+#include <ManipulaJson.h>
 
 using CursoPtr = std::unique_ptr<Curso>;
+using AlunoPtr = std::unique_ptr<Aluno>;
 
-std::tuple<CursoPtr, std::string, std::string, int> menu() {
+//! Exibe um menu e retorna as opções selecionadas para o main
+//! \return Uma triple de CursoPtr, string e int. Respectivamente, um curso,
+//! o nome da pasta de destino e o número de aluno
+std::tuple<CursoPtr, std::string, int> menu() {
 	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
-		numOfertadas, numAlunos, numProfessores, maxMinistradas,
-		numPeriodos, numDiasLetivos;
+	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
+	    numDiasLetivos, numPeriodos;
 	int opcao;
-	std::string pasta, engine;
-	CursoPtr curso;
+	std::string pasta;
+	CursoPtr pCurso;
 
+	// Exibe as opções do menu
+	std::cout << "\n\tGERADOR DE INSTNACIAS ALEATORIAS EM JSON\n";
+	std::cout << std::string(65, '*') << "\n\n";
 	std::cout << "Selecione a opcao desejada:\n\n";
-	std::cout << "1 - Valores padrao\n";
-	std::cout << "2 - Valores customizados\n";
+	std::cout << "1 - Valores aleatorios padrao\n";
+	std::cout << "2 - Valores aleatorios customizados\n";
 	std::cout << "3 - Modelo FAGOC\n";
 	std::cout << "\nOpcao: ";
 
 	while (true) {
 		std::cin >> opcao;
 		switch (opcao) {
-			case 1:
-				numDisciplinas = 50;
-				numPreRequisitos = 10;
-				numCoRequisitos = 5;
-				numHorarios = 20;
-				numOfertadas = numDisciplinas / 2;
-				numProfessores = 20;
-				maxMinistradas = 10;
-				numDiasLetivos = 5;
-				numPeriodos = 4;
+			// Se a opção for a padrão, utiliza esses valores e gera um curso aleatório
+		case 1:
+			numDisciplinas = 50;
+			numPreRequisitos = 10;
+			numCoRequisitos = 5;
+			numHorarios = 20;
+			numOfertadas = 20;
+			numProfessores = 20;
+			maxMinistradas = 10;
+			numDiasLetivos = 5;
+			numPeriodos = 4;
 
-				std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-				std::cin >> pasta;
-				std::cout << "Digite o número de alunos: ";
-				std::cin >> numAlunos;
+			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
+			std::cin >> pasta;
+			std::cout << "Digite o numero de alunos: ";
+			std::cin >> numAlunos;
 
-				engine = numDisciplinas <= 15 ? "CPLEX" : "CP";
 
-				curso = CursoPtr{new CursoAleatorio(numDisciplinas, numPreRequisitos,
-													numCoRequisitos, numHorarios,
-													numOfertadas, numProfessores,
-													maxMinistradas, numDiasLetivos,
-													numPeriodos)};
-				return std::make_tuple(std::move(curso), pasta, engine, numAlunos);
+			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
+			                                                   numCoRequisitos, numHorarios,
+			                                                   numOfertadas, numProfessores,
+			                                                   maxMinistradas, numDiasLetivos,
+			                                                   numPeriodos)};
+			return make_tuple(move(pCurso), pasta, numAlunos);
 
-			case 2:
-				std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-				std::cin >> pasta;
-				std::cout << "\nNumero de disciplinas: ";
-				std::cin >> numDisciplinas;
-				std::cout << "Numero de pre-requisitos: ";
-				std::cin >> numPreRequisitos;
-				std::cout << "Numero de co-requisitos: ";
-				std::cin >> numCoRequisitos;
-				std::cout << "Numero de horarios: ";
-				std::cin >> numHorarios;
-				std::cout << "Numero de disciplinas ofertadas no perido: ";
-				std::cin >> numOfertadas;
-				std::cout << "Numero de alunos: ";
-				std::cin >> numAlunos;
-				std::cout << "Numero de professores: ";
-				std::cin >> numProfessores;
-				std::cout << "Numero maximo de disciplinas que um professor pode ministrar: ";
-				std::cin >> maxMinistradas;
-				std::cout << "Numero de dias letivos por semana: ";
-				std::cin >> numDiasLetivos;
-				std::cout << "Numero de peridos simultaneamente ofertados: ";
-				std::cin >> numPeriodos;
+			// Caso seja desejado fornecer os valores, capitura-os e cria o curso aleatório
+		case 2:
+			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
+			std::cin >> pasta;
+			std::cout << "\nNumero de disciplinas: ";
+			std::cin >> numDisciplinas;
+			std::cout << "Numero de pre-requisitos: ";
+			std::cin >> numPreRequisitos;
+			std::cout << "Numero de co-requisitos: ";
+			std::cin >> numCoRequisitos;
+			std::cout << "Numero de horarios: ";
+			std::cin >> numHorarios;
+			std::cout << "Numero de disciplinas ofertadas no perido: ";
+			std::cin >> numOfertadas;
+			std::cout << "Numero de alunos: ";
+			std::cin >> numAlunos;
+			std::cout << "Numero de professores: ";
+			std::cin >> numProfessores;
+			std::cout << "Numero maximo de disciplinas que um professor pode ministrar: ";
+			std::cin >> maxMinistradas;
+			std::cout << "Numero de dias letivos por semana: ";
+			std::cin >> numDiasLetivos;
+			std::cout << "Numero de peridos simultaneamente ofertados: ";
+			std::cin >> numPeriodos;
 
-				engine = numDisciplinas <= 15 ? "CPLEX" : "CP";
+			if (numDiasLetivos > 7)
+				numDiasLetivos = 7;
 
-				curso = CursoPtr{new CursoAleatorio(numDisciplinas, numPreRequisitos,
-													numCoRequisitos, numHorarios,
-													numOfertadas, numProfessores,
-													maxMinistradas, numDiasLetivos,
-													numPeriodos)};
+			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
+			                                                   numCoRequisitos, numHorarios,
+			                                                   numOfertadas, numProfessores,
+			                                                   maxMinistradas, numDiasLetivos,
+			                                                   numPeriodos)};
 
-				return std::make_tuple(std::move(curso), pasta, engine, numAlunos);
+			return make_tuple(move(pCurso), pasta, numAlunos);
 
-			case 3:
-				std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-				std::cin >> pasta;
-				std::cout << "Numero de alunos: ";
-				std::cin >> numAlunos;
+			// Se for escolhido o modelo da fagoc, pede-se apenas o número de alunos
+		case 3:
+			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
+			std::cin >> pasta;
+			std::cout << "Numero de alunos: ";
+			std::cin >> numAlunos;
 
-				engine = "CP";
+			pCurso = std::unique_ptr<Curso>{new CompFagoc{}};
 
-				curso = CursoPtr{new CompFagoc()};
+			return make_tuple(move(pCurso), pasta, numAlunos);
 
-				return std::make_tuple(std::move(curso), pasta, engine, numAlunos);
-
-			default:
-				std::cout << "\nOpcao invalida. Tente de novo: ";
+		default:
+			std::cout << "\nOpcao invalida. Tente de novo: ";
 		}
 	}
 }
@@ -121,6 +129,25 @@ bool moveArquivos(std::string caminho, std::string engine) {
 	return false;
 }
 
+bool escreveArquivoJson(std::string destino, Curso const* pCurso, std::vector<AlunoPtr>& alunos) {
+	if (!CreateDirectory(destino.c_str(), nullptr))
+		return false;
+
+	return manipulaJson::escreveJson(destino + "out.json", pCurso, alunos);
+}
+
+std::vector<AlunoAleatorio> geraAlunosAleatorios(Curso const* curso, int numAlunos) {
+	std::vector<AlunoAleatorio> alunos;
+	for (auto i = 0; i < numAlunos; i++) {
+		auto aln = "aln" + std::to_string(i + 1);
+		alunos.push_back(std::move(AlunoAleatorio{
+			curso->preRequisitos(), curso->coRequisitos(), aln}));
+	}
+
+	return alunos;
+}
+
+
 bool geraAlunos(std::string destino, CursoPtr curso, int numAlunos) {
 	Instancia inst(move(curso));
 
@@ -140,36 +167,39 @@ int main() {
 	std::ios_base::sync_with_stdio(false);
 
 	auto opcoes = menu();
-	auto curso = std::get<0>(move(opcoes));
-
-	auto& professores = curso->professores();
-	std::cout << "Lista de professores:\n";
-	for (auto professor : professores) {
-		std::cout << professor.nome() << ": ";
-		auto& ministradas = professor.disciplinasMinistradas();
-		copy(std::begin(ministradas), std::end(ministradas),
-			 std::ostream_iterator<int>(std::cout, " "));
-		std::cout << "\n";
-	}
-
+	auto pCurso = std::get<0>(move(opcoes));
 	auto pasta = std::get<1>(opcoes);
-	auto engine = std::get<2>(opcoes);
-	auto numAlunos = std::get<3>(opcoes);
+	auto numAlunos = std::get<2>(opcoes);
+
+	// Vector com os alunos gerados aleatoriamente
+	auto alunosAleatorios = geraAlunosAleatorios(pCurso.get(), numAlunos);
+	std::vector<AlunoPtr> alunos;
+	for (auto& aluno : alunosAleatorios) {
+		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoAleatorio(std::move(aluno))}));
+	}
 
 	std::string dir = "C:\\Users\\Italo\\Google Drive\\Testes\\";
 	auto caminho = dir + pasta + "\\";
 
-	if (moveArquivos(caminho, engine))
-		std::cout << "\nArquivos movidos com sucesso.\n";
+	std::cout << "\n";
+	if (escreveArquivoJson(caminho, pCurso.get(), alunos)) {
+		std::cout << "Arquivo criado com sucesso.\n";
+	}
 	else {
-		std::cout << "\nFalha ao mover os arquivos. Tente novamente.\n";
-		exit(1);
+		std::cout << "Falha ao criar os arquivos.\n";
 	}
 
-	if (geraAlunos(caminho, std::move(curso), numAlunos))
-		std::cout << "\nAlunos gerados com sucesso.\n";
-	else {
-		std::cout << "\nFalha ao gerar os alunos. Tente novamente.\n";
-		exit(1);
-	}
+	//if (moveArquivos(caminho, engine))
+	//	std::cout << "\nArquivos movidos com sucesso.\n";
+	//else {
+	//	std::cout << "\nFalha ao mover os arquivos. Tente novamente.\n";
+	//	exit(1);
+	//}
+
+	//if (geraAlunos(caminho, std::move(curso), numAlunos))
+	//	std::cout << "\nAlunos gerados com sucesso.\n";
+	//else {
+	//	std::cout << "\nFalha ao gerar os alunos. Tente novamente.\n";
+	//	exit(1);
+	//}
 }

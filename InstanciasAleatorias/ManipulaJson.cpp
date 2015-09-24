@@ -4,7 +4,8 @@
 #include <unordered_map>
 #include <numeric>
 
-bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::vector<AlunoPtr>& alunos) {
+bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
+                               std::vector<AlunoPtr>& alunos) {
 	std::ofstream saida{caminho};
 
 	if (saida.bad())
@@ -52,8 +53,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::ve
 
 		if (ministradas.empty()) {
 			professorAtual["competencias"] = Json::Value(Json::arrayValue);
-		}
-		else {
+		} else {
 			for (auto& disciplina : ministradas) {
 				professorAtual["competencias"].append(nomeDisciplinas[disciplina]);
 			}
@@ -86,7 +86,6 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::ve
 	}
 
 	auto horariosDia = numHorarios / numDiasLetivos;
-
 	for (auto i = 0; i < numHorarios; i++) {
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (!horarios[i][j])
@@ -106,7 +105,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso, std::ve
 	return true;
 }
 
-std::pair<CursoEntrada, std::vector<AlunoEntrada>> 
+std::pair<CursoEntrada, std::vector<AlunoEntrada>>
 manipulaJson::lerJson(std::string nomeArquivo) {
 	// Abre o arquivo e testa se a leitura foi bem sucedida.
 	std::ifstream entrada(nomeArquivo);
@@ -144,9 +143,9 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	auto numPreRequisitos = 0;
 	auto numCoRequisitos = 0;
 	std::vector<std::vector<bool>> preRequisitos(numDisciplinas,
-												 std::vector<bool>(numDisciplinas, false));
+	                                             std::vector<bool>(numDisciplinas, false));
 	std::vector<std::vector<bool>> coRequisitos(numDisciplinas,
-												std::vector<bool>(numDisciplinas, false));
+	                                            std::vector<bool>(numDisciplinas, false));
 
 	for (auto i = 0; i < disciplinas.size(); i++) {
 		const auto& preReq = disciplinas[i]["prerequisitos"];
@@ -203,7 +202,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	// matérias ofertadas
 	auto numHorarios = numHorariosDia * numDiasLetivos;
 	std::vector<std::vector<bool>> matrizHorario(numHorarios,
-												 std::vector<bool>(numDisciplinas, false));
+	                                             std::vector<bool>(numDisciplinas, false));
 	std::vector<bool> ofertadas(numDisciplinas, false);
 
 	for (auto i = 0; i < horarios.size(); i++) {
@@ -221,12 +220,12 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	auto numOfertadas = accumulate(begin(ofertadas), end(ofertadas), 0);
 	// Cria o curso usando todos os parâmetros encontrados acima
 	CursoEntrada curso(numDisciplinas, numPreRequisitos, numCoRequisitos,
-					   numHorarios, numOfertadas, numProfessores, numDiasLetivos,
-					   numPeriodos);
+	                   numHorarios, numOfertadas, numProfessores, numDiasLetivos,
+	                   numPeriodos);
 
 	// Configura as estruturas das disciplinas e os horários do curso
 	curso.setDisciplinas(move(nomeDisc), move(preRequisitos), move(coRequisitos),
-						 move(ofertadas), move(creditos));
+	                     move(ofertadas), move(creditos));
 	curso.setHorarios(move(matrizHorario));
 	curso.setProfessores(move(vetorProfessores));
 

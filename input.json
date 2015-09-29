@@ -4,18 +4,6 @@
 		{
 			"cursadas" : 
 			[
-				"INTR",
-				"PORT",
-				"ALG1",
-				"LOGI",
-				"FMAT",
-				"NODI",
-				"ING",
-				"MADI",
-				"CALC1",
-				"CIDA",
-				"SISI",
-				"TEOC"
 			],
 			"id" : "Italo",
 			"peso" : 1,
@@ -60,22 +48,9 @@
 		{
 			"cursadas" : 
 			[
-				"INTR",
-				"PORT",
-				"ALG1",
-				"LOGI",
-				"FMAT",
-				"NODI",
-				"ING",
-				"MADI",
 				"CALC1",
-				"CIDA",
 				"SISI",
 				"ALG2",
-				"LPRO",
-				"ALG3",
-				"ORCO",
-				"CALC2",
 				"ALIN"
 			],
 			"id" : "Amanda",

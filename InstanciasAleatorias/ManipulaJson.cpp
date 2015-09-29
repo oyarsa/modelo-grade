@@ -76,10 +76,11 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		const auto& cursadas = aluno->cursadas();
 
 		for (auto j = 0; j < numDisciplinas; j++) {
-			if (!aprovacoes[j])
+			if (!aprovacoes[j]) {
 				alunoAtual["restantes"].append(nomeDisciplinas[j]);
-			if (cursadas[j])
-				alunoAtual["cursadas"].append(nomeDisciplinas[j]);
+				if (cursadas[j])
+					alunoAtual["cursadas"].append(nomeDisciplinas[j]);
+			}
 		}
 
 		raiz["alunoperfis"].append(alunoAtual);

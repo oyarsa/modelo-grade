@@ -78,7 +78,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (!aprovacoes[j])
 				alunoAtual["restantes"].append(nomeDisciplinas[j]);
-			else if (cursadas[j])
+			if (cursadas[j])
 				alunoAtual["cursadas"].append(nomeDisciplinas[j]);
 		}
 
@@ -255,11 +255,11 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 
 		// As disciplinas que o aluno cursou mas foi reprovado estão marcadas como 
 		// falso. Agora elas serão marcadas como verdadeiro na lista de cursadas.
-		//const auto& discCursadas = alunos[i]["cursadas"];
-		//for (auto j = 0; j < discCursadas.size(); j++) {
-		//	auto discIndex = discToInt[restantes[j].asString()];
-		//	cursadas[discIndex] = true;
-		//}
+		const auto& discCursadas = alunos[i]["cursadas"];
+		for (auto j = 0; j < discCursadas.size(); j++) {
+			auto discIndex = discToInt[discCursadas[j].asString()];
+			cursadas[discIndex] = true;
+		}
 
 		// Estabelece as estruturas do aluno como as lidas agora
 		aluno.setAprovacoes(move(aprovacoes));

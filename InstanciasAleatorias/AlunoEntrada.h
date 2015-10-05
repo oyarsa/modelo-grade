@@ -7,7 +7,7 @@ public:
 	//! \see Aluno.h
 	AlunoEntrada(const std::vector<std::vector<bool>>& preRequisitos,
 				 const std::vector<std::vector<bool>>& coRequisitos,
-				 const std::string& nome);
+				 const std::string& nome, int periodo, std::string turma);
 
 	//! Move constructor para a classe
 	AlunoEntrada(AlunoEntrada&& outro);

@@ -15,6 +15,8 @@ AlunoAleatorio::AlunoAleatorio(const std::vector<std::vector<bool>>& preRequisit
 void AlunoAleatorio::init() {
 	geraAprovacoes();
 	geraCursadas();
+	periodo_ = 0;
+	turma_ = "";
 }
 
 

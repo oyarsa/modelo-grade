@@ -1,0 +1,861 @@
+{
+	"alunoperfis" : 
+	[
+		{
+			"cursadas" : 
+			[
+			],
+			"id" : "Italo",
+			"peso" : 1,
+			"restantes" : 
+			[
+				"ALG2",
+				"LPRO",
+				"ALG3",
+				"ORCO",
+				"CALC2",
+				"ALIN",
+				"ANPA",
+				"PEST",
+				"GRAF",
+				"CANU",
+				"RED1",
+				"BD1",
+				"SIDI",
+				"ENS1",
+				"TWEB",
+				"BD2",
+				"CG",
+				"ENS2",
+				"LFA",
+				"SO",
+				"INOP",
+				"LAB1",
+				"PMON",
+				"METC",
+				"COMP",
+				"PDI",
+				"GEPR",
+				"LAB2",
+				"MONO",
+				"BD3",
+				"IA",
+				"RED2",
+				"TOPC",
+				"INOV"
+			]
+		},
+		{
+			"cursadas" : 
+			[
+				"CALC1",
+				"SISI",
+				"ALG2",
+				"ALIN"
+			],
+			"id" : "Amanda",
+			"peso" : 1,
+			"restantes" : 
+			[
+				"ALG2",
+				"ALIN",
+				"SISI",
+				"CALC1",
+				"ANPA",
+				"PEST",
+				"GRAF",
+				"CANU",
+				"RED1",
+				"BD1",
+				"SIDI",
+				"ENS1",
+				"TWEB",
+				"BD2",
+				"CG",
+				"ENS2",
+				"LFA",
+				"SO",
+				"INOP",
+				"LAB1",
+				"PMON",
+				"METC",
+				"COMP",
+				"PDI",
+				"GEPR",
+				"LAB2",
+				"MONO",
+				"BD3",
+				"IA",
+				"INOV",
+				"TEOC",
+				"RED2",
+				"TOPC"
+			]
+		}
+	],
+	"disciplinas" : 
+	[
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "PORT",
+			"nome" : "PORT",
+			"periodo" : 0
+		},
+		{
+			"carga" : 6,
+			"curso" : "C",
+			"id" : "ALG1",
+			"nome" : "ALG1",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "LOGI",
+			"nome" : "LOGI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "FMAT",
+			"nome" : "FMAT",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "INTR",
+			"nome" : "INTR",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "NODI",
+			"nome" : "NODI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "ING",
+			"nome" : "ING",
+			"periodo" : 0
+		},
+		{
+			"carga" : 5,
+			"curso" : "C",
+			"id" : "ALG2",
+			"nome" : "ALG2",
+			"periodo" : 0
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "MADI",
+			"nome" : "MADI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "CALC1",
+			"nome" : "CALC1",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "CIDA",
+			"nome" : "CIDA",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "SISI",
+			"nome" : "SISI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 5,
+			"curso" : "C",
+			"id" : "LPRO",
+			"nome" : "LPRO",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "ALG3",
+			"nome" : "ALG3",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"ALG2"
+			]
+		},
+		{
+			"carga" : 5,
+			"curso" : "C",
+			"id" : "ORCO",
+			"nome" : "ORCO",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "CALC2",
+			"nome" : "CALC2",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "ALIN",
+			"nome" : "ALIN",
+			"periodo" : 0
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "ANPA",
+			"nome" : "ANPA",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "PEST",
+			"nome" : "PEST",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "GRAF",
+			"nome" : "GRAF",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"ALG1"
+			]
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "CANU",
+			"nome" : "CANU",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "RED1",
+			"nome" : "RED1",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "BD1",
+			"nome" : "BD1",
+			"periodo" : 0
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "SIDI",
+			"nome" : "SIDI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "ENS1",
+			"nome" : "ENS1",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "TEOC",
+			"nome" : "TEOC",
+			"periodo" : 0
+		},
+		{
+			"carga" : 5,
+			"curso" : "C",
+			"id" : "TWEB",
+			"nome" : "TWEB",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "BD2",
+			"nome" : "BD2",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "CG",
+			"nome" : "CG",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"ALG2",
+				"ALIN"
+			]
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "ENS2",
+			"nome" : "ENS2",
+			"periodo" : 0
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "LFA",
+			"nome" : "LFA",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "SO",
+			"nome" : "SO",
+			"periodo" : 0
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "INOP",
+			"nome" : "INOP",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "LAB1",
+			"nome" : "LAB1",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"LPRO"
+			]
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "PMON",
+			"nome" : "PMON",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "METC",
+			"nome" : "METC",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "COMP",
+			"nome" : "COMP",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"LFA"
+			]
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "PDI",
+			"nome" : "PDI",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "GEPR",
+			"nome" : "GEPR",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "LAB2",
+			"nome" : "LAB2",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"LAB1"
+			]
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "MONO",
+			"nome" : "MONO",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"PMON"
+			]
+		},
+		{
+			"carga" : 3,
+			"curso" : "C",
+			"id" : "BD3",
+			"nome" : "BD3",
+			"periodo" : 0
+		},
+		{
+			"carga" : 4,
+			"curso" : "C",
+			"id" : "IA",
+			"nome" : "IA",
+			"periodo" : 0,
+			"prerequisitos" : 
+			[
+				"ALG3"
+			]
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "INOV",
+			"nome" : "INOV",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "RED2",
+			"nome" : "RED2",
+			"periodo" : 0
+		},
+		{
+			"carga" : 2,
+			"curso" : "C",
+			"id" : "TOPC",
+			"nome" : "TOPC",
+			"periodo" : 0
+		}
+	],
+	"horario" : 
+	[
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "NODI",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "CALC1",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "PEST",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "SO",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "NODI",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "CALC1",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "PEST",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "SO",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "ALG2",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "ANPA",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "IA",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "INOV",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ALG2",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ANPA",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "IA",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "INOV",
+			"semana" : 0
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "SISI",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "RED1",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "ENS2",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "TOPC",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "SISI",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "RED1",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "ENS2",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "TOPC",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "NODI",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "ALG2",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "GRAF",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "SO",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ALG2",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "GRAF",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "SO",
+			"semana" : 1
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "ALG2",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "RED1",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "LAB1",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "MADI",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "RED1",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "LAB1",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "CIDA",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "GRAF",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "LFA",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "CIDA",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "GRAF",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "LFA",
+			"semana" : 2
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "CALC1",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "BD1",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "IA",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "CALC1",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "BD1",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "IA",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "ING",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "CANU",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "INOP",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ING",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ANPA",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "INOP",
+			"semana" : 3
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "MADI",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "BD1",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 0,
+			"professordisciplina" : "ENS2",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "MADI",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "BD1",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 1,
+			"professordisciplina" : "ENS2",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "ING",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "CANU",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 2,
+			"professordisciplina" : "LFA",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "ING",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "CANU",
+			"semana" : 4
+		},
+		{
+			"camada" : 3,
+			"horario" : 3,
+			"professordisciplina" : "INOP",
+			"semana" : 4
+		}
+	],
+	"professordisciplinas" : [],
+	"professores" : []
+}

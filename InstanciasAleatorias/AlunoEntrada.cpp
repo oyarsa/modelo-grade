@@ -3,8 +3,10 @@
 
 AlunoEntrada::AlunoEntrada(const std::vector<std::vector<bool>>& preRequisitos,
                            const std::vector<std::vector<bool>>& coRequisitos,
-                           const std::string& nome)
-	: Aluno(preRequisitos, coRequisitos, nome) {}
+                           const std::string& nome, int periodo, std::string turma)
+	: Aluno(preRequisitos, coRequisitos, nome) {
+	periodo_ = periodo;
+}
 
 AlunoEntrada::AlunoEntrada(AlunoEntrada&& outro)
 	: Aluno(outro.preRequisitos_,

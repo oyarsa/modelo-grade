@@ -18,8 +18,8 @@ public:
 	//! do curso em que o aluno estuda
 	//! \param nome Nome do aluno
 	Aluno(const std::vector<std::vector<bool>>& preRequisitos,
-				   const std::vector<std::vector<bool>>& coRequisitos,
-				   std::string nome);
+	      const std::vector<std::vector<bool>>& coRequisitos,
+	      std::string nome);
 
 	//! \brief Retorna um referência const para o vetor de aprovações do aluno
 	//!  \return Referência const para o vetor de aprovações
@@ -33,6 +33,13 @@ public:
 	//! \brief Retorna o nome do aluno
 	//! \return Cópia de uma string, o nome do aluno
 	std::string nome() const;
+
+	//! \brief Retorna o período em que o aluno está
+	//! \return Int, período do aluno
+	int periodo() const;
+
+	//! \brief Retorna a turma em que o aluno começou o curso
+	std::string turma() const;
 
 protected:
 	//! Número de disciplinas do curso
@@ -51,4 +58,8 @@ protected:
 	std::vector<bool> aprovacoes_;
 	//! Vetor de disciplinas que o aluno cursou
 	std::vector<bool> cursadas_;
+	//! Período em que o aluno está
+	int periodo_;
+	//! Turma em que o aluno começou o curso
+	std::string turma_;
 };

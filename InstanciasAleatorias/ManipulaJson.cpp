@@ -239,7 +239,10 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		// Pega o nome do aluno e cria um objeto com esse nome e as disciplinas do
 		// curso que acabou de ser lido
 		auto nome = alunos[i]["id"].asString();
-		AlunoEntrada aluno{curso.preRequisitos(), curso.coRequisitos(), nome};
+		auto periodo = alunos[i]["periodo"].asInt();
+		auto turma = alunos[i]["turma"].asString();
+		AlunoEntrada aluno{curso.preRequisitos(), curso.coRequisitos(), nome,
+		                   periodo, turma};
 
 		// Inicializa uma lista de aprovações, com todas as disciplinas verdadeiras
 		// aquelas na lista de "restantes" serão marcadas com falso

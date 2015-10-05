@@ -77,6 +77,19 @@ public:
 	//! \return Inteiro, número de professores do curso
 	int numProfessores() const;
 
+	//! Retorna uma referência const para a matriz de equivalências do curso
+	//! \return Vector de vector de bools, indicando quais disciplinas
+	//! são equivalente umas às outras
+	const std::vector<std::vector<bool>>& equivalencias() const;
+
+	//! Retorna referência const para um vetor de turmas para cada disciplina
+	//! \return Vector de strings
+	const std::vector<std::pair<int, std::string>>& discTurma() const;
+
+	//! Retorna um vector de capacidades de cada disciplina do curso
+	//! \return Vector de ints
+	const std::vector<int>& capacidades() const;
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -110,6 +123,12 @@ protected:
 	int numDiasLetivos_;
 	//! Número de períodos simultâneos no curso
 	int numPeriodos_;
+	//! Matriz de equivalência entre disciplinas
+	std::vector<std::vector<bool>> equivalencias_;
+	//! Vetor de pares disciplina - turma
+	std::vector<std::pair<int, std::string>> discTurma_;
+	//! Vetor de capacidade de cada disciplina
+	std::vector<int> capacidades_;
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();

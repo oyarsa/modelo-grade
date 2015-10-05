@@ -4,9 +4,7 @@
 AlunoEntrada::AlunoEntrada(const std::vector<std::vector<bool>>& preRequisitos,
                            const std::vector<std::vector<bool>>& coRequisitos,
                            const std::string& nome, int periodo, std::string turma)
-	: Aluno(preRequisitos, coRequisitos, nome) {
-	periodo_ = periodo;
-}
+	: Aluno(preRequisitos, coRequisitos, nome, periodo, turma) {}
 
 AlunoEntrada::AlunoEntrada(AlunoEntrada&& outro)
 	: Aluno(outro.preRequisitos_,
@@ -17,6 +15,8 @@ AlunoEntrada::AlunoEntrada(AlunoEntrada&& outro)
 	numCursadas = outro.numCursadas;
 	aprovacoes_ = move(outro.aprovacoes_);
 	cursadas_ = move(outro.cursadas_);
+	periodo_ = outro.periodo_;
+	turma_ = move(outro.turma_);
 }
 
 void AlunoEntrada::setAprovacoes(std::vector<bool>&& aprovacoes) {

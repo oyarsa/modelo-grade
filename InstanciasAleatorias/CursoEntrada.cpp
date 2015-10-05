@@ -22,18 +22,26 @@ CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	horarios_ = move(outro.horarios_);
 	nomeHorarios_ = move(outro.nomeHorarios_);
 	professores_ = move(outro.professores_);
+	equivalencias_ = move(outro.equivalencias_);
+	discTurma_ = move(outro.discTurma_);
 }
 
 void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
                                   std::vector<std::vector<bool>>&& preRequisitos,
                                   std::vector<std::vector<bool>>&& coRequisitos,
                                   std::vector<bool>&& ofertadas,
-                                  std::vector<int>&& creditos) {
+                                  std::vector<int>&& creditos,
+								  std::vector<std::vector<bool>>&& equivalencias,
+								  std::vector<std::pair<int, std::string>>&& discTurma,
+								  std::vector<int>&& capacidades) {
 	nomeDisciplinas_ = move(nomeDisciplinas);
 	preRequisitos_ = move(preRequisitos);
 	coRequisitos_ = move(coRequisitos);
 	ofertadas_ = move(ofertadas);
 	creditos_ = move(creditos);
+	equivalencias_ = move(equivalencias);
+	discTurma_ = move(discTurma);
+	capacidades_ = move(capacidades);
 }
 
 void CursoEntrada::setHorarios(std::vector<std::vector<bool>>&& horarios) {

@@ -3,6 +3,7 @@
 #include "SolverHandler.h"
 #include <Instancia.h>
 #include <ilcp/cp.h>
+#include <cstdio>
 
 SolverHandler::SolverHandler(Curso const* curso, AlunoPtr aluno)
 	: curso_{curso},
@@ -20,12 +21,34 @@ void SolverHandler::solve() {
 	const auto& coRequisitos = curso_->coRequisitos();
 	const auto& horarios = curso_->horarios();
 	const auto& ofertadas = curso_->ofertadas();
+	const auto& equivalencias = curso_->equivalencias();
+	const auto& discTurma = curso_->discTurma();
 	const auto numDisciplinas = curso_->numDisciplinas();
 	const auto numHorarios = curso_->numHorarios();
 
 	// Variáveis do aluno
 	const auto& aprovacoes = aluno_->aprovacoes();
 	const auto& cursadas = aluno_->cursadas();
+	const auto& periodoAluno = aluno_->periodo();
+	const auto& turmaAluno = aluno_->turma();
+
+	std::vector<bool> pref(numDisciplinas, false);
+
+	printf("Aluno: %s\n", aluno_->nome().c_str());
+	printf("Periodo: %d Turma: %s\n", periodoAluno, turmaAluno.c_str());
+
+	for (auto i = 0; i < numDisciplinas; i++) {
+		const auto& periodoDisc = discTurma[i].first;
+		const auto& turmaDisc = discTurma[i].second;
+
+		printf("Periodo disc: %d Turma disc: %s\n", periodoDisc, turmaDisc.c_str());
+
+		if (periodoDisc == periodoAluno && turmaDisc == turmaAluno) {
+			pref[i] = true;
+			std::cout << "Entrou\n";
+		}
+	}
+
 
 	// ------ Elaboração do modelo ----------
 	IloModel mod(env);
@@ -34,10 +57,16 @@ void SolverHandler::solve() {
 	IloBoolVarArray y(env, numDisciplinas);
 
 	// Função objetivo
-	IloExpr obj(env);
+	IloExpr carga(env);
 	for (auto d = 0; d < numDisciplinas; d++) {
-		obj += creditos[d] * y[d];
+		carga += creditos[d] * y[d];
 	}
+	IloExpr mesmaTurma(env);
+	for (auto d = 0; d < numDisciplinas; d++) {
+		mesmaTurma += y[d] * pref[d];
+	}
+	IloExpr obj(env);
+	obj += carga + 0.1 * mesmaTurma;
 	mod.add(IloMaximize(env, obj));
 	obj.end();
 
@@ -111,6 +140,7 @@ void SolverHandler::solve() {
 		cp.getValues(y, solucao);
 	}
 
+	std::cout << aluno_->nome() << "> " << valorFinal_ << '\n';
 	// Atribui resposta às variáveis membro
 	for (auto d = 0; d < numDisciplinas; d++) {
 		if (solucao[d]) {
@@ -128,8 +158,8 @@ std::vector<std::string> SolverHandler::disciplinas() const {
 	return disciplinas_;
 }
 
-int SolverHandler::valorFinal() const {
-	return static_cast<int>(valorFinal_);
+double SolverHandler::valorFinal() const {
+	return valorFinal_;
 }
 
 SolverHandler::~SolverHandler() {

@@ -20,7 +20,10 @@ Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	  horarios_(numHorarios, std::vector<bool>(numDisciplinas, false)),
 	  professores_(),
 	  numDiasLetivos_(numDiasLetivos),
-	  numPeriodos_(numPeriodos) {
+	  numPeriodos_(numPeriodos),
+	  equivalencias_(numDisciplinas, std::vector<bool>(numDisciplinas, false)),
+	  discTurma_(numDisciplinas),
+	  capacidades_(numDisciplinas) {
 
 	nomeDisciplinas_.reserve(numDisciplinas);
 	nomeHorarios_.reserve(numHorarios);
@@ -83,4 +86,16 @@ int Curso::numDiasLetivos() const {
 
 int Curso::numProfessores() const {
 	return numProfessores_;
+}
+
+const std::vector<std::vector<bool>>& Curso::equivalencias() const {
+	return equivalencias_;
+}
+
+const std::vector<std::pair<int, std::string>>& Curso::discTurma() const {
+	return discTurma_;
+}
+
+const std::vector<int>& Curso::capacidades() const {
+	return capacidades_;
 }

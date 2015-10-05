@@ -5,70 +5,105 @@
             "nome":"A1",
             "carga":2,
             "periodo":1,
+			"turma": "A",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"B",
             "nome":"B",
             "carga":1,
             "periodo":1,
+			"turma": "A",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"C",
             "nome":"C",
             "carga":1,
             "periodo":1,
+			"turma": "B",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"D",
             "nome":"D",
             "carga":1,
             "periodo":1,
+			"turma": "B",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"A2",
             "nome":"A2",
             "carga":2,
             "periodo":2,
+			"turma": "B",
             "curso":"C",
             "prerequisitos":[  
                 "A1"
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"E",
             "nome":"E",
             "carga":2,
             "periodo":2,
+			"turma": "B",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         },
         {  
             "id":"F",
             "nome":"F",
             "carga":2,
             "periodo":2,
+			"turma": "A",
             "curso":"C",
             "prerequisitos":[  
 
-            ]
+            ],
+			"equivalentes": [
+			
+			],
+			"capacidade": 10
         }
     ],
     "professores":[  
@@ -188,7 +223,7 @@
             ],
             "cursadas":[  
                 "A1"
-            ]
+            ],
 			"turma": "B",
 			"periodo": 4
         },
@@ -217,7 +252,7 @@
                 "A1"
             ],
 			"turma": "B",
-			"periodo", 3
+			"periodo": 3
         }
     ],
     "horario":[  

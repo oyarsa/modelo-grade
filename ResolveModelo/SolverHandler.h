@@ -25,7 +25,7 @@ public:
 	//! solve() ainda não foi chamado
 	//! \return Um inteiro que representa a soma dos créditos das
 	//! disciplinas selecionadas
-	int valorFinal() const;
+	double valorFinal() const;
 	//! Termina o ambiente do solver
 	~SolverHandler();
 	//! Ponteiro observador para o aluno

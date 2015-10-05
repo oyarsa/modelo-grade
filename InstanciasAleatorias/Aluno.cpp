@@ -2,7 +2,7 @@
 
 Aluno::Aluno(const std::vector<std::vector<bool>>& preRequisitos,
              const std::vector<std::vector<bool>>& coRequisitos,
-             std::string nome)
+             std::string nome, int periodo, std::string turma)
 	: numDisciplinas(preRequisitos.size()),
 	  numAprovacoes(),
 	  numCursadas(),
@@ -11,8 +11,8 @@ Aluno::Aluno(const std::vector<std::vector<bool>>& preRequisitos,
 	  nome_(nome),
 	  aprovacoes_(numDisciplinas),
 	  cursadas_(),
-	  periodo_(),
-	  turma_() {}
+	  periodo_(periodo),
+	  turma_(turma) {}
 
 std::string Aluno::nome() const {
 	return nome_;

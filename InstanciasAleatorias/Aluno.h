@@ -19,7 +19,7 @@ public:
 	//! \param nome Nome do aluno
 	Aluno(const std::vector<std::vector<bool>>& preRequisitos,
 	      const std::vector<std::vector<bool>>& coRequisitos,
-	      std::string nome);
+	      std::string nome, int periodo=0, std::string turma="");
 
 	//! \brief Retorna um referência const para o vetor de aprovações do aluno
 	//!  \return Referência const para o vetor de aprovações

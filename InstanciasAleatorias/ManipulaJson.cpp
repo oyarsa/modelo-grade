@@ -3,6 +3,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <numeric>
+#include <iostream>
 
 bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
                                std::vector<AlunoPtr>& alunos) {
@@ -147,9 +148,14 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	                                             std::vector<bool>(numDisciplinas, false));
 	std::vector<std::vector<bool>> coRequisitos(numDisciplinas,
 	                                            std::vector<bool>(numDisciplinas, false));
+	std::vector<std::vector<bool>> equivalencias(numDisciplinas,
+												std::vector<bool>(numDisciplinas, false));
+	std::vector<std::pair<int, std::string>> discTurma(numDisciplinas);
+	std::vector<int> capacidade(numDisciplinas);
 
 	for (auto i = 0; i < disciplinas.size(); i++) {
 		const auto& preReq = disciplinas[i]["prerequisitos"];
+		const auto& equivalentes = disciplinas[i]["equivalentes"];
 		auto discAtual = discToInt[disciplinas[i]["id"].asString()];
 
 		numPreRequisitos += preReq.size();
@@ -157,6 +163,13 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 			auto preReqAtual = discToInt[preReq[j].asString()];
 			preRequisitos[discAtual][preReqAtual] = true;
 		}
+		for (auto j = 0; j < equivalentes.size(); j++) {
+			auto equivAtual = discToInt[equivalentes[j].asString()];
+			equivalencias[discAtual][equivAtual] = true;
+		}
+		discTurma[discAtual].first = disciplinas[i]["periodo"].asInt();
+		discTurma[discAtual].second = disciplinas[i]["turma"].asString();
+		capacidade[discAtual] = disciplinas[i]["capacidade"].asInt();
 	}
 
 	// Cria os professores e os insere na lista de professores do curso
@@ -226,7 +239,8 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 
 	// Configura as estruturas das disciplinas e os horários do curso
 	curso.setDisciplinas(move(nomeDisc), move(preRequisitos), move(coRequisitos),
-	                     move(ofertadas), move(creditos));
+	                     move(ofertadas), move(creditos), move(equivalencias), move(discTurma),
+						 move(capacidade));
 	curso.setHorarios(move(matrizHorario));
 	curso.setProfessores(move(vetorProfessores));
 

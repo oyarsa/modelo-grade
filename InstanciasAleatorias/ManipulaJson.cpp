@@ -41,7 +41,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (preRequisitos[i][j])
 				disciplinaAtual["prerequisitos"].append(nomeDisciplinas[j]);
-			if (equivalencias[i][j])
+			if (i != j && equivalencias[i][j])
 				disciplinaAtual["equivalentes"].append(nomeDisciplinas[j]);
 		}
 

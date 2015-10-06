@@ -23,7 +23,8 @@ Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	  numPeriodos_(numPeriodos),
 	  equivalencias_(numDisciplinas, std::vector<bool>(numDisciplinas, false)),
 	  discTurma_(numDisciplinas),
-	  capacidades_(numDisciplinas) {
+	  capacidades_(numDisciplinas, 0),
+	  alocados_(numDisciplinas, 0) {
 
 	nomeDisciplinas_.reserve(numDisciplinas);
 	nomeHorarios_.reserve(numHorarios);
@@ -98,4 +99,19 @@ const std::vector<std::pair<int, std::string>>& Curso::discTurma() const {
 
 const std::vector<int>& Curso::capacidades() const {
 	return capacidades_;
+}
+
+void Curso::atualiza(const std::vector<bool>& escolhidas) {
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		if (escolhidas[i])
+			alocados_[i]++;
+
+		if (alocados_[i] == capacidades_[i]) {
+			ofertadas_[i] = false;
+			for (auto h = 0; h < numHorarios_; h++) {
+				horarios_[h][i] = false;
+			}
+		}
+
+	}
 }

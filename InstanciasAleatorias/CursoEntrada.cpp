@@ -24,6 +24,7 @@ CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	professores_ = move(outro.professores_);
 	equivalencias_ = move(outro.equivalencias_);
 	discTurma_ = move(outro.discTurma_);
+	capacidades_ = move(outro.capacidades_);
 }
 
 void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,

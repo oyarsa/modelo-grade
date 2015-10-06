@@ -179,6 +179,8 @@ bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso,
 											  pCurso->numDisciplinas(), pCurso->numHorarios(), 
 											  pCurso->numPeriodos(), pCurso->numDiasLetivos())
 				<< "\n\n";
+
+		pCurso->atualiza(solver.solucao());
 	}
 
 	// Cria as streams de escrita dos arquivo
@@ -242,8 +244,7 @@ int main() {
 	std::cout << "\n";
 	if (!resolveAlunos(dir, pasta, std::move(pCurso), alunos)) {
 		std::cout << "Nao foi possivel criar a pasta.\n\n";
-	}
-	else {
+	} else {
 		std::cout << "Modelos resolvidos com sucesso.\n\n";
 	}
 

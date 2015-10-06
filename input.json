@@ -1,11 +1,11 @@
 {
-	"alunoperfis" : 
+	"alunoperfis" :
 	[
 		{
 			"id" : "NOVO",
 			"periodo" : 1,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"B",
@@ -21,7 +21,7 @@
 			"id" : "PAU",
 			"periodo" : 2,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"A2",
@@ -34,7 +34,7 @@
 			"id" : "PASSOU",
 			"periodo" : 4,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A2",
 				"E",
@@ -46,7 +46,7 @@
 			"id" : "GRADE",
 			"periodo" : 3,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"B",
@@ -58,7 +58,7 @@
 			"id" : "GRADE_PARCIAL",
 			"periodo" : 3,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A2",
 				"E"
@@ -66,106 +66,77 @@
 			"turma" : "B"
 		}
 	],
-	"disciplinas" : 
+	"disciplinas" :
 	[
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"A1"
-			],
 			"id" : "A1",
 			"nome" : "A1",
 			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 1,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"B"
-			],
 			"id" : "B",
 			"nome" : "B",
 			"periodo" : 1,
 			"turma" : "A"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 1,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"C"
-			],
 			"id" : "C",
 			"nome" : "C",
 			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 1,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"D"
-			],
 			"id" : "D",
 			"nome" : "D",
 			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"A2"
-			],
 			"id" : "A2",
 			"nome" : "A2",
 			"periodo" : 2,
-			"prerequisitos" : 
+			"prerequisitos" :
 			[
 				"A1"
 			],
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"E",
-				"F"
-			],
 			"id" : "E",
 			"nome" : "E",
 			"periodo" : 1,
 			"turma" : "A"
 		},
 		{
-			"capacidade" : 0,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"F"
-			],
 			"id" : "F",
 			"nome" : "F",
 			"periodo" : 2,
 			"turma" : "A"
 		}
 	],
-	"horario" : 
+	"horario" :
 	[
 		{
 			"camada" : 0,
@@ -235,10 +206,10 @@
 		}
 	],
 	"professordisciplinas" : [],
-	"professores" : 
+	"professores" :
 	[
 		{
-			"competencias" : 
+			"competencias" :
 			[
 				"A1",
 				"A2"
@@ -248,7 +219,7 @@
 			"nome" : "P1"
 		},
 		{
-			"competencias" : 
+			"competencias" :
 			[
 				"B",
 				"E",
@@ -259,7 +230,7 @@
 			"nome" : "P2"
 		},
 		{
-			"competencias" : 
+			"competencias" :
 			[
 				"C",
 				"D"

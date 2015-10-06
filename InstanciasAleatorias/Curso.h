@@ -90,6 +90,10 @@ public:
 	//! \return Vector de ints
 	const std::vector<int>& capacidades() const;
 
+	//! Atualiza as disciplinas ofertadas pelo curso, de acordo com as que foram
+	//! escolhidas para o aluno, desabilitando as que alcançarem a capacidade máxima
+	void atualiza(const std::vector<bool>& escolhidas);
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -129,6 +133,8 @@ protected:
 	std::vector<std::pair<int, std::string>> discTurma_;
 	//! Vetor de capacidade de cada disciplina
 	std::vector<int> capacidades_;
+	//! Alunos alocados em cada disciplina
+	std::vector<int> alocados_;
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();

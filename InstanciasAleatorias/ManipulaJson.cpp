@@ -3,7 +3,6 @@
 #include <fstream>
 #include <unordered_map>
 #include <numeric>
-#include <iostream>
 
 bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
                                std::vector<AlunoPtr>& alunos) {
@@ -18,6 +17,8 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 	const auto& nomeDisciplinas = pCurso->nomeDisciplinas();
 	const auto& creditos = pCurso->creditos();
 	const auto& preRequisitos = pCurso->preRequisitos();
+	const auto& equivalencias = pCurso->equivalencias();
+	const auto& discTurma = pCurso->discTurma();
 	const auto& horarios = pCurso->horarios();
 	const auto& professores = pCurso->professores();
 	const auto numDisciplinas = pCurso->numDisciplinas();
@@ -31,12 +32,15 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		disciplinaAtual["id"] = nomeDisciplinas[i];
 		disciplinaAtual["nome"] = nomeDisciplinas[i];
 		disciplinaAtual["carga"] = creditos[i];
-		disciplinaAtual["periodo"] = 0;
+		disciplinaAtual["periodo"] = discTurma[i].first;
+		disciplinaAtual["turma"] = discTurma[i].second;
 		disciplinaAtual["curso"] = "C";
 
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (preRequisitos[i][j])
 				disciplinaAtual["prerequisitos"].append(nomeDisciplinas[j]);
+			if (equivalencias[i][j])
+				disciplinaAtual[i]["equivalentes"].append(nomeDisciplinas[j]);
 		}
 
 		raiz["disciplinas"].append(disciplinaAtual);
@@ -72,6 +76,8 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		Json::Value alunoAtual;
 		alunoAtual["id"] = aluno->nome();
 		alunoAtual["peso"] = 1;
+		alunoAtual["turma"] = aluno->turma();
+		alunoAtual["periodo"] = aluno->periodo();
 
 		const auto& aprovacoes = aluno->aprovacoes();
 		const auto& cursadas = aluno->cursadas();
@@ -167,6 +173,9 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 			auto equivAtual = discToInt[equivalentes[j].asString()];
 			equivalencias[discAtual][equivAtual] = true;
 		}
+
+		equivalencias[discAtual][discAtual] = true;
+
 		discTurma[discAtual].first = disciplinas[i]["periodo"].asInt();
 		discTurma[discAtual].second = disciplinas[i]["turma"].asString();
 		capacidade[discAtual] = disciplinas[i]["capacidade"].asInt();

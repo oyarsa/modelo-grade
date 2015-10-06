@@ -3,7 +3,6 @@
 #include "SolverHandler.h"
 #include <Instancia.h>
 #include <ilcp/cp.h>
-#include <cstdio>
 
 SolverHandler::SolverHandler(Curso const* curso, AlunoPtr aluno)
 	: curso_{curso},
@@ -34,18 +33,12 @@ void SolverHandler::solve() {
 
 	std::vector<bool> pref(numDisciplinas, false);
 
-	printf("Aluno: %s\n", aluno_->nome().c_str());
-	printf("Periodo: %d Turma: %s\n", periodoAluno, turmaAluno.c_str());
-
 	for (auto i = 0; i < numDisciplinas; i++) {
 		const auto& periodoDisc = discTurma[i].first;
 		const auto& turmaDisc = discTurma[i].second;
 
-		printf("Periodo disc: %d Turma disc: %s\n", periodoDisc, turmaDisc.c_str());
-
 		if (periodoDisc == periodoAluno && turmaDisc == turmaAluno) {
 			pref[i] = true;
-			std::cout << "Entrou\n";
 		}
 	}
 
@@ -79,8 +72,11 @@ void SolverHandler::solve() {
 		for (auto p = 0; p < numDisciplinas; p++) {
 			if (preRequisitos[d][p]) {
 				numPreRequisitos++;
-				if (aprovacoes[p]) {
-					preReqAprovados++;
+				for (auto i = 0; i < numDisciplinas; i++) {
+					if (equivalencias[p][i] && aprovacoes[i]) {
+						preReqAprovados++;
+						break;
+					}
 				}
 			}
 		}
@@ -91,9 +87,26 @@ void SolverHandler::solve() {
 	for (auto d = 0; d < numDisciplinas; d++) {
 		for (auto c = 0; c < numDisciplinas; c++) {
 			if (coRequisitos[d][c]) {
-				mod.add(y[d] <= y[c] + cursadas[c]);
+				auto coReqCumprido = false;
+				for (auto i = 0; i < numDisciplinas; i++) {
+					if (equivalencias[c][i] && cursadas[i]) {
+						coReqCumprido = true;
+						break;
+					}
+				}
+				mod.add(y[d] <= y[c] + coReqCumprido);
 			}
 		}
+	}
+
+	// Disciplinas equivalentes
+	for (auto d = 0; d < numDisciplinas; d++) {
+		IloExpr disciplinasEquivalentes(env);
+		for (auto e = 0; e < numDisciplinas; e++) {
+			disciplinasEquivalentes += equivalencias[d][e] * y[e];
+		}
+		mod.add(disciplinasEquivalentes <= 1);
+		disciplinasEquivalentes.end();
 	}
 
 	// Cria as restrições dos horários
@@ -108,7 +121,14 @@ void SolverHandler::solve() {
 
 	// Disciplinas já aprovadas
 	for (auto d = 0; d < numDisciplinas; d++) {
-		mod.add(y[d] <= 1 - aprovacoes[d]);
+		auto aprovadoEquivalente = false;
+		for (auto i = 0; i < numDisciplinas; i++) {
+			if (equivalencias[d][i] && aprovacoes[i]) {
+				aprovadoEquivalente = true;
+				break;
+			}
+		}
+		mod.add(y[d] <= 1 - aprovadoEquivalente);
 	}
 
 	// Disciplinas ofertadas
@@ -140,7 +160,6 @@ void SolverHandler::solve() {
 		cp.getValues(y, solucao);
 	}
 
-	std::cout << aluno_->nome() << "> " << valorFinal_ << '\n';
 	// Atribui resposta às variáveis membro
 	for (auto d = 0; d < numDisciplinas; d++) {
 		if (solucao[d]) {

@@ -225,7 +225,7 @@ int main() {
 
 	std::vector<AlunoPtr> alunos;
 	for (auto& aluno : entrada.second) {
-		printf("%d %s\n", aluno.periodo(), aluno.turma().c_str());
+//		printf("Aluno %d, %s, %s\n", aluno.periodo(), aluno.nome().c_str(), aluno.turma().c_str());
 		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
 	}
 		

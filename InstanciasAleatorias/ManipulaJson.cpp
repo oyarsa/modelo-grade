@@ -19,6 +19,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 	const auto& preRequisitos = pCurso->preRequisitos();
 	const auto& equivalencias = pCurso->equivalencias();
 	const auto& discTurma = pCurso->discTurma();
+	const auto& capacidades = pCurso->capacidades();
 	const auto& horarios = pCurso->horarios();
 	const auto& professores = pCurso->professores();
 	const auto numDisciplinas = pCurso->numDisciplinas();
@@ -35,12 +36,13 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		disciplinaAtual["periodo"] = discTurma[i].first;
 		disciplinaAtual["turma"] = discTurma[i].second;
 		disciplinaAtual["curso"] = "C";
+		disciplinaAtual["capacidade"] = capacidades[i];
 
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (preRequisitos[i][j])
 				disciplinaAtual["prerequisitos"].append(nomeDisciplinas[j]);
 			if (equivalencias[i][j])
-				disciplinaAtual[i]["equivalentes"].append(nomeDisciplinas[j]);
+				disciplinaAtual["equivalentes"].append(nomeDisciplinas[j]);
 		}
 
 		raiz["disciplinas"].append(disciplinaAtual);
@@ -102,7 +104,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 			Json::Value horarioAtual;
 			horarioAtual["horario"] = i % horariosDia;
 			horarioAtual["semana"] = i / horariosDia;
-			horarioAtual["camada"] = numPeriodos - 1;
+			horarioAtual["camada"] = discTurma[j].first - 1;
 			horarioAtual["professordisciplina"] = nomeDisciplinas[j];
 
 			raiz["horario"].append(horarioAtual);

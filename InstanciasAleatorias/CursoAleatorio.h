@@ -41,8 +41,16 @@ private:
 	void geraHorario();
 	//! Gera aleatoriamente os professores do curso
 	void geraProfessores();
+	bool isEquivalente(int disc1, int disc2) const;
 	//! Gera aleatoriamente o número de disciplinas que cada professor ministra
 	void distribuiProfessores();
+	//! Gera a matriz de equivalências das disciplinas
+	void geraEquivalencia();
+	//! Gera a turma de cada disciplina
+	void geraDiscTurma();
+	//! Gera a capacidade das disciplinas
+	void geraCapacidades();
+
 	//! Número máximo de disciplinas que um professor pode ministrar
 	int maxMinistradas;
 	//! Número máximo de professores que podem ministrar uma disciplina
@@ -51,4 +59,12 @@ private:
 	int creditosTotaisOfertados;
 	//! Funções para geração de números aleatórios
 	Aleatorio rand;
+	//! Número máximo de turmas por disciplina
+	int numTurmas_;
+	//! Número de períodos do curso
+	int numPeriodos_;
+	//! Capacidade máxima de uma aula do curso
+	int capacidadeMaxima_;
+	//! Quantidade mínima de alunos em uma aula
+	int capacidadeMinima_;
 };

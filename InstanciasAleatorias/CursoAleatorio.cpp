@@ -247,3 +247,69 @@ void CursoAleatorio::geraProfessores() {
 
 	}
 }
+
+bool CursoAleatorio::isEquivalente(int disc1, int disc2) const {
+	// Executa um 'xor' dos pré-requisitos e co-requisitos
+	// Se as disciplinas tiverem exatamente os mesmos pré-
+	// e co-requisitos, elas são equivalentes
+
+	auto incompativel = [&, this](int d) -> bool {
+		// Essa linha é um xor. Se os dois forem falsos, o resultado
+		// é 0, assim como se os dois forem verdadeiros. Se apenas
+		// um for verdadeiro, o resutlado é 1
+		auto incompatPreReq = (preRequisitos_[disc1][d]
+			+ preRequisitos_[disc2][d]) % 2;
+		auto incompatCoReq = (coRequisitos_[disc1][d]
+			+ coRequisitos_[disc2][d]) % 2;
+
+		// Como duas disciplinas são compatíveis para uma terceira
+		// se e apenas se essa terceira for prerequisito das duas,
+		// ou corequisitos das duas, ou não for nade de nenhuma das duas,
+		// qualquer coisa diferente é uma incompatibilidade
+		return incompatCoReq || incompatPreReq;
+	};
+
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		if (incompativel(i)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void CursoAleatorio::geraEquivalencia() {
+	// Percorre todas as combinações possíveis de disciplinas, e verifica
+	// se seus pre- e co-requisitos são idênticos. Se forem, marca
+	// como equivalentes
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		for (auto j = 0; j < numDisciplinas_; j++) {
+			if (isEquivalente(i, j)) {
+				equivalencias_[i][j] = true;
+			}
+		}
+	}
+}
+
+void CursoAleatorio::geraDiscTurma() {
+	auto numToLetra = [](int num) {
+		char letra = 'A' + num;
+		return std::string{letra};
+	};
+
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		auto turma = numToLetra(rand.randomInt() % numTurmas_);
+		auto periodo = rand.randomInt() % numPeriodos_;
+
+		discTurma_[i].first = periodo;
+		discTurma_[i].second = turma;
+	}
+
+}
+
+void CursoAleatorio::geraCapacidades() {
+	auto diferenca = capacidadeMaxima_ - capacidadeMinima_;
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		capacidades_[i] = capacidadeMinima_ + 
+			(rand.randomInt() % (diferenca + 1));
+	}
+}

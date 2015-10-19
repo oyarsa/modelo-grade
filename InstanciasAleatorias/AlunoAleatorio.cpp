@@ -54,6 +54,10 @@ void AlunoAleatorio::geraAprovacoes() {
 	}
 }
 
+void AlunoAleatorio::geraTurma() {
+	
+}
+
 void AlunoAleatorio::geraCursadas() {
 	//! Gera aleatoriamente o número de disciplinas cursadas, e depois subtrai o número de
 	//! aprovadas para verificar se sobrou alguma, ou seja, se o aluno já foi reprovado em alguma.

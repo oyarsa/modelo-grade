@@ -78,16 +78,16 @@ public:
 	int numProfessores() const;
 
 	//! Retorna uma referência const para a matriz de equivalências do curso
-	//! \return Vector de vector de bools, indicando quais disciplinas
+	//! \return Const ref para um vector de vector de bools, indicando quais disciplinas
 	//! são equivalente umas às outras
 	const std::vector<std::vector<bool>>& equivalencias() const;
 
 	//! Retorna referência const para um vetor de turmas para cada disciplina
-	//! \return Vector de strings
+	//! \return Const ref para vector de strings
 	const std::vector<std::pair<int, std::string>>& discTurma() const;
 
 	//! Retorna um vector de capacidades de cada disciplina do curso
-	//! \return Vector de ints
+	//! \return Cosnt ref para vector de ints
 	const std::vector<int>& capacidades() const;
 
 	//! Atualiza as disciplinas ofertadas pelo curso, de acordo com as que foram

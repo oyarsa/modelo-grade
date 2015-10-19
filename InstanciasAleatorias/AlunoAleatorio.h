@@ -33,4 +33,6 @@ private:
 	void geraAprovacoes();
 	//! Funções para geração de números aleatórios
 	Aleatorio rand;
+	//! Gera o período e a turma do aluno
+	void geraTurma();
 };

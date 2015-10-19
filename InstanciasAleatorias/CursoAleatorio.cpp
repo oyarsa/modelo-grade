@@ -291,11 +291,15 @@ void CursoAleatorio::geraEquivalencia() {
 }
 
 void CursoAleatorio::geraDiscTurma() {
+	// Converte um número maior ou igual a zero em uma letra
 	auto numToLetra = [](int num) {
 		char letra = 'A' + num;
 		return std::string{letra};
 	};
 
+	// Percorre as disciplinas, gerando aleatoriamente um número
+	// que será convertido em uma turma, e um período. Estes serão
+	// atribuídos a disciplina 'i'
 	for (auto i = 0; i < numDisciplinas_; i++) {
 		auto turma = numToLetra(rand.randomInt() % numTurmas_);
 		auto periodo = rand.randomInt() % numPeriodos_;
@@ -307,6 +311,8 @@ void CursoAleatorio::geraDiscTurma() {
 }
 
 void CursoAleatorio::geraCapacidades() {
+	// Gera um número no intervalo [min, max] e atribui à capacidade
+	// da disciplina
 	auto diferenca = capacidadeMaxima_ - capacidadeMinima_;
 	for (auto i = 0; i < numDisciplinas_; i++) {
 		capacidades_[i] = capacidadeMinima_ + 

@@ -9,9 +9,9 @@ AlunoAleatorio::AlunoAleatorio(const std::vector<std::vector<bool>>& preRequisit
 							   int numPeriodos,
 							   int numTurmas)
 	: Aluno(preRequisitos, coRequisitos, nome)
+	, rand()
 	, numPeriodos_(numPeriodos)
-	, numTurmas_(numTurmas)
-	, rand() {
+	, numTurmas_(numTurmas) {
 
 	init();
 }
@@ -19,8 +19,7 @@ AlunoAleatorio::AlunoAleatorio(const std::vector<std::vector<bool>>& preRequisit
 void AlunoAleatorio::init() {
 	geraAprovacoes();
 	geraCursadas();
-	periodo_ = 0;
-	turma_ = "";
+	geraTurma();
 }
 
 
@@ -43,14 +42,19 @@ void AlunoAleatorio::geraAprovacoes() {
 		}
 	}
 
+	std::vector<bool> marcados(numDisciplinas, false);
+
 	//! Perocorre a lista de disciplinas aprovadas, marcando seus requisitos como aprovados
 	//! e inserindo-os na lista também para análise
 	while (!preReqAnalisar.empty()) {
 		auto discAtual = preReqAnalisar.front();
 		preReqAnalisar.pop();
 		for (size_t j = 0; j < preRequisitos_.size(); j++) {
+			if (marcados[j])
+				continue;
 			if (preRequisitos_[discAtual][j] || coRequisitos_[discAtual][j]) {
 				aprovacoes_[j] = true;
+				marcados[j] = true;
 				preReqAnalisar.push(j);
 			}
 
@@ -59,8 +63,8 @@ void AlunoAleatorio::geraAprovacoes() {
 }
 
 void AlunoAleatorio::geraTurma() {
-	turma_ = rand.randomInt() % numTurmas_;
-	periodo_ = rand.randomInt() % numPeriodos_;
+	turma_ = std::string{char(rand.randomInt() % numTurmas_ + 65)};
+	periodo_ = (rand.randomInt() % numPeriodos_) + 1;
 }
 
 void AlunoAleatorio::geraCursadas() {

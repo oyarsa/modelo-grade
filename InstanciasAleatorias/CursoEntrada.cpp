@@ -1,4 +1,5 @@
 ﻿#include "CursoEntrada.h"
+#include <unordered_set>
 
 CursoEntrada::CursoEntrada(int numDisciplinas, int numPreRequisitos,
                            int numCoRequisitos, int numHorarios,
@@ -7,13 +8,14 @@ CursoEntrada::CursoEntrada(int numDisciplinas, int numPreRequisitos,
 	: Curso(numDisciplinas, numPreRequisitos,
 	        numCoRequisitos, numHorarios,
 	        numOfertadas, numProfessores,
-	        numDiasLetivos, numPeriodos) {}
+	        numDiasLetivos, numPeriodos, 0) {}
 
 CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	: Curso(outro.numDisciplinas_, outro.numPreRequisitos,
 	        outro.numCoRequisitos, outro.numHorarios_,
 	        outro.numOfertadas, outro.numProfessores_,
-	        outro.numDiasLetivos_, outro.numPeriodos_) {
+	        outro.numDiasLetivos_, outro.numPeriodos_,
+			outro.numTurmas_) {
 	nomeDisciplinas_ = move(outro.nomeDisciplinas_);
 	preRequisitos_ = move(outro.preRequisitos_);
 	coRequisitos_ = move(outro.coRequisitos_);
@@ -43,6 +45,13 @@ void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
 	equivalencias_ = move(equivalencias);
 	discTurma_ = move(discTurma);
 	capacidades_ = move(capacidades);
+
+	std::unordered_set<std::string> turmas;
+	for (const auto& disc : discTurma_) {
+		turmas.insert(disc.second);
+	}
+
+	numTurmas_ = turmas.size();
 }
 
 void CursoEntrada::setHorarios(std::vector<std::vector<bool>>&& horarios) {

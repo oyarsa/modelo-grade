@@ -52,7 +52,7 @@ std::tuple<CursoPtr, std::string, int> menu() {
 	// Inicializa as variáveis com o padrão
 	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
 	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
-	    numDiasLetivos, numPeriodos;
+	    numDiasLetivos, numPeriodos, numTurmas, capacidadeMinima, capacidadeMaxima;
 	int opcao;
 	std::string pasta;
 	CursoPtr pCurso;
@@ -80,6 +80,9 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			maxMinistradas = 10;
 			numDiasLetivos = 5;
 			numPeriodos = 4;
+			numTurmas = 2;
+			capacidadeMaxima = 4000;
+			capacidadeMinima = 40;
 
 			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 			std::cin >> pasta;
@@ -91,7 +94,8 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			                                                   numCoRequisitos, numHorarios,
 			                                                   numOfertadas, numProfessores,
 			                                                   maxMinistradas, numDiasLetivos,
-			                                                   numPeriodos)};
+			                                                   numPeriodos, numTurmas, capacidadeMinima,
+															   capacidadeMaxima)};
 			return make_tuple(move(pCurso), pasta, numAlunos);
 
 			// Caso seja desejado fornecer os valores, capitura-os e cria o curso aleatório
@@ -118,15 +122,24 @@ std::tuple<CursoPtr, std::string, int> menu() {
 			std::cin >> numDiasLetivos;
 			std::cout << "Numero de peridos simultaneamente ofertados: ";
 			std::cin >> numPeriodos;
+			std::cout << "Numero maximo de turmas por disciplina: ";
+			std::cin >> numTurmas;
+			std::cout << "Capacidade minima de uma turma: ";
+			std::cin >> capacidadeMinima;
+			std::cout << "Capacidade maxima de uma turma: ";
+			std::cin >> capacidadeMaxima;
 
 			if (numDiasLetivos > 7)
 				numDiasLetivos = 7;
+			if (numTurmas > 26)
+				numTurmas = 26;
 
 			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
-			                                                   numCoRequisitos, numHorarios,
-			                                                   numOfertadas, numProfessores,
-			                                                   maxMinistradas, numDiasLetivos,
-			                                                   numPeriodos)};
+															   numCoRequisitos, numHorarios,
+															   numOfertadas, numProfessores,
+															   maxMinistradas, numDiasLetivos,
+															   numPeriodos, numTurmas, capacidadeMinima,
+															   capacidadeMaxima)};
 
 			return make_tuple(move(pCurso), pasta, numAlunos);
 

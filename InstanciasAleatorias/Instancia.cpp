@@ -17,7 +17,9 @@ void Instancia::novoAlunoAleatorio(std::string nome) {
 	//! Cria um novo objeto da classe AlunoAleatorio dentro do unique_ptr,
 	//! apontando sua matriz de pré-requisitos para a do curso
 	aluno_ = AlunoPtr{new AlunoAleatorio(curso_->preRequisitos(),
-									 curso_->coRequisitos(), nome)};
+									     curso_->coRequisitos(), nome,
+										 curso_->numPeriodos(),
+										 curso_->numTurmas())};
 }
 
 void Instancia::novoAluno(AlunoPtr aluno) {

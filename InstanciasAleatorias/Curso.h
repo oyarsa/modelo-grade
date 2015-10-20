@@ -21,7 +21,7 @@ public:
 	*/
 	Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	      int numHorarios, int numOfertadas, int numProfessores, int numDiasLetivos,
-		  int numPeriodos);
+		  int numPeriodos, int numTurmas);
 
 	virtual ~Curso() {}
 
@@ -94,6 +94,8 @@ public:
 	//! escolhidas para o aluno, desabilitando as que alcançarem a capacidade máxima
 	void atualiza(const std::vector<bool>& escolhidas);
 
+	//! Retorna o número de turmas do curso
+	int numTurmas() const;
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -135,6 +137,8 @@ protected:
 	std::vector<int> capacidades_;
 	//! Alunos alocados em cada disciplina
 	std::vector<int> alocados_;
+	//! Número máximo de turmas por disciplina
+	int numTurmas_;
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();

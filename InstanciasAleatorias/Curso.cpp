@@ -4,7 +4,7 @@
 
 Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
              int numHorarios, int numOfertadas, int numProfessores, int numDiasLetivos,
-			 int numPeriodos)
+			 int numPeriodos, int numTurmas)
 	: numDisciplinas_(numDisciplinas),
 	  numPreRequisitos(numPreRequisitos),
 	  numCoRequisitos(numCoRequisitos),
@@ -24,7 +24,8 @@ Curso::Curso(int numDisciplinas, int numPreRequisitos, int numCoRequisitos,
 	  equivalencias_(numDisciplinas, std::vector<bool>(numDisciplinas, false)),
 	  discTurma_(numDisciplinas),
 	  capacidades_(numDisciplinas, 0),
-	  alocados_(numDisciplinas, 0) {
+	  alocados_(numDisciplinas, 0),
+	  numTurmas_(numTurmas) {
 
 	nomeDisciplinas_.reserve(numDisciplinas);
 	nomeHorarios_.reserve(numHorarios);
@@ -114,4 +115,8 @@ void Curso::atualiza(const std::vector<bool>& escolhidas) {
 		}
 
 	}
+}
+
+int Curso::numTurmas() const {
+	return numTurmas_;
 }

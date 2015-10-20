@@ -13,7 +13,7 @@ using CursoPtr = std::unique_ptr<Curso>;
 std::tuple<CursoPtr, std::string, std::string, int> menu() {
 	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
 	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
-	    numPeriodos, numDiasLetivos;
+	    numPeriodos, numDiasLetivos, numTurmas, capacidadeMinima, capacidadeMaxima;
 	int opcao;
 	std::string pasta, engine;
 	CursoPtr curso;
@@ -37,6 +37,9 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 				maxMinistradas = 10;
 				numPeriodos = 4;
 				numDiasLetivos = 5;
+				numTurmas = 2;
+				capacidadeMaxima = 4000;
+				capacidadeMinima = 40;
 
 				std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
 				std::cin >> pasta;
@@ -49,7 +52,8 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 													numCoRequisitos, numHorarios,
 													numOfertadas, numProfessores,
 													maxMinistradas, numDiasLetivos,
-													numPeriodos)};
+													numPeriodos, numTurmas, capacidadeMinima,
+													capacidadeMaxima)};
 				return make_tuple(std::move(curso), pasta, engine, numAlunos);
 
 			case 2:
@@ -75,6 +79,17 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 				std::cin >> numDiasLetivos;
 				std::cout << "Numero de peridos simultaneamente ofertados: ";
 				std::cin >> numPeriodos;
+				std::cout << "Numero maximo de turmas por disciplina: ";
+				std::cin >> numTurmas;
+				std::cout << "Capacidade minima de uma turma: ";
+				std::cin >> capacidadeMinima;
+				std::cout << "Capacidade maxima de uma turma: ";
+				std::cin >> capacidadeMaxima;
+
+				if (numDiasLetivos > 7)
+					numDiasLetivos = 7;
+				if (numTurmas > 26)
+					numTurmas = 26;
 
 				engine = numDisciplinas <= 15 ? "CPLEX" : "CP";
 
@@ -82,7 +97,8 @@ std::tuple<CursoPtr, std::string, std::string, int> menu() {
 													numCoRequisitos, numHorarios,
 													numOfertadas, numProfessores,
 													maxMinistradas, numDiasLetivos,
-													numPeriodos)};
+													numPeriodos, numTurmas, capacidadeMinima,
+													capacidadeMaxima)};
 
 				return make_tuple(std::move(curso), pasta, engine, numAlunos);
 

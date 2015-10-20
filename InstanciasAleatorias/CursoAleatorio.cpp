@@ -9,14 +9,19 @@ CursoAleatorio::CursoAleatorio(int numDisciplinas, int numPreRequisitos,
                                int numCoRequisitos, int numHorarios,
                                int numOfertadas, int numProfessores,
                                int maxMinistradas, int numDiasLetivos,
-                               int numPeriodos)
+                               int numPeriodos, int numTurmas, int capMinima,
+                               int capMaxima)
 	: Curso(numDisciplinas, numPreRequisitos,
 	        numCoRequisitos, numHorarios,
 	        numOfertadas, numProfessores,
-	        numDiasLetivos, numPeriodos),
-	  maxMinistradas(maxMinistradas),
-	  maxProfessores(numProfessores / 3),
-	  rand() {
+	        numDiasLetivos, numPeriodos,
+	        numTurmas)
+	  , maxMinistradas(maxMinistradas)
+	  , maxProfessores(numProfessores / 3)
+	  , rand()
+	  , capacidadeMaxima_(capMaxima)
+	  , capacidadeMinima_(capMinima) {
+
 	init();
 }
 
@@ -305,8 +310,10 @@ void CursoAleatorio::geraTurmas() {
 		return std::string{letra};
 	};
 
+	//printf("periodos %d\n turmas: %d\n", numPeriodos_, numTurmas_);
+
 	for (auto i = 0; i < numDisciplinas_;) {
-		auto turmasDiscAtual = rand.randomInt() % maxTurmas_;
+		auto turmasDiscAtual = (rand.randomInt() % numTurmas_) + 1;
 		auto periodo = rand.randomInt() % numPeriodos_;
 
 		discTurma_[i].first = periodo;

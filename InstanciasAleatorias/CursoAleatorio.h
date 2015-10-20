@@ -21,7 +21,8 @@ public:
 	               int numCoRequisitos, int numHorarios,
 	               int numOfertadas, int numProfessores,
 	               int maxMinistradas, int numDiasLetivos,
-				   int numPeriodos);
+				   int numPeriodos, int numTurmas, int capMinima,
+				   int capMaxima);
 	//! Executa as subrotinas que geram os elementos aleatórios
 	void init();
 private:
@@ -61,14 +62,8 @@ private:
 	int creditosTotaisOfertados;
 	//! Funções para geração de números aleatórios
 	Aleatorio rand;
-	//! Número máximo de turmas por disciplina
-	int numTurmas_;
-	//! Número de períodos do curso
-	int numPeriodos_;
 	//! Capacidade máxima de uma aula do curso
 	int capacidadeMaxima_;
 	//! Quantidade mínima de alunos em uma aula
 	int capacidadeMinima_;
-	//! Número máximo de turmas por disciplina
-	int maxTurmas_;
 };

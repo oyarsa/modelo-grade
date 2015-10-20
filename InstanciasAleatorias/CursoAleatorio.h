@@ -46,10 +46,12 @@ private:
 	void distribuiProfessores();
 	//! Gera a matriz de equivalências das disciplinas
 	void geraEquivalencia();
-	//! Gera a turma de cada disciplina
-	void geraDiscTurma();
 	//! Gera a capacidade das disciplinas
 	void geraCapacidades();
+	//! Gera disciplinas equivalentes a diferentes turmas para uma mesma disciplina base
+	void geraTurmas();
+	//! Configura os pré- e co-requisitos para as outras turmas das disciplinas
+	void finalizaDependencias();
 
 	//! Número máximo de disciplinas que um professor pode ministrar
 	int maxMinistradas;
@@ -67,4 +69,6 @@ private:
 	int capacidadeMaxima_;
 	//! Quantidade mínima de alunos em uma aula
 	int capacidadeMinima_;
+	//! Número máximo de turmas por disciplina
+	int maxTurmas_;
 };

@@ -20,10 +20,12 @@ public:
 	* \param nome Nome do aluno
 	*/
 	AlunoAleatorio(const std::vector<std::vector<bool>>& preRequisitos,
-		  const std::vector<std::vector<bool>>& coRequisitos,
-	      std::string nome);
+	               const std::vector<std::vector<bool>>& coRequisitos,
+	               std::string nome,
+				   int numPeriodos,
+				   int numTurmas);
 
-	
+
 private:
 	//! Incializa os membros aleatórios
 	void init();
@@ -35,4 +37,8 @@ private:
 	Aleatorio rand;
 	//! Gera o período e a turma do aluno
 	void geraTurma();
+	//! Número de períodos do Curso
+	int numPeriodos_;
+	//! Número de turmas do Curso
+	int numTurmas_;
 };

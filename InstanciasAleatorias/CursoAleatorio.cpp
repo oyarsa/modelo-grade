@@ -56,6 +56,8 @@ void CursoAleatorio::geraPreRequisitos() {
 	while (requisitosAlocados < numPreRequisitos) {
 		//! Percorre a lista de disciplinas
 		for (auto i = 0; i < numDisciplinas_; i++) {
+			if (discTurma_[i].second != "A")
+				continue;
 			//! Gera uma chance de essa disciplina receber um pré-requisito
 			if (rand.randomInt() % 100 < 25) {
 				//! Percorre um número igual ao número de disciplinas
@@ -72,10 +74,10 @@ void CursoAleatorio::geraPreRequisitos() {
 					}
 				}
 			}
-			//! Se todos os pré-requisitos tiverem sido alocados, termina o laço
-			if (requisitosAlocados >= numPreRequisitos)
-				break;
 		}
+		//! Se todos os pré-requisitos tiverem sido alocados, termina o laço
+		if (requisitosAlocados >= numPreRequisitos)
+			break;
 	}
 }
 
@@ -86,6 +88,8 @@ void CursoAleatorio::geraCoRequisitos() {
 	while (coRequisitosAlocados < numCoRequisitos) {
 		//! Percorre a lista de disciplinas
 		for (auto i = 0; i < numDisciplinas_; i++) {
+			if (discTurma_[i].second != "A")
+				continue;
 			//! Gera uma chance desta disciplina receber um co-requisito
 			if (rand.randomInt() % 100 < 10) {
 				for (auto j = 0; j < numDisciplinas_; j++) {
@@ -133,8 +137,12 @@ void CursoAleatorio::geraOfertadas() {
 //! Executa subrotinas para gerar cada aspecto das disciplinas
 void CursoAleatorio::geraDisciplinas() {
 	geraCreditos();
+	geraTurmas();
 	geraPreRequisitos();
 	geraCoRequisitos();
+	geraCapacidades();
+	finalizaDependencias();
+	geraEquivalencia();
 	geraNomeDisciplinas();
 }
 
@@ -290,24 +298,45 @@ void CursoAleatorio::geraEquivalencia() {
 	}
 }
 
-void CursoAleatorio::geraDiscTurma() {
+void CursoAleatorio::geraTurmas() {
 	// Converte um número maior ou igual a zero em uma letra
 	auto numToLetra = [](int num) {
 		char letra = 'A' + num;
 		return std::string{letra};
 	};
 
-	// Percorre as disciplinas, gerando aleatoriamente um número
-	// que será convertido em uma turma, e um período. Estes serão
-	// atribuídos a disciplina 'i'
-	for (auto i = 0; i < numDisciplinas_; i++) {
-		auto turma = numToLetra(rand.randomInt() % numTurmas_);
+	for (auto i = 0; i < numDisciplinas_;) {
+		auto turmasDiscAtual = rand.randomInt() % maxTurmas_;
 		auto periodo = rand.randomInt() % numPeriodos_;
 
 		discTurma_[i].first = periodo;
-		discTurma_[i].second = turma;
-	}
+		discTurma_[i].second = numToLetra(0);
 
+		auto n = std::min(turmasDiscAtual, numDisciplinas_ - i);
+
+		for (auto j = 1; j < n; j++) {
+			discTurma_[j].first = periodo;
+			discTurma_[j].second = numToLetra(j);
+		}
+
+		i += n;
+	}
+}
+
+void CursoAleatorio::finalizaDependencias() {
+	int anterior = -1;
+
+	for (auto i = 0; i < numDisciplinas_; i++) {
+		if (discTurma_[i].second == "A") {
+			anterior = i;
+			continue;
+		}
+
+		for (auto j = 0; j < numDisciplinas_; j++) {
+			preRequisitos_[i][j] = preRequisitos_[anterior][j];
+			coRequisitos_[i][j] = coRequisitos_[anterior][j];
+		}
+	}
 }
 
 void CursoAleatorio::geraCapacidades() {
@@ -315,7 +344,7 @@ void CursoAleatorio::geraCapacidades() {
 	// da disciplina
 	auto diferenca = capacidadeMaxima_ - capacidadeMinima_;
 	for (auto i = 0; i < numDisciplinas_; i++) {
-		capacidades_[i] = capacidadeMinima_ + 
-			(rand.randomInt() % (diferenca + 1));
+		capacidades_[i] = capacidadeMinima_ +
+				(rand.randomInt() % (diferenca + 1));
 	}
 }

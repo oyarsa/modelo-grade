@@ -239,6 +239,11 @@ int main() {
 	auto entrada = manipulaJson::lerJson("../input.json");
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 
+	std::cout << "NumDisc: " << pCurso->numDisciplinas() << "\n";
+	std::cout << "NumHor: " << pCurso->numHorarios() << "\n";
+	std::cout << "NumPer: " << pCurso->numPeriodos() << "\n";
+	std::cout << "NumDias: " << pCurso->numDiasLetivos() << "\n";
+
 	std::vector<AlunoPtr> alunos;
 	for (auto& aluno : entrada.second) {
 //		printf("Aluno %d, %s, %s\n", aluno.periodo(), aluno.nome().c_str(), aluno.turma().c_str());

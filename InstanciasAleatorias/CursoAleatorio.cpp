@@ -292,11 +292,12 @@ bool CursoAleatorio::isEquivalente(int disc1, int disc2) const {
 
 void CursoAleatorio::geraEquivalencia() {
 	// Percorre todas as combinações possíveis de disciplinas, e verifica
-	// se seus pre- e co-requisitos são idênticos. Se forem, marca
-	// como equivalentes
+	// se seus pre- e co-requisitos são idênticos. Se forem, determina
+	// aleatoriamente se serão marcadas como aleatoriamente (10%)
+
 	for (auto i = 0; i < numDisciplinas_; i++) {
 		for (auto j = 0; j < numDisciplinas_; j++) {
-			if (isEquivalente(i, j)) {
+			if (isEquivalente(i, j) && !(rand.randomInt() % 10)) {
 				equivalencias_[i][j] = true;
 			}
 		}
@@ -310,20 +311,17 @@ void CursoAleatorio::geraTurmas() {
 		return std::string{letra};
 	};
 
-	//printf("periodos %d\n turmas: %d\n", numPeriodos_, numTurmas_);
-
 	for (auto i = 0; i < numDisciplinas_;) {
 		auto turmasDiscAtual = (rand.randomInt() % numTurmas_) + 1;
-		auto periodo = rand.randomInt() % numPeriodos_;
+		auto periodo = (rand.randomInt() % numPeriodos_) + 1;
 
 		discTurma_[i].first = periodo;
 		discTurma_[i].second = numToLetra(0);
-
 		auto n = std::min(turmasDiscAtual, numDisciplinas_ - i);
 
 		for (auto j = 1; j < n; j++) {
-			discTurma_[j].first = periodo;
-			discTurma_[j].second = numToLetra(j);
+			discTurma_[i + j].first = periodo;
+			discTurma_[i + j].second = numToLetra(j);
 		}
 
 		i += n;
@@ -331,7 +329,7 @@ void CursoAleatorio::geraTurmas() {
 }
 
 void CursoAleatorio::finalizaDependencias() {
-	int anterior = -1;
+	auto anterior = -1;
 
 	for (auto i = 0; i < numDisciplinas_; i++) {
 		if (discTurma_[i].second == "A") {

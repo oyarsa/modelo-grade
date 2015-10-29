@@ -2,1662 +2,238 @@
 	"alunoperfis" : 
 	[
 		{
-			"id" : "aln1",
+			"id" : "NOVO",
 			"periodo" : 1,
 			"peso" : 1,
 			"restantes" : 
 			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC6",
-				"DISC7",
-				"DISC8",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC14",
-				"DISC15",
-				"DISC16",
-				"DISC17",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC23",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC29",
-				"DISC30",
-				"DISC31",
-				"DISC32",
-				"DISC33",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC38",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
+				"A1",
+				"B",
+				"C",
+				"D",
+				"A2",
+				"E",
+				"F"
 			],
-			"turma" : "B"
+			"turma" : "A"
 		},
 		{
 			"cursadas" : 
 			[
-				"DISC2",
-				"DISC4",
-				"DISC7",
-				"DISC8"
+				"B",
+				"C",
+				"D"
 			],
-			"id" : "aln2",
+			"id" : "PAU",
 			"periodo" : 2,
 			"peso" : 1,
 			"restantes" : 
 			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC6",
-				"DISC7",
-				"DISC8",
-				"DISC9",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC14",
-				"DISC15",
-				"DISC16",
-				"DISC17",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC29",
-				"DISC30",
-				"DISC31",
-				"DISC32",
-				"DISC33",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC44",
-				"DISC45",
-				"DISC46",
-				"DISC47",
-				"DISC49",
-				"DISC50"
+				"A1",
+				"A2",
+				"E",
+				"F"
+			],
+			"turma" : "A"
+		},
+		{
+			"cursadas" : 
+			[
+				"A1",
+				"B",
+				"C",
+				"D"
+			],
+			"id" : "PASSOU",
+			"periodo" : 4,
+			"peso" : 1,
+			"restantes" : 
+			[
+				"A2",
+				"E",
+				"F"
 			],
 			"turma" : "B"
 		},
 		{
 			"cursadas" : 
 			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC10",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC16",
-				"DISC18",
-				"DISC20",
-				"DISC21",
-				"DISC23",
-				"DISC24"
+				"C",
+				"D",
+				"E",
+				"F"
 			],
-			"id" : "aln3",
-			"periodo" : 4,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC7",
-				"DISC8",
-				"DISC9",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC16",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC29",
-				"DISC30",
-				"DISC32",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC38",
-				"DISC39",
-				"DISC40",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC45",
-				"DISC46",
-				"DISC47",
-				"DISC49",
-				"DISC50"
-			],
-			"turma" : "A"
-		},
-		{
-			"cursadas" : 
-			[
-				"DISC1",
-				"DISC4"
-			],
-			"id" : "aln4",
-			"periodo" : 4,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC7",
-				"DISC8",
-				"DISC9",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC14",
-				"DISC16",
-				"DISC17",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC28",
-				"DISC29",
-				"DISC30",
-				"DISC32",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC43",
-				"DISC44",
-				"DISC45",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49"
-			],
-			"turma" : "A"
-		},
-		{
-			"cursadas" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC4"
-			],
-			"id" : "aln5",
+			"id" : "GRADE",
 			"periodo" : 3,
 			"peso" : 1,
 			"restantes" : 
 			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC6",
-				"DISC7",
-				"DISC8",
-				"DISC9",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC14",
-				"DISC15",
-				"DISC16",
-				"DISC17",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC29",
-				"DISC30",
-				"DISC31",
-				"DISC32",
-				"DISC33",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC38",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC45",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
+				"A1",
+				"B",
+				"A2"
 			],
-			"turma" : "B"
-		},
-		{
-			"id" : "aln6",
-			"periodo" : 2,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC8",
-				"DISC9",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC29",
-				"DISC32",
-				"DISC34",
-				"DISC36",
-				"DISC37",
-				"DISC39",
-				"DISC40",
-				"DISC43",
-				"DISC44",
-				"DISC45",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
-			],
-			"turma" : "B"
+			"turma" : "A"
 		},
 		{
 			"cursadas" : 
 			[
-				"DISC1",
-				"DISC3",
-				"DISC15",
-				"DISC16"
+				"A1",
+				"B",
+				"C",
+				"D",
+				"F"
 			],
-			"id" : "aln7",
-			"periodo" : 2,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC3",
-				"DISC5",
-				"DISC7",
-				"DISC8",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC16",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC22",
-				"DISC25",
-				"DISC28",
-				"DISC30",
-				"DISC32",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC38",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC44",
-				"DISC46",
-				"DISC48",
-				"DISC49",
-				"DISC50"
-			],
-			"turma" : "B"
-		},
-		{
-			"cursadas" : 
-			[
-				"DISC1"
-			],
-			"id" : "aln8",
-			"periodo" : 4,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC8",
-				"DISC10",
-				"DISC12",
-				"DISC13",
-				"DISC16",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC30",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
-			],
-			"turma" : "B"
-		},
-		{
-			"cursadas" : 
-			[
-				"DISC1"
-			],
-			"id" : "aln9",
-			"periodo" : 1,
-			"peso" : 1,
-			"restantes" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC3",
-				"DISC4",
-				"DISC5",
-				"DISC7",
-				"DISC8",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC16",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC28",
-				"DISC29",
-				"DISC30",
-				"DISC32",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC38",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC46",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
-			],
-			"turma" : "B"
-		},
-		{
-			"id" : "aln10",
+			"id" : "GRADE_PARCIAL",
 			"periodo" : 3,
 			"peso" : 1,
 			"restantes" : 
 			[
-				"DISC1",
-				"DISC3",
-				"DISC5",
-				"DISC7",
-				"DISC10",
-				"DISC11",
-				"DISC12",
-				"DISC13",
-				"DISC15",
-				"DISC18",
-				"DISC19",
-				"DISC20",
-				"DISC21",
-				"DISC22",
-				"DISC23",
-				"DISC24",
-				"DISC25",
-				"DISC26",
-				"DISC27",
-				"DISC29",
-				"DISC32",
-				"DISC34",
-				"DISC35",
-				"DISC36",
-				"DISC37",
-				"DISC39",
-				"DISC40",
-				"DISC41",
-				"DISC42",
-				"DISC43",
-				"DISC44",
-				"DISC45",
-				"DISC47",
-				"DISC48",
-				"DISC49",
-				"DISC50"
+				"A2",
+				"E"
 			],
-			"turma" : "A"
+			"turma" : "B"
 		}
 	],
 	"disciplinas" : 
 	[
 		{
-			"capacidade" : 2976,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC19",
-				"DISC41"
-			],
-			"id" : "DISC1",
-			"nome" : "DISC1",
-			"periodo" : 2,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2751,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC2",
-			"nome" : "DISC2",
-			"periodo" : 2,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1728,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC3",
-			"nome" : "DISC3",
-			"periodo" : 4,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 273,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC4",
-			"nome" : "DISC4",
-			"periodo" : 4,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1669,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC5",
-			"nome" : "DISC5",
-			"periodo" : 1,
-			"prerequisitos" : 
-			[
-				"DISC31"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1660,
-			"carga" : 6,
-			"curso" : "C",
-			"id" : "DISC6",
-			"nome" : "DISC6",
-			"periodo" : 1,
-			"prerequisitos" : 
-			[
-				"DISC31"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1480,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC7",
-			"nome" : "DISC7",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC38"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 256,
-			"carga" : 6,
-			"curso" : "C",
-			"id" : "DISC8",
-			"nome" : "DISC8",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC38"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1273,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC10",
-				"DISC37"
-			],
-			"id" : "DISC9",
-			"nome" : "DISC9",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1601,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC1"
-			],
-			"id" : "DISC10",
-			"nome" : "DISC10",
+			"id" : "A1",
+			"nome" : "A1",
 			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 596,
-			"carga" : 2,
+			"capacidade" : 10,
+			"carga" : 1,
 			"curso" : "C",
-			"id" : "DISC11",
-			"nome" : "DISC11",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC29"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1205,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC12",
-			"nome" : "DISC12",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC48"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 352,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC13",
-			"nome" : "DISC13",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC48"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 3461,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC14",
-			"nome" : "DISC14",
-			"periodo" : 2,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 3896,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC2",
-				"DISC16",
-				"DISC29",
-				"DISC34",
-				"DISC47"
-			],
-			"id" : "DISC15",
-			"nome" : "DISC15",
+			"id" : "B",
+			"nome" : "B",
 			"periodo" : 1,
 			"turma" : "A"
 		},
 		{
-			"capacidade" : 1781,
-			"carga" : 4,
+			"capacidade" : 10,
+			"carga" : 1,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC42",
-				"DISC47"
-			],
-			"id" : "DISC16",
-			"nome" : "DISC16",
+			"id" : "C",
+			"nome" : "C",
 			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 3993,
-			"carga" : 6,
+			"capacidade" : 10,
+			"carga" : 1,
 			"curso" : "C",
-			"id" : "DISC17",
-			"nome" : "DISC17",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC6"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 544,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC18",
-			"nome" : "DISC18",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC6"
-			],
+			"id" : "D",
+			"nome" : "D",
+			"periodo" : 1,
 			"turma" : "B"
 		},
 		{
-			"capacidade" : 3829,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC9",
-				"DISC16",
-				"DISC36",
-				"DISC37",
-				"DISC47"
-			],
-			"id" : "DISC19",
-			"nome" : "DISC19",
-			"periodo" : 2,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 434,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC22",
-				"DISC49"
-			],
-			"id" : "DISC20",
-			"nome" : "DISC20",
-			"periodo" : 2,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 2090,
+			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC20",
-				"DISC22",
-				"DISC30"
-			],
-			"id" : "DISC21",
-			"nome" : "DISC21",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 575,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC15",
-				"DISC19",
-				"DISC30"
-			],
-			"id" : "DISC22",
-			"nome" : "DISC22",
-			"periodo" : 1,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 3977,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC23",
-			"nome" : "DISC23",
-			"periodo" : 4,
-			"prerequisitos" : 
-			[
-				"DISC14"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1335,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC24",
-			"nome" : "DISC24",
+			"id" : "A2",
+			"nome" : "A2",
 			"periodo" : 2,
 			"prerequisitos" : 
 			[
-				"DISC45"
+				"A1"
 			],
+			"turma" : "B"
+		},
+		{
+			"capacidade" : 10,
+			"carga" : 2,
+			"curso" : "C",
+			"equivalentes" : 
+			[
+				"F"
+			],
+			"id" : "E",
+			"nome" : "E",
+			"periodo" : 1,
 			"turma" : "A"
 		},
 		{
-			"capacidade" : 1545,
-			"carga" : 6,
+			"capacidade" : 10,
+			"carga" : 2,
 			"curso" : "C",
-			"id" : "DISC25",
-			"nome" : "DISC25",
+			"id" : "F",
+			"nome" : "F",
 			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC45"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 618,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC26",
-			"nome" : "DISC26",
-			"periodo" : 1,
-			"prerequisitos" : 
-			[
-				"DISC21"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 3996,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC27",
-			"nome" : "DISC27",
-			"periodo" : 1,
-			"prerequisitos" : 
-			[
-				"DISC21"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1106,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC16",
-				"DISC22"
-			],
-			"id" : "DISC28",
-			"nome" : "DISC28",
-			"periodo" : 4,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 260,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC2",
-				"DISC16"
-			],
-			"id" : "DISC29",
-			"nome" : "DISC29",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 437,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC34",
-				"DISC37"
-			],
-			"id" : "DISC30",
-			"nome" : "DISC30",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1703,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC31",
-			"nome" : "DISC31",
-			"periodo" : 4,
-			"prerequisitos" : 
-			[
-				"DISC33"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2564,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC32",
-			"nome" : "DISC32",
-			"periodo" : 4,
-			"prerequisitos" : 
-			[
-				"DISC33"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1266,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC2",
-				"DISC22"
-			],
-			"id" : "DISC33",
-			"nome" : "DISC33",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1611,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC47",
-				"DISC48"
-			],
-			"id" : "DISC34",
-			"nome" : "DISC34",
-			"periodo" : 1,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1485,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC1",
-				"DISC21",
-				"DISC22",
-				"DISC49"
-			],
-			"id" : "DISC35",
-			"nome" : "DISC35",
-			"periodo" : 3,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 3969,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC33",
-				"DISC42"
-			],
-			"id" : "DISC36",
-			"nome" : "DISC36",
-			"periodo" : 2,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2508,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC21",
-				"DISC29",
-				"DISC36",
-				"DISC38"
-			],
-			"id" : "DISC37",
-			"nome" : "DISC37",
-			"periodo" : 2,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1030,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC9",
-				"DISC30",
-				"DISC35"
-			],
-			"id" : "DISC38",
-			"nome" : "DISC38",
-			"periodo" : 1,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1466,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC39",
-			"nome" : "DISC39",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC4"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2300,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC39"
-			],
-			"id" : "DISC40",
-			"nome" : "DISC40",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC4"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 473,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC30"
-			],
-			"id" : "DISC41",
-			"nome" : "DISC41",
-			"periodo" : 4,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2209,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC15",
-				"DISC33",
-				"DISC49"
-			],
-			"id" : "DISC42",
-			"nome" : "DISC42",
-			"periodo" : 4,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 166,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC43",
-			"nome" : "DISC43",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC27"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1111,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC44",
-			"nome" : "DISC44",
-			"periodo" : 2,
-			"prerequisitos" : 
-			[
-				"DISC27"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1862,
-			"carga" : 2,
-			"curso" : "C",
-			"id" : "DISC45",
-			"nome" : "DISC45",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC9"
-			],
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 713,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC46",
-			"nome" : "DISC46",
-			"periodo" : 3,
-			"prerequisitos" : 
-			[
-				"DISC9"
-			],
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 3899,
-			"carga" : 6,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC28",
-				"DISC36"
-			],
-			"id" : "DISC47",
-			"nome" : "DISC47",
-			"periodo" : 4,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 2466,
-			"carga" : 4,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC2",
-				"DISC10",
-				"DISC35",
-				"DISC41"
-			],
-			"id" : "DISC48",
-			"nome" : "DISC48",
-			"periodo" : 4,
-			"turma" : "A"
-		},
-		{
-			"capacidade" : 1210,
-			"carga" : 2,
-			"curso" : "C",
-			"equivalentes" : 
-			[
-				"DISC22"
-			],
-			"id" : "DISC49",
-			"nome" : "DISC49",
-			"periodo" : 4,
-			"turma" : "B"
-		},
-		{
-			"capacidade" : 1982,
-			"carga" : 4,
-			"curso" : "C",
-			"id" : "DISC50",
-			"nome" : "DISC50",
-			"periodo" : 1,
-			"prerequisitos" : 
-			[
-				"DISC38"
-			],
 			"turma" : "A"
 		}
 	],
 	"horario" : 
 	[
 		{
-			"camada" : 1,
+			"camada" : 0,
 			"horario" : 0,
-			"professordisciplina" : "DISC7",
-			"semana" : 0
-		},
-		{
-			"camada" : 3,
-			"horario" : 0,
-			"professordisciplina" : "DISC28",
+			"professordisciplina" : "A1",
 			"semana" : 0
 		},
 		{
 			"camada" : 0,
 			"horario" : 0,
-			"professordisciplina" : "DISC33",
+			"professordisciplina" : "E",
 			"semana" : 0
 		},
 		{
-			"camada" : 3,
-			"horario" : 0,
-			"professordisciplina" : "DISC47",
-			"semana" : 0
-		},
-		{
-			"camada" : 3,
+			"camada" : 0,
 			"horario" : 1,
-			"professordisciplina" : "DISC4",
+			"professordisciplina" : "B",
 			"semana" : 0
 		},
 		{
 			"camada" : 1,
 			"horario" : 1,
-			"professordisciplina" : "DISC12",
-			"semana" : 0
-		},
-		{
-			"camada" : 2,
-			"horario" : 1,
-			"professordisciplina" : "DISC18",
-			"semana" : 0
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC47",
-			"semana" : 0
-		},
-		{
-			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC8",
-			"semana" : 0
-		},
-		{
-			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC20",
+			"professordisciplina" : "A2",
 			"semana" : 0
 		},
 		{
 			"camada" : 0,
-			"horario" : 2,
-			"professordisciplina" : "DISC33",
-			"semana" : 0
-		},
-		{
-			"camada" : 1,
-			"horario" : 3,
-			"professordisciplina" : "DISC7",
-			"semana" : 0
-		},
-		{
-			"camada" : 3,
-			"horario" : 3,
-			"professordisciplina" : "DISC28",
-			"semana" : 0
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC29",
-			"semana" : 0
-		},
-		{
-			"camada" : 1,
 			"horario" : 0,
-			"professordisciplina" : "DISC8",
-			"semana" : 1
-		},
-		{
-			"camada" : 1,
-			"horario" : 0,
-			"professordisciplina" : "DISC12",
-			"semana" : 1
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC15",
-			"semana" : 1
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC33",
-			"semana" : 1
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC4",
-			"semana" : 1
-		},
-		{
-			"camada" : 0,
-			"horario" : 1,
-			"professordisciplina" : "DISC6",
-			"semana" : 1
-		},
-		{
-			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC20",
-			"semana" : 1
-		},
-		{
-			"camada" : 3,
-			"horario" : 2,
-			"professordisciplina" : "DISC28",
-			"semana" : 1
-		},
-		{
-			"camada" : 1,
-			"horario" : 3,
-			"professordisciplina" : "DISC8",
-			"semana" : 1
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC16",
-			"semana" : 1
-		},
-		{
-			"camada" : 3,
-			"horario" : 3,
-			"professordisciplina" : "DISC23",
-			"semana" : 1
-		},
-		{
-			"camada" : 2,
-			"horario" : 3,
-			"professordisciplina" : "DISC45",
-			"semana" : 1
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC6",
+			"professordisciplina" : "C",
 			"semana" : 2
 		},
 		{
-			"camada" : 1,
+			"camada" : 0,
 			"horario" : 0,
-			"professordisciplina" : "DISC7",
-			"semana" : 2
-		},
-		{
-			"camada" : 1,
-			"horario" : 0,
-			"professordisciplina" : "DISC20",
-			"semana" : 2
-		},
-		{
-			"camada" : 3,
-			"horario" : 0,
-			"professordisciplina" : "DISC47",
+			"professordisciplina" : "E",
 			"semana" : 2
 		},
 		{
 			"camada" : 0,
 			"horario" : 1,
-			"professordisciplina" : "DISC16",
-			"semana" : 2
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC23",
-			"semana" : 2
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC41",
+			"professordisciplina" : "A1",
 			"semana" : 2
 		},
 		{
 			"camada" : 1,
 			"horario" : 1,
-			"professordisciplina" : "DISC44",
+			"professordisciplina" : "F",
 			"semana" : 2
-		},
-		{
-			"camada" : 0,
-			"horario" : 2,
-			"professordisciplina" : "DISC6",
-			"semana" : 2
-		},
-		{
-			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC20",
-			"semana" : 2
-		},
-		{
-			"camada" : 0,
-			"horario" : 2,
-			"professordisciplina" : "DISC22",
-			"semana" : 2
-		},
-		{
-			"camada" : 3,
-			"horario" : 2,
-			"professordisciplina" : "DISC47",
-			"semana" : 2
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC6",
-			"semana" : 2
-		},
-		{
-			"camada" : 1,
-			"horario" : 3,
-			"professordisciplina" : "DISC8",
-			"semana" : 2
-		},
-		{
-			"camada" : 3,
-			"horario" : 3,
-			"professordisciplina" : "DISC23",
-			"semana" : 2
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC29",
-			"semana" : 2
-		},
-		{
-			"camada" : 2,
-			"horario" : 0,
-			"professordisciplina" : "DISC18",
-			"semana" : 3
-		},
-		{
-			"camada" : 2,
-			"horario" : 0,
-			"professordisciplina" : "DISC40",
-			"semana" : 3
-		},
-		{
-			"camada" : 1,
-			"horario" : 0,
-			"professordisciplina" : "DISC44",
-			"semana" : 3
-		},
-		{
-			"camada" : 3,
-			"horario" : 0,
-			"professordisciplina" : "DISC47",
-			"semana" : 3
-		},
-		{
-			"camada" : 1,
-			"horario" : 1,
-			"professordisciplina" : "DISC7",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 1,
-			"professordisciplina" : "DISC22",
-			"semana" : 3
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC31",
-			"semana" : 3
-		},
-		{
-			"camada" : 2,
-			"horario" : 1,
-			"professordisciplina" : "DISC40",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 2,
-			"professordisciplina" : "DISC16",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 2,
-			"professordisciplina" : "DISC22",
-			"semana" : 3
-		},
-		{
-			"camada" : 3,
-			"horario" : 2,
-			"professordisciplina" : "DISC31",
-			"semana" : 3
-		},
-		{
-			"camada" : 2,
-			"horario" : 2,
-			"professordisciplina" : "DISC45",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC15",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC16",
-			"semana" : 3
-		},
-		{
-			"camada" : 1,
-			"horario" : 3,
-			"professordisciplina" : "DISC20",
-			"semana" : 3
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC33",
-			"semana" : 3
 		},
 		{
 			"camada" : 0,
 			"horario" : 0,
-			"professordisciplina" : "DISC6",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC22",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC29",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 0,
-			"professordisciplina" : "DISC33",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 1,
-			"professordisciplina" : "DISC6",
-			"semana" : 4
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC23",
-			"semana" : 4
-		},
-		{
-			"camada" : 3,
-			"horario" : 1,
-			"professordisciplina" : "DISC28",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 1,
-			"professordisciplina" : "DISC29",
+			"professordisciplina" : "D",
 			"semana" : 4
 		},
 		{
 			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC8",
-			"semana" : 4
-		},
-		{
-			"camada" : 2,
-			"horario" : 2,
-			"professordisciplina" : "DISC18",
+			"horario" : 0,
+			"professordisciplina" : "F",
 			"semana" : 4
 		},
 		{
 			"camada" : 1,
-			"horario" : 2,
-			"professordisciplina" : "DISC20",
-			"semana" : 4
-		},
-		{
-			"camada" : 3,
-			"horario" : 2,
-			"professordisciplina" : "DISC41",
-			"semana" : 4
-		},
-		{
-			"camada" : 1,
-			"horario" : 3,
-			"professordisciplina" : "DISC8",
-			"semana" : 4
-		},
-		{
-			"camada" : 2,
-			"horario" : 3,
-			"professordisciplina" : "DISC18",
-			"semana" : 4
-		},
-		{
-			"camada" : 0,
-			"horario" : 3,
-			"professordisciplina" : "DISC33",
-			"semana" : 4
-		},
-		{
-			"camada" : 3,
-			"horario" : 3,
-			"professordisciplina" : "DISC47",
+			"horario" : 1,
+			"professordisciplina" : "A2",
 			"semana" : 4
 		}
 	],
@@ -1667,281 +243,33 @@
 		{
 			"competencias" : 
 			[
-				"DISC3",
-				"DISC4",
-				"DISC14",
-				"DISC15"
+				"A1",
+				"A2"
 			],
 			"diasdisponiveis" : [],
-			"id" : "PROF1",
-			"nome" : "PROF1"
+			"id" : "P1",
+			"nome" : "P1"
 		},
 		{
 			"competencias" : 
 			[
-				"DISC2",
-				"DISC9",
-				"DISC10",
-				"DISC13",
-				"DISC16",
-				"DISC18"
+				"B",
+				"E",
+				"F"
 			],
 			"diasdisponiveis" : [],
-			"id" : "PROF2",
-			"nome" : "PROF2"
+			"id" : "P2",
+			"nome" : "P2"
 		},
 		{
 			"competencias" : 
 			[
-				"DISC9",
-				"DISC17",
-				"DISC18",
-				"DISC20",
-				"DISC21",
-				"DISC24",
-				"DISC26"
+				"C",
+				"D"
 			],
 			"diasdisponiveis" : [],
-			"id" : "PROF3",
-			"nome" : "PROF3"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF4",
-			"nome" : "PROF4"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC5",
-				"DISC6",
-				"DISC7",
-				"DISC13",
-				"DISC18",
-				"DISC19",
-				"DISC28",
-				"DISC37"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF5",
-			"nome" : "PROF5"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC5",
-				"DISC9",
-				"DISC13",
-				"DISC19"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF6",
-			"nome" : "PROF6"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1",
-				"DISC10",
-				"DISC14",
-				"DISC26",
-				"DISC28",
-				"DISC30"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF7",
-			"nome" : "PROF7"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1",
-				"DISC2",
-				"DISC6",
-				"DISC8",
-				"DISC9"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF8",
-			"nome" : "PROF8"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC24",
-				"DISC26",
-				"DISC36"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF9",
-			"nome" : "PROF9"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC2",
-				"DISC6",
-				"DISC26",
-				"DISC32",
-				"DISC36",
-				"DISC40",
-				"DISC46",
-				"DISC49"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF10",
-			"nome" : "PROF10"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC2",
-				"DISC10"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF11",
-			"nome" : "PROF11"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1",
-				"DISC5",
-				"DISC10",
-				"DISC15"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF12",
-			"nome" : "PROF12"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC1",
-				"DISC3",
-				"DISC9",
-				"DISC12",
-				"DISC20",
-				"DISC28",
-				"DISC31",
-				"DISC36"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF13",
-			"nome" : "PROF13"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC9",
-				"DISC23",
-				"DISC29",
-				"DISC33",
-				"DISC35",
-				"DISC37"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF14",
-			"nome" : "PROF14"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC6",
-				"DISC8",
-				"DISC10",
-				"DISC11",
-				"DISC16",
-				"DISC19",
-				"DISC22",
-				"DISC33"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF15",
-			"nome" : "PROF15"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC3",
-				"DISC6",
-				"DISC8",
-				"DISC12",
-				"DISC15",
-				"DISC24",
-				"DISC28",
-				"DISC29"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF16",
-			"nome" : "PROF16"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC3",
-				"DISC4",
-				"DISC6",
-				"DISC8",
-				"DISC11",
-				"DISC12",
-				"DISC14",
-				"DISC18",
-				"DISC23",
-				"DISC25"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF17",
-			"nome" : "PROF17"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC7",
-				"DISC13",
-				"DISC17",
-				"DISC21",
-				"DISC23",
-				"DISC30"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF18",
-			"nome" : "PROF18"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC8",
-				"DISC13",
-				"DISC16",
-				"DISC20",
-				"DISC22",
-				"DISC27",
-				"DISC32",
-				"DISC41"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF19",
-			"nome" : "PROF19"
-		},
-		{
-			"competencias" : 
-			[
-				"DISC3",
-				"DISC21",
-				"DISC27",
-				"DISC28",
-				"DISC31"
-			],
-			"diasdisponiveis" : [],
-			"id" : "PROF20",
-			"nome" : "PROF20"
+			"id" : "P3",
+			"nome" : "P3"
 		}
 	]
 }

@@ -71,7 +71,16 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		raiz["professores"].append(professorAtual);
 	}
 
-	raiz["professordisciplinas"] = Json::Value{Json::arrayValue};
+	//raiz["professordisciplinas"] = Json::Value{Json::arrayValue};
+
+	for (const auto& disc : nomeDisciplinas) {
+		Json::Value profDiscAtual;
+		profDiscAtual["id"] = disc;
+		profDiscAtual["disciplina"] = disc;
+		profDiscAtual["professor"] = "P1";
+
+		raiz["professordisciplinas"].append(profDiscAtual);
+	}
 
 	for (auto i = 0; i < alunos.size(); i++) {
 		const auto aluno = alunos[i].get();
@@ -87,9 +96,9 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (!aprovacoes[j]) {
 				alunoAtual["restantes"].append(nomeDisciplinas[j]);
-				if (cursadas[j])
-					alunoAtual["cursadas"].append(nomeDisciplinas[j]);
 			}
+			if (cursadas[j])
+				alunoAtual["cursadas"].append(nomeDisciplinas[j]);
 		}
 
 		raiz["alunoperfis"].append(alunoAtual);

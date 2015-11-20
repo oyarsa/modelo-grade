@@ -22,6 +22,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 	const auto& capacidades = pCurso->capacidades();
 	const auto& horarios = pCurso->horarios();
 	const auto& professores = pCurso->professores();
+	const auto& periodosMinimos = pCurso->periodosMinimos();
 	const auto numDisciplinas = pCurso->numDisciplinas();
 	const auto numHorarios = pCurso->numHorarios();
 	const auto numProfessores = pCurso->numProfessores();
@@ -37,6 +38,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		disciplinaAtual["turma"] = discTurma[i].second;
 		disciplinaAtual["curso"] = "C";
 		disciplinaAtual["capacidade"] = capacidades[i];
+		disciplinaAtual["periodominimo"] = periodosMinimos[i];
 
 		for (auto j = 0; j < numDisciplinas; j++) {
 			if (preRequisitos[i][j])
@@ -168,6 +170,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	std::vector<std::vector<bool>> equivalencias(numDisciplinas,
 												std::vector<bool>(numDisciplinas, false));
 	std::vector<std::pair<int, std::string>> discTurma(numDisciplinas);
+	std::vector<int> periodoMinimo(numDisciplinas);
 	std::vector<int> capacidade(numDisciplinas);
 
 	for (auto i = 0; i < disciplinas.size(); i++) {
@@ -190,6 +193,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		discTurma[discAtual].first = disciplinas[i]["periodo"].asInt();
 		discTurma[discAtual].second = disciplinas[i]["turma"].asString();
 		capacidade[discAtual] = disciplinas[i]["capacidade"].asInt();
+		periodoMinimo[discAtual] = disciplinas[i]["periodominimo"].asInt();
 	}
 
 	// Cria os professores e os insere na lista de professores do curso
@@ -260,7 +264,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	// Configura as estruturas das disciplinas e os horários do curso
 	curso.setDisciplinas(move(nomeDisc), move(preRequisitos), move(coRequisitos),
 	                     move(ofertadas), move(creditos), move(equivalencias), move(discTurma),
-						 move(capacidade));
+						 move(capacidade), move(periodoMinimo));
 	curso.setHorarios(move(matrizHorario));
 	curso.setProfessores(move(vetorProfessores));
 

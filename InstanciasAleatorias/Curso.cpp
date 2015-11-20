@@ -120,3 +120,8 @@ void Curso::atualiza(const std::vector<bool>& escolhidas) {
 int Curso::numTurmas() const {
 	return numTurmas_;
 }
+
+const std::vector<int>& Curso::periodosMinimos() const
+{
+	return periodosMinimos_;
+}

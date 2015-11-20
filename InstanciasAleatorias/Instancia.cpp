@@ -1,5 +1,5 @@
-﻿#include "Instancia.h"
-#include <GeraArquivos.h>
+﻿#include <GeraArquivos.h>
+#include "Instancia.h"
 #include "Aluno.h"
 #include "AlunoAleatorio.h"
 

@@ -1,11 +1,11 @@
 {
-	"alunoperfis" : 
+	"alunoperfis" :
 	[
 		{
 			"id" : "NOVO",
 			"periodo" : 1,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"B",
@@ -18,7 +18,7 @@
 			"turma" : "A"
 		},
 		{
-			"cursadas" : 
+			"cursadas" :
 			[
 				"B",
 				"C",
@@ -27,7 +27,7 @@
 			"id" : "PAU",
 			"periodo" : 2,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"A2",
@@ -37,7 +37,7 @@
 			"turma" : "A"
 		},
 		{
-			"cursadas" : 
+			"cursadas" :
 			[
 				"A1",
 				"B",
@@ -47,7 +47,7 @@
 			"id" : "PASSOU",
 			"periodo" : 4,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A2",
 				"E",
@@ -56,7 +56,7 @@
 			"turma" : "B"
 		},
 		{
-			"cursadas" : 
+			"cursadas" :
 			[
 				"C",
 				"D",
@@ -66,7 +66,7 @@
 			"id" : "GRADE",
 			"periodo" : 3,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A1",
 				"B",
@@ -75,7 +75,7 @@
 			"turma" : "A"
 		},
 		{
-			"cursadas" : 
+			"cursadas" :
 			[
 				"A1",
 				"B",
@@ -86,7 +86,7 @@
 			"id" : "GRADE_PARCIAL",
 			"periodo" : 3,
 			"peso" : 1,
-			"restantes" : 
+			"restantes" :
 			[
 				"A2",
 				"E"
@@ -94,7 +94,7 @@
 			"turma" : "B"
 		}
 	],
-	"disciplinas" : 
+	"disciplinas" :
 	[
 		{
 			"capacidade" : 10,
@@ -103,7 +103,8 @@
 			"id" : "A1",
 			"nome" : "A1",
 			"periodo" : 1,
-			"turma" : "B"
+			"turma" : "B",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
@@ -112,7 +113,8 @@
 			"id" : "B",
 			"nome" : "B",
 			"periodo" : 1,
-			"turma" : "A"
+			"turma" : "A",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
@@ -121,7 +123,8 @@
 			"id" : "C",
 			"nome" : "C",
 			"periodo" : 1,
-			"turma" : "B"
+			"turma" : "B",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
@@ -130,7 +133,8 @@
 			"id" : "D",
 			"nome" : "D",
 			"periodo" : 1,
-			"turma" : "B"
+			"turma" : "B",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
@@ -139,24 +143,26 @@
 			"id" : "A2",
 			"nome" : "A2",
 			"periodo" : 2,
-			"prerequisitos" : 
+			"prerequisitos" :
 			[
 				"A1"
 			],
-			"turma" : "B"
+			"turma" : "B",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
 			"carga" : 2,
 			"curso" : "C",
-			"equivalentes" : 
+			"equivalentes" :
 			[
 				"F"
 			],
 			"id" : "E",
 			"nome" : "E",
 			"periodo" : 1,
-			"turma" : "A"
+			"turma" : "A",
+			"periodominimo" : 0
 		},
 		{
 			"capacidade" : 10,
@@ -165,10 +171,11 @@
 			"id" : "F",
 			"nome" : "F",
 			"periodo" : 2,
-			"turma" : "A"
+			"turma" : "A",
+			"periodominimo" : 2
 		}
 	],
-	"horario" : 
+	"horario" :
 	[
 		{
 			"camada" : 0,
@@ -237,11 +244,48 @@
 			"semana" : 4
 		}
 	],
-	"professordisciplinas" : [],
-	"professores" : 
+	"professordisciplinas" :
 	[
 		{
-			"competencias" : 
+			"disciplina" : "A1",
+			"id" : "A1",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "B",
+			"id" : "B",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "C",
+			"id" : "C",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "D",
+			"id" : "D",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "A2",
+			"id" : "A2",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "E",
+			"id" : "E",
+			"professor" : "P1"
+		},
+		{
+			"disciplina" : "F",
+			"id" : "F",
+			"professor" : "P1"
+		}
+	],
+	"professores" :
+	[
+		{
+			"competencias" :
 			[
 				"A1",
 				"A2"
@@ -251,7 +295,7 @@
 			"nome" : "P1"
 		},
 		{
-			"competencias" : 
+			"competencias" :
 			[
 				"B",
 				"E",
@@ -262,7 +306,7 @@
 			"nome" : "P2"
 		},
 		{
-			"competencias" : 
+			"competencias" :
 			[
 				"C",
 				"D"

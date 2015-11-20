@@ -14,125 +14,28 @@
 #include "SolverHandler.h"
 #include <GeraArquivos.h>
 #include <ManipulaJson.h>
+#include <iterator>
 
 using CursoPtr = std::unique_ptr<Curso>;
 using AlunoPtr = std::unique_ptr<Aluno>;
 
-//! Exibe um menu e retorna as opções selecionadas para o main
-//! \return Uma triple de CursoPtr, string e int. Respectivamente, um curso,
-//! o nome da pasta de destino e o número de aluno
-std::tuple<CursoPtr, std::string, int> menu() {
-	// Inicializa as variáveis com o padrão
-	int numDisciplinas, numPreRequisitos, numCoRequisitos, numHorarios,
-	    numOfertadas, numAlunos, numProfessores, maxMinistradas,
-	    numDiasLetivos, numPeriodos, numTurmas, capacidadeMinima, capacidadeMaxima;
-	int opcao;
-	std::string pasta;
-	CursoPtr pCurso;
+double funcaoObjetivo(CursoPtr pCurso, std::vector<AlunoPtr>& alunos) {
+	double total = 0;
 
-	// Exibe as opções do menu
-	std::cout << "\nSOLUCIONADOR DE INSTANCIAS DO MODELO DE GRADE - PROG. INTEIRA\n";
-	std::cout << std::string(63, '*') << "\n\n";
-	std::cout << "Selecione a opcao desejada:\n\n";
-	std::cout << "1 - Valores aleatorios padrao\n";
-	std::cout << "2 - Valores aleatorios customizados\n";
-	std::cout << "3 - Modelo FAGOC\n";
-	std::cout << "\nOpcao: ";
+	for (auto i = 0; i < alunos.size(); i++) {
+		SolverHandler solver{pCurso.get(), std::move(alunos[i])};
+		solver.solve();
+		total += solver.valorFinal();
+		const auto& nomeDisciplinas = solver.disciplinas();
 
-	while (true) {
-		std::cin >> opcao;
-		switch (opcao) {
-			// Se a opção for a padrão, utiliza esses valores e gera um curso aleatório
-		case 1:
-			numDisciplinas = 50;
-			numPreRequisitos = 10;
-			numCoRequisitos = 5;
-			numHorarios = 20;
-			numOfertadas = 20;
-			numProfessores = 20;
-			maxMinistradas = 10;
-			numDiasLetivos = 5;
-			numPeriodos = 4;
-			numTurmas = 2;
-			capacidadeMaxima = 4000;
-			capacidadeMinima = 40;
-
-			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-			std::cin >> pasta;
-			std::cout << "Digite o numero de alunos: ";
-			std::cin >> numAlunos;
-
-
-			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
-			                                                   numCoRequisitos, numHorarios,
-			                                                   numOfertadas, numProfessores,
-			                                                   maxMinistradas, numDiasLetivos,
-															   numPeriodos, numTurmas, capacidadeMinima,
-															   capacidadeMaxima)};
-			return make_tuple(move(pCurso), pasta, numAlunos);
-
-			// Caso seja desejado fornecer os valores, capitura-os e cria o curso aleatório
-		case 2:
-			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-			std::cin >> pasta;
-			std::cout << "\nNumero de disciplinas: ";
-			std::cin >> numDisciplinas;
-			std::cout << "Numero de pre-requisitos: ";
-			std::cin >> numPreRequisitos;
-			std::cout << "Numero de co-requisitos: ";
-			std::cin >> numCoRequisitos;
-			std::cout << "Numero de horarios: ";
-			std::cin >> numHorarios;
-			std::cout << "Numero de disciplinas ofertadas no perido: ";
-			std::cin >> numOfertadas;
-			std::cout << "Numero de alunos: ";
-			std::cin >> numAlunos;
-			std::cout << "Numero de professores: ";
-			std::cin >> numProfessores;
-			std::cout << "Numero maximo de disciplinas que um professor pode ministrar: ";
-			std::cin >> maxMinistradas;
-			std::cout << "Numero de dias letivos por semana: ";
-			std::cin >> numDiasLetivos;
-			std::cout << "Numero de peridos simultaneamente ofertados: ";
-			std::cin >> numPeriodos;
-			std::cout << "Numero maximo de turmas por disciplina: ";
-			std::cin >> numTurmas;
-			std::cout << "Capacidade minima de uma turma: ";
-			std::cin >> capacidadeMinima;
-			std::cout << "Capacidade maxima de uma turma: ";
-			std::cin >> capacidadeMaxima;
-
-			if (numDiasLetivos > 7)
-				numDiasLetivos = 7;
-			if (numTurmas > 26)
-				numTurmas = 26;
-			
-			pCurso = std::unique_ptr<Curso>{new CursoAleatorio(numDisciplinas, numPreRequisitos,
-															   numCoRequisitos, numHorarios,
-															   numOfertadas, numProfessores,
-															   maxMinistradas, numDiasLetivos,
-															   numPeriodos, numTurmas, capacidadeMinima,
-															   capacidadeMaxima)};
-
-			return make_tuple(move(pCurso), pasta, numAlunos);
-
-			// Se for escolhido o modelo da fagoc, pede-se apenas o número de alunos
-		case 3:
-			std::cout << "\nDigite o nome da pasta de destino dos arquivos: ";
-			std::cin >> pasta;
-			std::cout << "Numero de alunos: ";
-			std::cin >> numAlunos;
-
-			pCurso = std::unique_ptr<Curso>{new CompFagoc{}};
-
-			return make_tuple(move(pCurso), pasta, numAlunos);
-
-		default:
-			std::cout << "\nOpcao invalida. Tente de novo: ";
-		}
+		/*std::cout << solver.aluno()->nome() << ":\n";
+		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
+			 std::ostream_iterator<std::string>(std::cout, " "));
+		std::cout << "  " << solver.valorFinal() << "\n";*/
 	}
-}
 
+	return total;
+}
 
 bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso, 
 				   std::vector<AlunoPtr>& alunos) {
@@ -217,34 +120,16 @@ std::vector<AlunoAleatorio> geraAlunosAleatorios(Curso const* curso, int numAlun
 	return alunos;
 }
 
-int main() {
-	std::ios_base::sync_with_stdio(false);
-
-	//// Pega as opções retornadas pelo menu
-	//auto opcoes = menu();
-	//// Ponteiro para um Curso
-	//auto pCurso = std::get<0>(move(opcoes));
-	//// Pasta de destino
-	//auto pasta = std::get<1>(opcoes);
-	//// Número de alunos a serem gerados
-	//auto numAlunos = std::get<2>(opcoes);
-	//// Vector com os alunos gerados aleatoriamente
-	//auto alunosAleatorios = geraAlunosAleatorios(pCurso.get(), numAlunos);
-	//std::vector<AlunoPtr> alunos;
-	//for (auto& aluno : alunosAleatorios) {
-	//	alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoAleatorio(std::move(aluno))}));
-	//}
-	
+void entradaPadrao() {
 	std::cout << "Lendo Json...\n";
 	auto entrada = manipulaJson::lerJson("../input.json");
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 
 	std::vector<AlunoPtr> alunos;
 	for (auto& aluno : entrada.second) {
-//		printf("Aluno %d, %s, %s\n", aluno.periodo(), aluno.nome().c_str(), aluno.turma().c_str());
 		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
 	}
-		
+
 	std::string pasta;
 	std::cout << "Digite o nome da pasta: ";
 	std::cin >> pasta;
@@ -266,4 +151,26 @@ int main() {
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> diferenca = end - begin;
 	std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
+}
+
+double entradaArgumentos(std::string arquivoEntrada) {
+	auto entrada = manipulaJson::lerJson(arquivoEntrada);
+	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
+
+	std::vector<AlunoPtr> alunos;
+	for (auto& aluno : entrada.second) {
+		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
+	}
+
+	return funcaoObjetivo(std::move(pCurso), alunos);
+}
+
+int main(int argc, char** argv) {
+	std::ios_base::sync_with_stdio(false);
+
+	if (argc == 2) {
+		std::cout << entradaArgumentos(argv[1]) << "\n";
+	} else {
+		entradaPadrao();
+	}
 }

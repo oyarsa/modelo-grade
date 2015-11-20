@@ -79,7 +79,7 @@ public:
 
 	//! Retorna uma referência const para a matriz de equivalências do curso
 	//! \return Const ref para um vector de vector de bools, indicando quais disciplinas
-	//! são equivalente umas às outras
+	//!			são equivalente umas às outras
 	const std::vector<std::vector<bool>>& equivalencias() const;
 
 	//! Retorna referência const para um vetor de turmas para cada disciplina
@@ -95,7 +95,14 @@ public:
 	void atualiza(const std::vector<bool>& escolhidas);
 
 	//! Retorna o número de turmas do curso
+	//! \return Int, número de turmas do curso
 	int numTurmas() const;
+
+	//! Retorna referência const para um vetor de períodos mínimos para cada disciplina
+	//! \return Const ref para um vector de ints, indicando quantos períodos um aluno
+	//!		    precisa ter cursado para fazer aquela disciplina
+	const std::vector<int>& periodosMinimos() const;
+
 protected:
 	//! Número de disciplinas do curso
 	int numDisciplinas_;
@@ -139,6 +146,9 @@ protected:
 	std::vector<int> alocados_;
 	//! Número máximo de turmas por disciplina
 	int numTurmas_;
+	//! Número mínimo de períodos que um aluno precisa ter cursado
+	//! para poder cursar a disciplina
+	std::vector<int> periodosMinimos_;
 
 	//! Gera os nomes dos horários sequencialmente (HOR1, HOR2, HOR3...)
 	virtual void geraNomeHorarios();

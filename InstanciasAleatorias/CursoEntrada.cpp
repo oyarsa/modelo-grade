@@ -27,6 +27,7 @@ CursoEntrada::CursoEntrada(CursoEntrada&& outro)
 	equivalencias_ = move(outro.equivalencias_);
 	discTurma_ = move(outro.discTurma_);
 	capacidades_ = move(outro.capacidades_);
+	periodosMinimos_ = move(outro.periodosMinimos_);
 }
 
 void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
@@ -36,7 +37,8 @@ void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
                                   std::vector<int>&& creditos,
 								  std::vector<std::vector<bool>>&& equivalencias,
 								  std::vector<std::pair<int, std::string>>&& discTurma,
-								  std::vector<int>&& capacidades) {
+								  std::vector<int>&& capacidades,
+								  std::vector<int>&& periodosMinimos) {
 	nomeDisciplinas_ = move(nomeDisciplinas);
 	preRequisitos_ = move(preRequisitos);
 	coRequisitos_ = move(coRequisitos);
@@ -45,6 +47,7 @@ void CursoEntrada::setDisciplinas(std::vector<std::string>&& nomeDisciplinas,
 	equivalencias_ = move(equivalencias);
 	discTurma_ = move(discTurma);
 	capacidades_ = move(capacidades);
+	periodosMinimos_ = move(periodosMinimos);
 
 	std::unordered_set<std::string> turmas;
 	for (const auto& disc : discTurma_) {

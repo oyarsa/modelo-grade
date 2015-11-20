@@ -29,7 +29,8 @@ public:
 	                    std::vector<int>&& creditos,
 						std::vector<std::vector<bool>>&& equivalencias,
 						std::vector<std::pair<int, std::string>>&& discTurma,
-						std::vector<int>&& capacidades);
+						std::vector<int>&& capacidades,
+						std::vector<int>&& periodosMinimos);
 
 	//! Setter da matriz de horários do curso, recebendo uma referência rvalue
 	//! para uma matriz de booleanos. Utilize std::move para mover as estruturas 

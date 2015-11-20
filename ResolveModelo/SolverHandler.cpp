@@ -22,6 +22,7 @@ void SolverHandler::solve() {
 	const auto& ofertadas = curso_->ofertadas();
 	const auto& equivalencias = curso_->equivalencias();
 	const auto& discTurma = curso_->discTurma();
+	const auto& periodosMinimos = curso_->periodosMinimos();
 	const auto numDisciplinas = curso_->numDisciplinas();
 	const auto numHorarios = curso_->numHorarios();
 
@@ -64,6 +65,11 @@ void SolverHandler::solve() {
 	obj.end();
 
 	// ------ Restrições --------------------
+
+	// Período mínimo
+	for (auto d = 0; d < numDisciplinas; d++) {
+		mod.add(y[d] * periodosMinimos[d] <= periodoAluno);
+	}
 
 	// Pré-requisitos
 	for (auto d = 0; d < numDisciplinas; d++) {

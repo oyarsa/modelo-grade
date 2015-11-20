@@ -42,16 +42,16 @@ public:
 	std::string turma() const;
 
 protected:
+	//! Referência const para matriz de pré-requisitos do curso
+	const std::vector<std::vector<bool>>& preRequisitos_;
+	//! Referência const para matriz de co-requisitos do curso
+	const std::vector<std::vector<bool>>& coRequisitos_;
 	//! Número de disciplinas do curso
 	int numDisciplinas;
 	//! Número de disciplinas em que o aluno foi aprovado (aleatório)
 	int numAprovacoes;
 	//! Número de disciplinas que o aluno cursou ( >= a numAprovacoes)
 	int numCursadas;
-	//! Referência const para matriz de pré-requisitos do curso
-	const std::vector<std::vector<bool>>& preRequisitos_;
-	//! Referência const para matriz de co-requisitos do curso
-	const std::vector<std::vector<bool>>& coRequisitos_;
 	//! Nome do aluno
 	std::string nome_;
 	//! Vetor de disciplinas em que o aluno foi aprovado

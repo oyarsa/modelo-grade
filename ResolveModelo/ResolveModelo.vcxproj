@@ -138,6 +138,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\concert\include\ilconcert;C:\Program Files\IBM\ILOG\CPLEX_Studio_Community1262\cplex\include\ilcplex;C:\Users\Italo\Google Drive\Codigos\src\modelo-grade\GeraArquivos;C:\Users\Italo\Google Drive\Codigos\src\modelo-grade\InstanciasAleatorias;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -5,10 +5,7 @@
 #include <chrono>
 #include <sstream>
 #include <Instancia.h>
-#include <CursoAleatorio.h>
 #include <string>
-#include <tuple>
-#include <CompFagoc.h>
 #include <windows.h>
 #include <AlunoAleatorio.h>
 #include "SolverHandler.h"
@@ -26,12 +23,6 @@ double funcaoObjetivo(CursoPtr pCurso, std::vector<AlunoPtr>& alunos) {
 		SolverHandler solver{pCurso.get(), std::move(alunos[i])};
 		solver.solve();
 		total += solver.valorFinal();
-		const auto& nomeDisciplinas = solver.disciplinas();
-
-		/*std::cout << solver.aluno()->nome() << ":\n";
-		copy(begin(nomeDisciplinas), end(nomeDisciplinas),
-			 std::ostream_iterator<std::string>(std::cout, " "));
-		std::cout << "  " << solver.valorFinal() << "\n";*/
 	}
 
 	return total;
@@ -153,7 +144,7 @@ void entradaPadrao() {
 	std::cout << "Tempo total: " << diferenca.count() << "s\n\n";
 }
 
-double entradaArgumentos(std::string arquivoEntrada) {
+void entradaArgumentos(std::string arquivoEntrada) {
 	auto entrada = manipulaJson::lerJson(arquivoEntrada);
 	auto pCurso = std::unique_ptr<Curso>{new CursoEntrada(std::move(entrada.first))};
 
@@ -162,14 +153,19 @@ double entradaArgumentos(std::string arquivoEntrada) {
 		alunos.push_back(std::move(std::unique_ptr<Aluno>{new AlunoEntrada(std::move(aluno))}));
 	}
 
-	return funcaoObjetivo(std::move(pCurso), alunos);
+	auto result = funcaoObjetivo(std::move(pCurso), alunos);
+	auto inicioTempo = std::chrono::steady_clock::now();
+	auto fimTempo = std::chrono::steady_clock::now();
+
+	std::cout << result << " " << std::chrono::duration_cast<std::chrono::milliseconds>
+		(fimTempo - inicioTempo).count() << "\n";
 }
 
 int main(int argc, char** argv) {
 	std::ios_base::sync_with_stdio(false);
 
 	if (argc == 2) {
-		std::cout << entradaArgumentos(argv[1]) << "\n";
+		entradaArgumentos(argv[1]);
 	} else {
 		entradaPadrao();
 	}

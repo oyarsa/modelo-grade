@@ -1,0 +1,15 @@
+SolverHandler depende de Instancia
+main depende de Curso, GeraArquivos, ManipulaJson, Aluno
+ForcaBruta depende de Curso, GeraArquivos, ManipulaJson, Aluno
+Curso depende de Professor
+Instancia depende de Aluno, Curso
+CursoEntrada depende de Curso
+AlunoEntrada depende Aluno
+ManipulaJson depende de CursoEntrada, AlunoEntrada
+
+Refatorar verificação de constraints no ForcaBruta
+Analisar forma como smart pointer são gerenciados (classe Instancia e funções do main)
+Abstrair os tipos da interface do manipula Json (receber Aluno e Curso, não
+Aluno e Curso entrada)
+Revisar comentários e convenção de código
+(talvez) Modularizar ainda mais o código depois da refatoração

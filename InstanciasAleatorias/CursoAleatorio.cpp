@@ -236,7 +236,7 @@ void CursoAleatorio::geraProfessores() {
 		//! Enquanto o professor ainda precisar receber disciplinas
 		//! Percorre a lista de disciplinas, parando se elas acabarem ou o professor já
 		//! estiver cheio
-		for (auto j = 0; j < disciplinasAlocadas.size() &&
+		for (std::size_t j = 0; j < disciplinasAlocadas.size() &&
 		     contadorMinistradas[i] < professor.numMinistradas(); j++) {
 			//! Verifica se o professor já ministra aquela disciplina,
 			//! gera uma chance de o professor ministrá-la e testa se ela já está sendo ministrada

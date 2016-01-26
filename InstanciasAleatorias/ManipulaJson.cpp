@@ -84,7 +84,7 @@ bool manipulaJson::escreveJson(std::string caminho, Curso const* pCurso,
 		raiz["professordisciplinas"].append(profDiscAtual);
 	}
 
-	for (auto i = 0; i < alunos.size(); i++) {
+	for (std::size_t i = 0; i < alunos.size(); i++) {
 		const auto aluno = alunos[i].get();
 		Json::Value alunoAtual;
 		alunoAtual["id"] = aluno->nome();
@@ -149,7 +149,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	// E outro que irá guardar os créditos de cada uma
 	std::vector<int> creditos{};
 
-	for (auto i = 0; i < disciplinas.size(); i++) {
+	for (std::size_t i = 0; i < disciplinas.size(); i++) {
 		const auto nome = disciplinas[i]["id"].asString();
 		nomeDisc.push_back(nome);
 		discToInt[nome] = i;
@@ -173,17 +173,17 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	std::vector<int> periodoMinimo(numDisciplinas);
 	std::vector<int> capacidade(numDisciplinas);
 
-	for (auto i = 0; i < disciplinas.size(); i++) {
+	for (std::size_t i = 0; i < disciplinas.size(); i++) {
 		const auto& preReq = disciplinas[i]["prerequisitos"];
 		const auto& equivalentes = disciplinas[i]["equivalentes"];
 		auto discAtual = discToInt[disciplinas[i]["id"].asString()];
 
 		numPreRequisitos += preReq.size();
-		for (auto j = 0; j < preReq.size(); j++) {
+		for (std::size_t j = 0; j < preReq.size(); j++) {
 			auto preReqAtual = discToInt[preReq[j].asString()];
 			preRequisitos[discAtual][preReqAtual] = true;
 		}
-		for (auto j = 0; j < equivalentes.size(); j++) {
+		for (std::size_t j = 0; j < equivalentes.size(); j++) {
 			auto equivAtual = discToInt[equivalentes[j].asString()];
 			equivalencias[discAtual][equivAtual] = true;
 		}
@@ -201,14 +201,14 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	const auto& professores = raiz["professores"];
 	std::vector<Professor> vetorProfessores;
 
-	for (auto i = 0; i < professores.size(); i++) {
+	for (std::size_t i = 0; i < professores.size(); i++) {
 		auto nome = professores[i]["nome"].asString();
 		const auto& competencias = professores[i]["competencias"];
 		auto numMinistradas = competencias.size();
 
 		Professor professor(nome, numMinistradas);
 
-		for (auto j = 0; j < numMinistradas; j++) {
+		for (std::size_t j = 0; j < numMinistradas; j++) {
 			professor.adicionaDisciplina(discToInt[competencias[j].asString()]);
 		}
 
@@ -222,7 +222,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	auto numDiasLetivos = 0;
 	auto numPeriodos = 0;
 
-	for (auto i = 0; i < horarios.size(); i++) {
+	for (std::size_t i = 0; i < horarios.size(); i++) {
 		auto horarioAtual = horarios[i]["horario"].asInt();
 		if (horarioAtual + 1 > numHorariosDia)
 			numHorariosDia = horarioAtual + 1;
@@ -243,7 +243,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	                                             std::vector<bool>(numDisciplinas, false));
 	std::vector<bool> ofertadas(numDisciplinas, false);
 
-	for (auto i = 0; i < horarios.size(); i++) {
+	for (std::size_t i = 0; i < horarios.size(); i++) {
 		auto horarioAtual = horarios[i]["horario"].asInt();
 		auto diaLetivoAtual = horarios[i]["semana"].asInt();
 
@@ -273,7 +273,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 	const auto& alunos = raiz["alunoperfis"];
 	std::vector<AlunoEntrada> vetorAlunos;
 
-	for (auto i = 0; i < alunos.size(); i++) {
+	for (std::size_t i = 0; i < alunos.size(); i++) {
 		// Pega o nome do aluno e cria um objeto com esse nome e as disciplinas do
 		// curso que acabou de ser lido
 		auto nome = alunos[i]["id"].asString();
@@ -287,7 +287,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		std::vector<bool> aprovacoes(numDisciplinas, true);
 
 		const auto& restantes = alunos[i]["restantes"];
-		for (auto j = 0; j < restantes.size(); j++) {
+		for (std::size_t j = 0; j < restantes.size(); j++) {
 			auto discIndex = discToInt[restantes[j].asString()];
 			aprovacoes[discIndex] = false;
 		}
@@ -298,7 +298,7 @@ manipulaJson::lerJson(std::string nomeArquivo) {
 		// As disciplinas que o aluno cursou mas foi reprovado estão marcadas como 
 		// falso. Agora elas serão marcadas como verdadeiro na lista de cursadas.
 		const auto& discCursadas = alunos[i]["cursadas"];
-		for (auto j = 0; j < discCursadas.size(); j++) {
+		for (std::size_t j = 0; j < discCursadas.size(); j++) {
 			auto discIndex = discToInt[discCursadas[j].asString()];
 			cursadas[discIndex] = true;
 		}

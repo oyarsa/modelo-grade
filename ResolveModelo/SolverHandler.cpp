@@ -1,6 +1,4 @@
-﻿#pragma warning(disable: 4996)
-
-#include "SolverHandler.h"
+﻿#include "SolverHandler.h"
 #include <Instancia.h>
 #include <ilcp/cp.h>
 

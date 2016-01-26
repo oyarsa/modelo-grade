@@ -202,7 +202,7 @@ solucionaAluno(const Instancia& instancia) {
 			// candidata é descartada (um aluno não pode cursar uma matéria que já passou)
 			// e o programa pula para o fim do bloco da possibilidade
 			
-			if (atual[d] > (1 - aprovacoes[d])) {
+			if (aprovacoes[d] && atual[d]) {
 				goto proximo;
 			}
 
@@ -407,7 +407,7 @@ int main() {
 
 	for (auto& aluno : alunos) {
 		std::cout << aluno.nome() << "\n";
-		for (auto i = 0; i < aluno.aprovacoes().size(); i++) {
+		for (std::size_t i = 0; i < aluno.aprovacoes().size(); i++) {
 			if (!aluno.aprovacoes()[i])
 				std::cout << curso.nomeDisciplinas()[i] << " ";
 		}

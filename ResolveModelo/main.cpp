@@ -19,7 +19,7 @@ using AlunoPtr = std::unique_ptr<Aluno>;
 double funcaoObjetivo(CursoPtr pCurso, std::vector<AlunoPtr>& alunos) {
 	double total = 0;
 
-	for (auto i = 0; i < alunos.size(); i++) {
+	for (std::size_t i = 0; i < alunos.size(); i++) {
 		SolverHandler solver{pCurso.get(), std::move(alunos[i])};
 		solver.solve();
 		total += solver.valorFinal();
@@ -51,7 +51,7 @@ bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso,
 	// Carrega o arquivo CSS do HTML
 	geraArquivo::escolheCSS("etc\\estilos.css");
 
-	for (auto i = 0; i < alunos.size(); i++) {
+	for (std::size_t i = 0; i < alunos.size(); i++) {
 		SolverHandler solver{pCurso.get(), std::move(alunos[i])};
 
 		// Resolve o problema e imprime os dados nos arquivos
@@ -63,14 +63,14 @@ bool resolveAlunos(std::string dir, std::string pasta, CursoPtr pCurso,
 
 		// A cada iteração os resultados são gravados no TXT
 		saidaTxt << "Aprovações:\n";
-		for (auto j = 0; j < aprovacoesAluno.size(); j++) {
+		for (std::size_t j = 0; j < aprovacoesAluno.size(); j++) {
 			if (aprovacoesAluno[j]) {
 				saidaTxt << pCurso->nomeDisciplinas()[j] << " ";
 			}
 		}
 		saidaTxt << "\n";
 		saidaTxt << "Cursadas:\n";
-		for (auto j = 0; j < cursadasAluno.size(); j++) {
+		for (std::size_t j = 0; j < cursadasAluno.size(); j++) {
 			if (cursadasAluno[j]) {
 				saidaTxt << pCurso->nomeDisciplinas()[j] << " ";
 			}

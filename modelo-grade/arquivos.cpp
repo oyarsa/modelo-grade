@@ -85,16 +85,16 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 		auto dia_letivo_atual = horarios[i]["semana"].asInt();
 
 		auto horario = num_horarios_dia * dia_letivo_atual + horario_atual;
-		auto discIndex = disc_to_int[horarios[i]["professordisciplina"].asString()];
+		auto disc_index = disc_to_int[horarios[i]["professordisciplina"].asString()];
 
-		matriz_horario[horario][discIndex] = 1;
-		ofertadas[discIndex] = 1;
+		matriz_horario[horario][disc_index] = 1;
+		ofertadas[disc_index] = 1;
 	}
 
 	fagoc::Curso curso(std::move(creditos), std::move(prerequisitos), std::move(corequisitos),
 					   std::move(matriz_horario), std::move(ofertadas), std::move(equivalencias),
 					   std::move(disc_turma), std::move(periodo_minimo), std::move(nome_disc),
-					   std::move(capacidades));
+					   std::move(capacidades), num_dias_letivos, num_periodos);
 
 
 	const auto& alunos = raiz["alunoperfis"];
@@ -125,4 +125,78 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 	}
 
 	return std::make_pair(std::move(curso), std::move(vet_alunos));
+}
+
+void fagoc::gen_html(const Curso& curso, const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes, std::string destino)
+{
+	std::ofstream saida{destino + "\\resultado.html"};
+	std::ifstream arq_css{arquivo_css};
+	std::ostringstream buffer{};
+	buffer << arq_css.rdbuf();
+	auto css = buffer.str();
+	std::ostringstream html_pkg;
+
+	for (const auto& solucao : solucoes) {
+		html_pkg << gen_html_aluno(curso, *solucao, destino, css);
+	}
+
+	saida << std::nounitbuf << html_pkg.str() << std::endl;
+}
+
+std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao, 
+								  const std::string& destino, const std::string& css)
+{
+	std::ostringstream html;
+	const std::string dias_semana[] = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"};
+
+	html << std::nounitbuf;
+	html << "<!DOCTYPE html>\n"
+		<< "<html align='center' id='nome'>\n"
+		<< "<style type=\"text/css\">"
+		<< css
+		<< "</style>"
+		<< "<body>\n"
+		<< "<h1>" + solucao.nome_aluno + ":<br></h1>"
+		<< "<table align='center' id='horarios'>\n";
+
+	html << "<tr>\n";
+	for (auto i = 0; i < curso.num_dias_letivos(); i++) {
+		html << "<th>" << dias_semana[i] << "</th>\n";
+	}
+	html << "</tr>\n";
+
+	auto horarios_dia = static_cast<std::size_t>(curso.num_horarios() / curso.num_dias_letivos());
+
+	for (std::size_t i = 0; i < horarios_dia; i++) {
+		html << "<tr>\n";
+		for (std::size_t j = 0; j <= curso.num_horarios() - curso.num_periodos(); j += curso.num_periodos()) {
+			auto encontrou = false;
+			for (std::size_t k = 0; k < curso.num_disciplinas(); k++) {
+				if (curso.horario()[j + i][k] && solucao.solucao_bool[k]) {
+					html << "<td>"
+						<< curso.nome_disciplinas()[k] << "</td>\n";
+					encontrou = true;
+					break;
+				}
+			}
+			// Se chegar ao fim de todas as disciplinas e não encontrar nenhuma que tenha
+			// sido escolhida, imprime um traço
+			if (!encontrou) {
+				html << "<td> ----- </td>\n";
+			}
+		}
+		html << "</tr>\n";
+	}
+
+	// Fecha as tags da página
+	html << "</table>\n"
+		<< "</body>\n"
+		<< "</html>\n";
+
+	// Grava um arquivo com a página criada
+	std::ofstream arquivo_saida(destino + "\\" + solucao.nome_aluno + ".html");
+	arquivo_saida << std::nounitbuf << html.str() << std::endl;
+
+	// E também retorna a string (a mesma que foi escrita) para quem chamou
+	return html.str();
 }

@@ -85,7 +85,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(CPLEX_STUDIO_DIR1263)\cplex\lib\x86_windows_vs2013\stat_mda;$(CPLEX_STUDIO_DIR1263)\concert\lib\x86_windows_vs2013\stat_mda;$(CPLEX_STUDIO_DIR1263)\cpoptimizer\lib\x86_windows_vs2013\stat_mda;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cplex1263.lib;ilocplex.lib;concert.lib;cp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -135,7 +135,7 @@
     <ClCompile Include="curso.cpp" />
     <ClCompile Include="jsoncpp.cxx" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="solver.cpp" />
+    <ClCompile Include="modelo_solver.cpp" />
     <ClCompile Include="arquivos.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +146,7 @@
     <ClInclude Include="curso.h" />
     <ClInclude Include="arquivos.h" />
     <ClInclude Include="solucao.h" />
+    <ClInclude Include="modelo_solver.h" />
     <ClInclude Include="solver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

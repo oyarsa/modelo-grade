@@ -9,7 +9,9 @@ fagoc::Curso::Curso(std::vector<int>&& creditos,
 					std::vector<std::pair<int, std::string>>&& disc_turma, 
 					std::vector<int>&& periodos_min, 
 					std::vector<std::string>&& nome_discs,
-					std::vector<int>&& capacidades) 
+					std::vector<int>&& capacidades,
+					int num_dias_letivos,
+					int num_periodos) 
 	: creditos_(std::move(creditos))
 	, pre_requisitos_(std::move(pre_reqs))
 	, co_requisitos_(std::move(co_reqs))
@@ -21,7 +23,15 @@ fagoc::Curso::Curso(std::vector<int>&& creditos,
 	, nome_disciplinas_(std::move(nome_discs))
 	, capacidades_(std::move(capacidades))
 	, alocados_(pre_requisitos_.size())
+	, num_dias_letivos_(num_dias_letivos)
+	, num_periodos_(num_periodos)
 {}
+
+
+int fagoc::Curso::num_periodos() const
+{
+	return num_periodos_;
+}
 
 void fagoc::Curso::atualiza_ofertadas(const std::vector<char>& escolhidas)
 {
@@ -52,6 +62,11 @@ std::size_t fagoc::Curso::num_horarios() const
 const std::vector<int>& fagoc::Curso::creditos() const
 {
 	return creditos_;
+}
+
+int fagoc::Curso::num_dias_letivos() const
+{
+	return num_dias_letivos_;
 }
 
 const std::vector<std::vector<char>>& fagoc::Curso::pre_requisitos() const

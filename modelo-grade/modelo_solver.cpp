@@ -1,12 +1,12 @@
-#include "solver.h"
+#include "modelo_solver.h"
 #include "solucao.h"
 #include <ilcp/cp.h>
 
-fagoc::Solver::Solver(const Curso& curso, const Aluno& aluno) 
-	: curso_{curso}, aluno_{aluno}, env_{}
+fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno) 
+	: Solver{curso, aluno}, env_{}
 {}
 
-void fagoc::Solver::solve()
+void fagoc::Modelo_solver::solve()
 {
 	// Inicialização das variáveis do curso
 	const auto& nome_disciplina = curso_.nome_disciplinas();
@@ -159,7 +159,7 @@ void fagoc::Solver::solve()
 		cp.getValues(y, solucao_cplex);
 	}
 
-	solucao_.reset(new Solucao{num_disciplinas, funcao_objetivo, curso_, aluno_.nome()});
+	solucao_.reset(new Solucao{num_disciplinas, funcao_objetivo, aluno_.nome()});
 	// Atribui resposta às variáveis membro
 	for (std::size_t d = 0; d < num_disciplinas; d++) {
 		if (solucao_cplex[d]) {
@@ -169,22 +169,8 @@ void fagoc::Solver::solve()
 	}
 }
 
-std::shared_ptr<fagoc::Solver::Solucao> fagoc::Solver::solucao() const
+std::shared_ptr<fagoc::Solucao> fagoc::Modelo_solver::solucao() const
 {
 	return solucao_;
 }
 
-double fagoc::soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
-							   std::vector<std::shared_ptr<fagoc::Solver::Solucao>>& solucoes)
-{
-	double sum = 0;
-	for (std::size_t i = 0; i < alunos.size(); i++) {
-		Solver solver(curso, alunos[i]);
-		solver.solve();
-		solucoes[i] = solver.solucao();
-		curso.atualiza_ofertadas(solucoes[i]->solucao_bool);
-		sum += solucoes[i]->funcao_objetivo;
-	}
-
-	return sum;
-}

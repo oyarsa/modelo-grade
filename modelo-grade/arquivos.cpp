@@ -5,7 +5,7 @@
 #include "json/json.hxx"
 
 std::pair<std::string, std::string> split_curso_string(const std::string& curso_str)
-{	
+{
 	auto i = curso_str.find_first_of("-");
 	return std::make_pair(curso_str.substr(0, i), curso_str.substr(i + 1));
 }
@@ -116,9 +116,9 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 	}
 
 	fagoc::Curso curso(std::move(creditos), std::move(prerequisitos), std::move(corequisitos),
-					   std::move(matriz_horario), std::move(ofertadas), std::move(equivalencias),
-					   std::move(disc_turma), std::move(periodo_minimo), std::move(nome_disc),
-					   std::move(capacidades), num_dias_letivos, num_periodos);
+	                   std::move(matriz_horario), std::move(ofertadas), std::move(equivalencias),
+	                   std::move(disc_turma), std::move(periodo_minimo), std::move(nome_disc),
+	                   std::move(capacidades), num_dias_letivos, num_periodos);
 
 
 	/*********************************************
@@ -149,18 +149,18 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 			cursadas[disc_index] = 1;
 		}
 
-		vet_alunos.push_back(fagoc::Aluno(nome, std::move(aprovacoes), 
-										  std::move(cursadas),
-										  std::stoi(periodo_curso_par.first), 
-										  turma_curso_par.first));
+		vet_alunos.push_back(fagoc::Aluno(nome, std::move(aprovacoes),
+		                                  std::move(cursadas),
+		                                  std::stoi(periodo_curso_par.first),
+		                                  turma_curso_par.first));
 	}
 
 	return std::make_pair(std::move(curso), std::move(vet_alunos));
 }
 
-void fagoc::gen_html(const Curso& curso, 
-					 const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes, 
-					 std::string destino)
+void fagoc::gen_html(const Curso& curso,
+                     const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes,
+                     std::string destino)
 {
 	std::ofstream saida{destino + "\\resultado.html"};
 	std::ifstream arq_css{arquivo_css};
@@ -176,21 +176,21 @@ void fagoc::gen_html(const Curso& curso,
 	saida << std::nounitbuf << html_pkg.str() << std::endl;
 }
 
-std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao, 
-								  const std::string& destino, const std::string& css)
+std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
+                                  const std::string& destino, const std::string& css)
 {
 	std::ostringstream html;
 	const std::string dias_semana[] = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"};
 
 	html << std::nounitbuf;
 	html << "<!DOCTYPE html>\n"
-		<< "<html align='center' id='nome'>\n"
-		<< "<style type=\"text/css\">"
-		<< css
-		<< "</style>"
-		<< "<body>\n"
-		<< "<h1>" + solucao.nome_aluno + ":<br></h1>"
-		<< "<table align='center' id='horarios'>\n";
+			<< "<html align='center' id='nome'>\n"
+			<< "<style type=\"text/css\">"
+			<< css
+			<< "</style>"
+			<< "<body>\n"
+			<< "<h1>" + solucao.nome_aluno + ":<br></h1>"
+			<< "<table align='center' id='horarios'>\n";
 
 	html << "<tr>\n";
 	for (auto i = 0; i < curso.num_dias_letivos(); i++) {
@@ -207,7 +207,7 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 			for (std::size_t k = 0; k < curso.num_disciplinas(); k++) {
 				if (curso.horario()[j + i][k] && solucao.solucao_bool[k]) {
 					html << "<td>"
-						<< curso.nome_disciplinas()[k] << "</td>\n";
+							<< curso.nome_disciplinas()[k] << "</td>\n";
 					encontrou = true;
 					break;
 				}
@@ -223,8 +223,8 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 
 	// Fecha as tags da página
 	html << "</table>\n"
-		<< "</body>\n"
-		<< "</html>\n";
+			<< "</body>\n"
+			<< "</html>\n";
 
 	// Grava um arquivo com a página criada
 	std::ofstream arquivo_saida(destino + "\\" + solucao.nome_aluno + ".html");
@@ -233,3 +233,4 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 	// E também retorna a string (a mesma que foi escrita) para quem chamou
 	return html.str();
 }
+

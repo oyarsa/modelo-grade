@@ -7,11 +7,11 @@ namespace fagoc {
 class Aluno
 {
 public:
-	Aluno(std::string nome, 
-			std::vector<char>&& aprovacoes, 
-			std::vector<char>&& cursadas, 
-			int periodo, 
-			std::string turma);
+	Aluno(std::string nome,
+	      std::vector<char>&& aprovacoes,
+	      std::vector<char>&& cursadas,
+	      int periodo,
+	      std::string turma);
 
 	std::string nome() const;
 	std::string turma() const;

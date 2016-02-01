@@ -18,7 +18,7 @@ void print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoe
 	}
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	std::string arquivo_entrada, caminho_destino;
 	if (argc != 3) {
@@ -39,3 +39,4 @@ int main(int argc, char *argv[])
 	fagoc::gen_html(curso, solucoes, caminho_destino);
 	std::cout << "\n\n\n" << "HTMLs em: " << caminho_destino << "\n";
 }
+

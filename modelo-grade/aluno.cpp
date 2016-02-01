@@ -9,8 +9,7 @@ fagoc::Aluno::Aluno(std::string nome,
 	, aprovacoes_(std::move(aprovacoes))
 	, cursadas_(std::move(cursadas))
 	, periodo_{periodo}
-	, turma_(turma)
-{}
+	, turma_(turma) {}
 
 std::string fagoc::Aluno::nome() const
 {

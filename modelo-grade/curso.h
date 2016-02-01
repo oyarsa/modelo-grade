@@ -17,7 +17,7 @@ public:
 	      std::vector<std::string>&& nome_disciplinas,
 	      std::vector<int>&& capacidades,
 	      int num_dias_letivos,
-		  int num_periodos);
+	      int num_periodos);
 
 	void atualiza_ofertadas(const std::vector<char>& escolhidas);
 

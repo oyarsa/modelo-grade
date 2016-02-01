@@ -16,9 +16,9 @@ protected:
 	const Aluno& aluno_;
 };
 
-template<class Solver>
+template <class Solver>
 double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
-							   std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
+                        std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
 {
 	double sum = 0;
 	for (std::size_t i = 0; i < alunos.size(); i++) {
@@ -33,3 +33,4 @@ double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
 }
 
 }
+

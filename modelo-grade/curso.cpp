@@ -1,31 +1,30 @@
 #include "curso.h"
 
-fagoc::Curso::Curso(std::vector<int>&& creditos, 
-					std::vector<std::vector<char>>&& pre_reqs, 
-					std::vector<std::vector<char>>&& co_reqs, 
-					std::vector<std::vector<char>>&& horario, 
-					std::vector<char>&& ofertadas, 
-					std::vector<std::vector<char>>&& equivs, 
-					std::vector<std::pair<int, std::string>>&& disc_turma, 
-					std::vector<int>&& periodos_min, 
-					std::vector<std::string>&& nome_discs,
-					std::vector<int>&& capacidades,
-					int num_dias_letivos,
-					int num_periodos) 
+fagoc::Curso::Curso(std::vector<int>&& creditos,
+                    std::vector<std::vector<char>>&& pre_reqs,
+                    std::vector<std::vector<char>>&& co_reqs,
+                    std::vector<std::vector<char>>&& horario,
+                    std::vector<char>&& ofertadas,
+                    std::vector<std::vector<char>>&& equivs,
+                    std::vector<std::pair<int, std::string>>&& disc_turma,
+                    std::vector<int>&& periodos_min,
+                    std::vector<std::string>&& nome_discs,
+                    std::vector<int>&& capacidades,
+                    int num_dias_letivos,
+                    int num_periodos)
 	: creditos_(std::move(creditos))
-	, pre_requisitos_(std::move(pre_reqs))
-	, co_requisitos_(std::move(co_reqs))
-	, horario_(std::move(horario))
-	, ofertadas_(std::move(ofertadas))
-	, equivalencias_(std::move(equivs))
-	, disc_turma_(std::move(disc_turma))
-	, periodos_minimos_(std::move(periodos_min))
-	, nome_disciplinas_(std::move(nome_discs))
-	, capacidades_(std::move(capacidades))
-	, alocados_(pre_requisitos_.size())
-	, num_dias_letivos_(num_dias_letivos)
-	, num_periodos_(num_periodos)
-{}
+	  , pre_requisitos_(std::move(pre_reqs))
+	  , co_requisitos_(std::move(co_reqs))
+	  , horario_(std::move(horario))
+	  , ofertadas_(std::move(ofertadas))
+	  , equivalencias_(std::move(equivs))
+	  , disc_turma_(std::move(disc_turma))
+	  , periodos_minimos_(std::move(periodos_min))
+	  , nome_disciplinas_(std::move(nome_discs))
+	  , capacidades_(std::move(capacidades))
+	  , alocados_(pre_requisitos_.size())
+	  , num_dias_letivos_(num_dias_letivos)
+	  , num_periodos_(num_periodos) {}
 
 
 int fagoc::Curso::num_periodos() const
@@ -108,3 +107,4 @@ const std::vector<std::string>& fagoc::Curso::nome_disciplinas() const
 {
 	return nome_disciplinas_;
 }
+

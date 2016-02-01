@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F46A257-D367-456C-A29C-6BCA939B90B7}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -17,8 +20,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x64.ActiveCfg = Debug|x64
 		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x64.Build.0 = Debug|x64
-		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x86.ActiveCfg = Debug|Win32
-		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x86.Build.0 = Debug|Win32
+		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x86.ActiveCfg = Release|Win32
+		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Debug|x86.Build.0 = Release|Win32
 		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Release|x64.ActiveCfg = Release|x64
 		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Release|x64.Build.0 = Release|x64
 		{AC0589C2-6C92-4A9D-B372-8D40BA75806F}.Release|x86.ActiveCfg = Release|Win32

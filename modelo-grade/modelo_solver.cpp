@@ -2,9 +2,8 @@
 #include "solucao.h"
 #include <ilcp/cp.h>
 
-fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno) 
-	: Solver{curso, aluno}, env_{}
-{}
+fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno)
+	: Solver{curso, aluno}, env_{} {}
 
 void fagoc::Modelo_solver::solve()
 {
@@ -42,7 +41,7 @@ void fagoc::Modelo_solver::solve()
 	IloModel mod{env_};
 	// Variáveis de decisão
 	IloBoolVarArray y(env_, num_disciplinas);
-	
+
 	// Carga horária
 	IloExpr carga{env_};
 	for (std::size_t d = 0; d < num_disciplinas; d++) {

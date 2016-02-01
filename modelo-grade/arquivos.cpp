@@ -1,17 +1,31 @@
 #include "arquivos.h"
 #include <unordered_map>
 #include <fstream>
+#include <utility>
 #include "json/json.hxx"
+
+std::pair<std::string, std::string> split_curso_string(const std::string& curso_str)
+{	
+	auto i = curso_str.find_first_of("-");
+	return std::make_pair(curso_str.substr(0, i), curso_str.substr(i + 1));
+}
 
 std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string arquivo)
 {
 	std::ifstream entrada(arquivo);
 
+	// Mapeia os nomes das disciplinas a índices nos vetores e matrizes
 	std::unordered_map<std::string, int> disc_to_int;
 
 	Json::Value raiz;
 	entrada >> raiz;
 
+	/**********************************************
+	 *			   ENTRADA DISCIPLINAS            *
+	 **********************************************/
+
+	// Lê uma primeira vez para contar o número de disciplinas e associar
+	// os nomes a índices
 	const auto& disciplinas = raiz["disciplinas"];
 	std::vector<std::string> nome_disc;
 	std::vector<int> creditos;
@@ -26,6 +40,7 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 
 	auto num_disc = creditos.size();
 
+	// Lê uma segunda vez, dessa vez registrando de fato as disciplinas na memória
 	std::vector<std::vector<char>> prerequisitos(num_disc, std::vector<char>(num_disc, 0));
 	std::vector<std::vector<char>> corequisitos(num_disc, std::vector<char>(num_disc, 0));
 	std::vector<std::vector<char>> equivalencias(num_disc, std::vector<char>(num_disc, 0));
@@ -48,12 +63,20 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 			equivalencias[disc_atual][equiv_atual] = 1;
 		}
 
-		disc_turma[disc_atual].first = disciplinas[i]["periodo"].asInt();
-		disc_turma[disc_atual].second = disciplinas[i]["turma"].asString();
+		auto periodo_curso_par = split_curso_string(disciplinas[i]["periodo"].asString());
+		auto periodomin_curso_par = split_curso_string(disciplinas[i]["periodominimo"].asString());
+		auto turma_curso_par = split_curso_string(disciplinas[i]["turma"].asString());
+		disc_turma[disc_atual].first = std::stoi(periodo_curso_par.first);
+		disc_turma[disc_atual].second = turma_curso_par.first;
 		capacidades[disc_atual] = disciplinas[i]["capacidade"].asInt();
-		periodo_minimo[disc_atual] = disciplinas[i]["periodominimo"].asInt();
+		periodo_minimo[disc_atual] = std::stoi(periodomin_curso_par.first);
 	}
 
+	/**********************************************
+	 *			   ENTRADA HORÁRIOS               *
+	 **********************************************/
+
+	// Registra o número de horários, períodos e dias letivos 
 	const auto& horarios = raiz["horario"];
 	auto num_horarios_dia = 0;
 	auto num_dias_letivos = 0;
@@ -76,6 +99,7 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 		}
 	}
 
+	// Volta e lê o horário novamente, desta vez montando de fato na memória
 	auto num_horarios = num_horarios_dia * num_dias_letivos;
 	std::vector<std::vector<char>> matriz_horario(num_horarios, std::vector<char>(num_disc, 0));
 	std::vector<char> ofertadas(num_disc, 0);
@@ -97,13 +121,17 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 					   std::move(capacidades), num_dias_letivos, num_periodos);
 
 
+	/*********************************************
+	 *			   ENTRADA ALUNOS                *
+	 *********************************************/
+
 	const auto& alunos = raiz["alunoperfis"];
 	std::vector<fagoc::Aluno> vet_alunos;
 
 	for (std::size_t i = 0; i < alunos.size(); i++) {
 		auto nome = alunos[i]["id"].asString();
-		auto periodo = alunos[i]["periodo"].asInt();
-		auto turma = alunos[i]["turma"].asString();
+		auto periodo_curso_par = split_curso_string(alunos[i]["periodo"].asString());
+		auto turma_curso_par = split_curso_string(alunos[i]["turma"].asString());
 
 		std::vector<char> aprovacoes(num_disc, 1);
 
@@ -121,13 +149,18 @@ std::pair<fagoc::Curso, std::vector<fagoc::Aluno>> fagoc::ler_json(std::string a
 			cursadas[disc_index] = 1;
 		}
 
-		vet_alunos.push_back(fagoc::Aluno(nome, std::move(aprovacoes), std::move(cursadas), periodo, turma));
+		vet_alunos.push_back(fagoc::Aluno(nome, std::move(aprovacoes), 
+										  std::move(cursadas),
+										  std::stoi(periodo_curso_par.first), 
+										  turma_curso_par.first));
 	}
 
 	return std::make_pair(std::move(curso), std::move(vet_alunos));
 }
 
-void fagoc::gen_html(const Curso& curso, const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes, std::string destino)
+void fagoc::gen_html(const Curso& curso, 
+					 const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes, 
+					 std::string destino)
 {
 	std::ofstream saida{destino + "\\resultado.html"};
 	std::ifstream arq_css{arquivo_css};

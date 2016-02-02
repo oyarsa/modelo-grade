@@ -2,12 +2,22 @@
 #include "solucao.h"
 #include <ilcp/cp.h>
 
+std::pair<int, std::string> split_curso_string(const std::string& curso_str)
+{
+	auto i = curso_str.find_first_of("-");
+	return std::make_pair(std::stoi(curso_str.substr(0, i)), curso_str.substr(i + 1));
+}
+
+
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno)
 	: Solver{curso, aluno}, env_{} {}
 
 void fagoc::Modelo_solver::solve()
 {
-	// Inicialização das variáveis do curso
+	/******************************************************
+	 *     INICIALIZAÇÃO DE VARIÁVEIS E REFERÊNCIAS       *
+	 ******************************************************/
+
 	const auto& nome_disciplina = curso_.nome_disciplinas();
 	const auto& creditos = curso_.creditos();
 	const auto& prerequisitos = curso_.pre_requisitos();
@@ -25,6 +35,8 @@ void fagoc::Modelo_solver::solve()
 	const auto& cursadas = aluno_.cursadas();
 	const auto& periodo_aluno = aluno_.periodo();
 	const auto& turma_aluno = aluno_.turma();
+
+	auto periodo_alu_num = split_curso_string(periodo_aluno).first;
 
 	// Preferências do aluno (mesma turma/período)
 	std::vector<char> pref(num_disciplinas, 0);
@@ -61,7 +73,8 @@ void fagoc::Modelo_solver::solve()
 	// -------- Restrições ---------
 	// Período mínimo
 	for (std::size_t d = 0; d < num_disciplinas; d++) {
-		mod.add(y[d] * periodos_minimos[d] <= periodo_aluno);
+		auto periodo_disc_num = split_curso_string(periodos_minimos[d]).first;
+		mod.add(y[d] * periodo_disc_num <= periodo_alu_num);
 	}
 	// Pré-requisitos
 	for (std::size_t d = 0; d < num_disciplinas; d++) {

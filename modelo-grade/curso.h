@@ -12,8 +12,8 @@ public:
 	      std::vector<std::vector<char>>&& horario,
 	      std::vector<char>&& ofertadas,
 	      std::vector<std::vector<char>>&& equivalentes,
-	      std::vector<std::pair<int, std::string>>&& disc_turma,
-	      std::vector<int>&& periodos_minimos,
+	      std::vector<std::pair<std::string, std::string>>&& disc_turma,
+	      std::vector<std::string>&& periodos_minimos,
 	      std::vector<std::string>&& nome_disciplinas,
 	      std::vector<int>&& capacidades,
 	      int num_dias_letivos,
@@ -29,8 +29,8 @@ public:
 	const std::vector<std::vector<char>>& horario() const;
 	const std::vector<char>& ofertadas() const;
 	const std::vector<std::vector<char>>& equivalencias() const;
-	const std::vector<std::pair<int, std::string>>& disc_turma() const;
-	const std::vector<int>& periodos_minimos() const;
+	const std::vector<std::pair<std::string, std::string>>& disc_turma() const;
+	const std::vector<std::string>& periodos_minimos() const;
 	const std::vector<std::string>& nome_disciplinas() const;
 	int num_dias_letivos() const;
 	int num_periodos() const;
@@ -42,8 +42,8 @@ private:
 	std::vector<std::vector<char>> horario_;
 	std::vector<char> ofertadas_;
 	std::vector<std::vector<char>> equivalencias_;
-	std::vector<std::pair<int, std::string>> disc_turma_;
-	std::vector<int> periodos_minimos_;
+	std::vector<std::pair<std::string, std::string>> disc_turma_;
+	std::vector<std::string> periodos_minimos_;
 	std::vector<std::string> nome_disciplinas_;
 	std::vector<int> capacidades_;
 	std::vector<int> alocados_;

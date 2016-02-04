@@ -19,8 +19,8 @@ fagoc::Modelo_solver::~Modelo_solver()
 
 void fagoc::Modelo_solver::solve()
 {
-	/******************************************************
-	 *     INICIALIZAÇÃO DE VARIÁVEIS E REFERÊNCIAS       *
+	/*******************************************************
+	 *     INICIALIZAÇÃO DE VARIÁVEIS E REFERÊNCIAS        *
 	 ******************************************************/
 
 	const auto& nome_disciplina = curso_.nome_disciplinas();
@@ -37,7 +37,7 @@ void fagoc::Modelo_solver::solve()
 
 	// Variáveis do aluno
 	const auto& aprovacoes = aluno_.aprovacoes();
-	const auto& cursadas = aluno_.cursadas();
+	const auto& cursadas = aluno_.cursadas(); 
 	const auto& periodo_aluno = aluno_.periodo();
 	const auto& turma_aluno = aluno_.turma();
 
@@ -54,7 +54,10 @@ void fagoc::Modelo_solver::solve()
 		}
 	}
 
-	// -------- Elaboração do modelo ---------
+	/******************************************************
+	 *                ELABORAÇÃO DO MODELO                *
+	 ******************************************************/
+	
 	IloModel mod{env_};
 	// Variáveis de decisão
 	IloBoolVarArray y(env_, num_disciplinas);
@@ -75,7 +78,10 @@ void fagoc::Modelo_solver::solve()
 	mod.add(IloMaximize(env_, obj));
 	obj.end();
 
-	// -------- Restrições ---------
+	/*****************************************************
+	 *                   RESTRIÇÕES					     *
+	 *****************************************************/
+
 	// Período mínimo
 	for (std::size_t d = 0; d < num_disciplinas; d++) {
 		auto periodo_disc_num = split_curso_string(periodos_minimos[d]).first;
@@ -137,10 +143,10 @@ void fagoc::Modelo_solver::solve()
 
 	// Disciplinas já aprovadas
 	for (std::size_t d = 0; d < num_disciplinas; d++) {
-		auto aprovacao_equivalente = false;
+		auto aprovacao_equivalente = 0;
 		for (std::size_t i = 0; i < num_disciplinas; i++) {
 			if (equivalencias[d][i] && aprovacoes[i]) {
-				aprovacao_equivalente = true;
+				aprovacao_equivalente = 1;
 				break;
 			}
 		}
@@ -152,7 +158,9 @@ void fagoc::Modelo_solver::solve()
 		mod.add(y[d] <= ofertadas[d]);
 	}
 
-	// ----- Resolve o modelo -------
+	/********************************************************
+	 *                RESOLUÇÃO DO MODELO                   *
+	 ********************************************************/
 
 	// Se o número de disciplinas for menor que 30, utiliza
 	// o CPLEX. Se for maior, a versão community não resolve, então

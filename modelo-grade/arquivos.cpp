@@ -1,8 +1,10 @@
-#include "arquivos.h"
 #include <unordered_map>
 #include <fstream>
 #include <utility>
+
 #include "json/json.hxx"
+
+#include "arquivos.h"
 
 
 std::pair<fagoc::Curso, std::vector<fagoc::Aluno>>
@@ -26,7 +28,7 @@ fagoc::ler_json(std::string arquivo)
 	std::vector<std::string> nome_disc;
 	std::vector<int> creditos;
 
-	for (std::size_t i = 0; i < disciplinas.size(); i++) {
+	for (size_t i = 0; i < disciplinas.size(); i++) {
 		auto nome = disciplinas[i]["id"].asString();
 		nome_disc.push_back(nome);
 		disc_to_int[nome] = i;
@@ -47,17 +49,17 @@ fagoc::ler_json(std::string arquivo)
 	std::vector<std::string> periodo_minimo(num_disc);
 	std::vector<int> capacidades(num_disc);
 
-	for (std::size_t i = 0; i < disciplinas.size(); i++) {
+	for (size_t i = 0; i < disciplinas.size(); i++) {
 		const auto& prereq = disciplinas[i]["prerequisitos"];
 		const auto& equiv = disciplinas[i]["equivalentes"];
 		auto disc_atual = disc_to_int[disciplinas[i]["id"].asString()];
 
-		for (std::size_t j = 0; j < prereq.size(); j++) {
+		for (size_t j = 0; j < prereq.size(); j++) {
 			auto prereq_atual = disc_to_int[prereq[j].asString()];
 			prerequisitos[disc_atual][prereq_atual] = 1;
 		}
 
-		for (std::size_t j = 0; j < equiv.size(); j++) {
+		for (size_t j = 0; j < equiv.size(); j++) {
 			auto equiv_atual = disc_to_int[equiv[j].asString()];
 			equivalencias[disc_atual][equiv_atual] = 1;
 		}
@@ -78,7 +80,7 @@ fagoc::ler_json(std::string arquivo)
 	auto num_dias_letivos = 0;
 	auto num_periodos = 0;
 
-	for (std::size_t i = 0; i < horarios.size(); i++) {
+	for (size_t i = 0; i < horarios.size(); i++) {
 		auto horario_atual = horarios[i]["horario"].asInt();
 		if (horario_atual + 1 > num_horarios_dia) {
 			num_horarios_dia = horario_atual + 1;
@@ -101,7 +103,7 @@ fagoc::ler_json(std::string arquivo)
 		num_horarios, std::vector<char>(num_disc, 0));
 	std::vector<char> ofertadas(num_disc, 0);
 
-	for (std::size_t i = 0; i < horarios.size(); i++) {
+	for (size_t i = 0; i < horarios.size(); i++) {
 		auto horario_atual = horarios[i]["horario"].asInt();
 		auto dia_letivo_atual = horarios[i]["semana"].asInt();
 
@@ -112,12 +114,12 @@ fagoc::ler_json(std::string arquivo)
 		ofertadas[disc_index] = 1;
 	}
 
-	fagoc::Curso curso(move(creditos), move(prerequisitos),
-	                   std::move(corequisitos), move(matriz_horario),
-	                   std::move(ofertadas), std::move(equivalencias),
-	                   std::move(disc_turma), std::move(periodo_minimo),
-	                   std::move(nome_disc), std::move(capacidades),
-	                   num_dias_letivos, num_periodos);
+	Curso curso(move(creditos), move(prerequisitos),
+	            move(corequisitos), move(matriz_horario),
+	            move(ofertadas), move(equivalencias),
+	            move(disc_turma), move(periodo_minimo),
+	            move(nome_disc), move(capacidades),
+	            num_dias_letivos, num_periodos);
 
 
 	/*********************************************
@@ -125,9 +127,9 @@ fagoc::ler_json(std::string arquivo)
 	 *********************************************/
 
 	const auto& alunos = raiz["alunoperfis"];
-	std::vector<fagoc::Aluno> vet_alunos;
+	std::vector<Aluno> vet_alunos;
 
-	for (std::size_t i = 0; i < alunos.size(); i++) {
+	for (size_t i = 0; i < alunos.size(); i++) {
 		auto nome = alunos[i]["id"].asString();
 		auto periodo = alunos[i]["periodo"].asString();
 		auto turma = alunos[i]["turma"].asString();
@@ -135,7 +137,7 @@ fagoc::ler_json(std::string arquivo)
 		std::vector<char> aprovacoes(num_disc, 1);
 
 		const auto& restantes = alunos[i]["restantes"];
-		for (std::size_t j = 0; j < restantes.size(); j++) {
+		for (size_t j = 0; j < restantes.size(); j++) {
 			auto disc_index = disc_to_int[restantes[j].asString()];
 			aprovacoes[disc_index] = 0;
 		}
@@ -143,17 +145,17 @@ fagoc::ler_json(std::string arquivo)
 		auto cursadas(aprovacoes);
 
 		const auto& disc_cursadas = alunos[i]["cursadas"];
-		for (std::size_t j = 0; j < disc_cursadas.size(); j++) {
+		for (size_t j = 0; j < disc_cursadas.size(); j++) {
 			auto disc_index = disc_to_int[disc_cursadas[j].asString()];
 			cursadas[disc_index] = 1;
 		}
 
-		vet_alunos.push_back(fagoc::Aluno(nome, std::move(aprovacoes),
-		                                  std::move(cursadas),
-		                                  periodo, turma));
+		vet_alunos.push_back(Aluno(nome, move(aprovacoes),
+		                           move(cursadas),
+		                           periodo, turma));
 	}
 
-	return std::make_pair(std::move(curso), std::move(vet_alunos));
+	return make_pair(std::move(curso), move(vet_alunos));
 }
 
 void fagoc::gen_html(const Curso& curso,

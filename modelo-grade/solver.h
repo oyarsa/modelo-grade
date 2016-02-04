@@ -7,7 +7,7 @@ class Solver
 {
 public:
     Solver(const Curso& curso, const Aluno& aluno) : curso_(curso), aluno_(aluno) {};
-    virtual ~Solver() = 0;
+    virtual ~Solver() = default;
 
     // Soluciona a instância do problema e guarda a solução no atributo 'solucao'
     virtual void solve() = 0;

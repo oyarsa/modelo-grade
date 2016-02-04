@@ -39,6 +39,6 @@ int main(int argc, char* argv[])
 	print_solutions(solucoes);
 	std::cout << "Resultado final: " << funcao_objetivo << "\n\n";
 	fagoc::gen_html(curso, solucoes, caminho_destino);
-	std::cout << "\n\n\n" << "HTMLs em: " << caminho_destino << "\n";
+	std::cout << "HTMLs em: " << caminho_destino << "\n\n";
 }
 

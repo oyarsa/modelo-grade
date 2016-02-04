@@ -2,10 +2,11 @@
 
 #include <vector>
 #include <utility>
+#include <memory>
+
 #include "curso.h"
 #include "aluno.h"
 #include "solucao.h"
-#include <memory>
 
 namespace fagoc {
 

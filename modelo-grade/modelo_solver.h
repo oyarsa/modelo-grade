@@ -1,11 +1,13 @@
 #pragma once
+
+#include <memory>
+
+#include <ilcplex/ilocplexi.h>
+
 #include "curso.h"
 #include "aluno.h"
 #include "solucao.h"
 #include "solver.h"
-
-#include <memory>
-#include <ilcplex/ilocplexi.h>
 
 namespace fagoc {
 

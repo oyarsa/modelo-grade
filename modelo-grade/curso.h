@@ -19,6 +19,8 @@ public:
 	      int num_dias_letivos,
 	      int num_periodos);
 
+	// Atualiza as disciplinas ofertadas pelo curso com base do número máximo
+	// de alunos, conforme a disciplina entrar nas grades geradas.
 	void atualiza_ofertadas(const std::vector<char>& escolhidas);
 
 	std::size_t num_disciplinas() const;

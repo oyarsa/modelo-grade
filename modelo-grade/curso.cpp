@@ -93,7 +93,8 @@ const std::vector<std::vector<char>>& fagoc::Curso::equivalencias() const
     return equivalencias_;
 }
 
-const std::vector<std::pair<std::string, std::string>>& fagoc::Curso::disc_turma() const
+const std::vector<std::pair<std::string, std::string>>& 
+fagoc::Curso::disc_turma() const
 {
     return disc_turma_;
 }

@@ -13,6 +13,7 @@ class Modelo_solver : public Solver
 {
 public:
 	Modelo_solver(const Curso& curso, const Aluno& aluno);
+	virtual ~Modelo_solver();
 
 	void solve() override;
 	std::shared_ptr<Solucao> solucao() const override;

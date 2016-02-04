@@ -12,6 +12,11 @@ std::pair<int, std::string> split_curso_string(const std::string& curso_str)
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno)
 	: Solver{curso, aluno}, env_{} {}
 
+fagoc::Modelo_solver::~Modelo_solver()
+{
+	env_.end();
+}
+
 void fagoc::Modelo_solver::solve()
 {
 	/******************************************************

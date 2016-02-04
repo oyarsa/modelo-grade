@@ -7,7 +7,8 @@
 #include "modelo_solver.h"
 #include <memory>
 
-void print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
+void
+print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
 {
 	for (const auto solucao : solucoes) {
 		std::cout << solucao->nome_aluno << "\n";
@@ -33,7 +34,8 @@ int main(int argc, char* argv[])
 	auto curso = ret.first;
 	auto alunos = ret.second;
 	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes(alunos.size());
-	auto funcao_objetivo = fagoc::soluciona_alunos<fagoc::Modelo_solver>(curso, alunos, solucoes);
+	auto funcao_objetivo = fagoc::soluciona_alunos<fagoc::Modelo_solver>(
+		curso, alunos, solucoes);
 	print_solutions(solucoes);
 	std::cout << "Resultado final: " << funcao_objetivo << "\n\n";
 	fagoc::gen_html(curso, solucoes, caminho_destino);

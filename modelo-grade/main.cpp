@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
 {
 	std::string arquivo_entrada, caminho_destino;
 	if (argc != 3) {
-		arquivo_entrada = "input.json";
-		caminho_destino = "saida/";
+		arquivo_entrada = "../input.json";
+		caminho_destino = "../saida/";
 	} else {
 		arquivo_entrada = argv[1];
 		caminho_destino = argv[2];

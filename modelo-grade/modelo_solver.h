@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include <ilcplex/ilocplexi.h>
-
 #include "curso.h"
 #include "aluno.h"
 #include "solucao.h"
@@ -20,7 +18,8 @@ public:
 	void solve() override;
 	std::shared_ptr<Solucao> solucao() const override;
 private:
-	IloEnv env_;
+	struct impl;
+	std::unique_ptr<impl> impl_;
 };
 
 

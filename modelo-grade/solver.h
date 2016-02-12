@@ -12,11 +12,24 @@ public:
     // Soluciona a instância do problema e guarda a solução no atributo 'solucao'
     virtual void solve() = 0;
     virtual std::shared_ptr<Solucao> solucao() const = 0;
+	const Curso& curso() const;
+	const Aluno& aluno() const;
 protected:
     std::shared_ptr<Solucao> solucao_ = nullptr;
     const Curso& curso_;
     const Aluno& aluno_;
 };
+
+inline const Curso& Solver::curso() const
+{
+	return curso_;
+}
+
+inline const Aluno& Solver::aluno() const
+{
+	return aluno_;
+}
+
 
 template <class Solver>
 double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,

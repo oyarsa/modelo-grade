@@ -31,41 +31,21 @@ set(MODELO_FILES
     modelo-grade/jsoncpp.cxx
     )
 
-# set(FAPTP_FILES
-#     faptp/src/Aleatorio.cpp
-#     faptp/src/Aleatorio.h
-#     faptp/src/AlunoPerfil.cpp
-#     faptp/src/AlunoPerfil.h
-#     faptp/src/Disciplina.cpp
-#     faptp/src/Disciplina.h
-#     faptp/src/Grade.cpp
-#     faptp/src/Grade.h
-#     faptp/src/Horario.cpp
-#     faptp/src/Horario.h
-#     faptp/src/Output.cpp
-#     faptp/src/Output.h
-#     faptp/src/Professor.cpp
-#     faptp/src/Professor.h
-#     faptp/src/ProfessorDisciplina.cpp
-#     faptp/src/ProfessorDisciplina.h
-#     faptp/src/Representacao.cpp
-#     faptp/src/Representacao.h
-#     faptp/src/Resolucao.cpp
-#     faptp/src/Resolucao.h
-#     faptp/src/Semana.h
-#     faptp/src/Solucao.cpp
-#     faptp/src/Solucao.h
-#     faptp/src/Util.cpp
-#     faptp/src/Util.h
-#     faptp/src/UUID.cpp
-#     faptp/src/UUID.h
-#     faptp/src/includes/parametros.cpp
-#     faptp/src/includes/parametros.h
-#     faptp/src/includes/jsoncpp.cpp
-#     faptp/template/Algorithms.h
-#     )
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+  set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++14 ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 ${CMAKE_CXX_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native ${CMAKE_CXX_FLAGS_RELEASE}")
+endif()
+
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+  add_definitions("-stdlib=libstdc++")
+  set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 ${CMAKE_CXX_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS_RELEASE}")
+endif()
 
 add_executable(modelo-grade ${MODELO_FILES} modelo-grade/main.cpp)
-# add_executable(faptp ${FAPTP_FILES} faptp/main.cpp)
+add_library(modelo-grade-lib ${MODELO_FILES})
 
 target_link_libraries(modelo-grade ${CPLEX_LIBRARIES})
+target_link_libraries(modelo-grade-lib ${CPLEX_LIBRARIES})

@@ -162,7 +162,14 @@ void fagoc::gen_html(const Curso& curso,
                      const std::vector<std::shared_ptr<Solucao>>& solucoes,
                      std::string destino)
 {
-    std::ofstream saida{destino + "\\resultado.html"};
+#if defined(_WIN32)
+	std::string comando{"mkdir " + destino + " 2> NUL"};
+#else
+	std::string comando{"mkdir -p " + destino + " > /dev/null 2>&1"};
+#endif
+	system(comando.c_str()); 
+
+    std::ofstream saida{destino + "resultado.html"};
     std::ifstream arq_css{arquivo_css};
     std::ostringstream buffer{};
     buffer << arq_css.rdbuf();

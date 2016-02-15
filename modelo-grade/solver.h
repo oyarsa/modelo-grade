@@ -6,7 +6,11 @@ namespace fagoc {
 class Solver
 {
 public:
-    Solver(const Curso& curso, const Aluno& aluno) : curso_(curso), aluno_(aluno) {};
+    Solver(const Curso& curso, const Aluno& aluno) : curso_(curso), 
+		aluno_(aluno), horario_(curso_.horario()) {};
+    Solver(const Curso& curso, const Aluno& aluno, 
+		   const std::vector<std::vector<char>>& horario) 
+		: curso_(curso), aluno_(aluno), horario_(horario) {};
     virtual ~Solver() = default;
 
     // Soluciona a instância do problema e guarda a solução no atributo 'solucao'
@@ -18,6 +22,7 @@ protected:
     std::shared_ptr<Solucao> solucao_ = nullptr;
     const Curso& curso_;
     const Aluno& aluno_;
+	const std::vector<std::vector<char>>& horario_;
 };
 
 inline const Curso& Solver::curso() const
@@ -33,10 +38,10 @@ inline const Aluno& Solver::aluno() const
 
 template <class Solver>
 double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
-                        std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
+                        std::vector<std::shared_ptr<Solucao>>& solucoes)
 {
     double sum = 0;
-    for (std::size_t i = 0; i < alunos.size(); i++) {
+    for (size_t i = 0; i < alunos.size(); i++) {
         Solver solver(curso, alunos[i]);
         solver.solve();
         solucoes[i] = solver.solucao();

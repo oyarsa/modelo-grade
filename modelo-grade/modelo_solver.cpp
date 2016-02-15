@@ -19,8 +19,11 @@ struct fagoc::Modelo_solver::impl
 
 std::pair<int, std::string> split_curso_string(const std::string& curso_str)
 {
+	if (curso_str == "") {
+		return {0, ""};
+	}
 	auto i = curso_str.find_first_of("-");
-	return make_pair(stoi(curso_str.substr(0, i)), curso_str.substr(i + 1));
+	return {stoi(curso_str.substr(0, i)), curso_str.substr(i + 1)};
 }
 
 
@@ -218,6 +221,11 @@ std::shared_ptr<fagoc::Solucao> fagoc::Modelo_solver::solucao() const
 
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno) 
 	: Solver(curso, aluno), impl_(std::make_unique<impl>(*this))
+{}
+
+fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno,
+									const std::vector<std::vector<char>>& horario) 
+	: Solver(curso, aluno, horario), impl_(std::make_unique<impl>(*this))
 {}
 
 void fagoc::Modelo_solver::solve()

@@ -1,17 +1,19 @@
 #pragma warning(disable: 4996)
 
 #include <iostream>
+#include <memory>
+#include <chrono>
+
 #include "arquivos.h"
 #include "solucao.h"
 #include "solver.h"
 #include "modelo_solver.h"
-#include <memory>
 
 void
 print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
 {
 	for (const auto solucao : solucoes) {
-		std::cout << solucao->nome_aluno << "\n";
+		std::cout << "Aluno " << solucao->nome_aluno << "\n";
 		for (const auto& disc : solucao->nomes_disciplinas) {
 			std::cout << disc << " ";
 		}
@@ -23,8 +25,13 @@ int main(int argc, char* argv[])
 {
 	std::string arquivo_entrada, caminho_destino;
 	if (argc != 3) {
-		arquivo_entrada = "../input.json";
+#if defined(_WIN32)
+		caminho_destino = "..\\saida\\";
+		arquivo_entrada = "..\\input.json";
+#else
 		caminho_destino = "../saida/";
+		arquivo_entrada = "../input.json";
+#endif
 	} else {
 		arquivo_entrada = argv[1];
 		caminho_destino = argv[2];
@@ -34,11 +41,19 @@ int main(int argc, char* argv[])
 	auto curso = ret.first;
 	auto alunos = ret.second;
 	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes(alunos.size());
+
+
+	auto inicio = std::chrono::steady_clock::now();
 	auto funcao_objetivo = fagoc::soluciona_alunos<fagoc::Modelo_solver>(
 		curso, alunos, solucoes);
+	auto fim = std::chrono::steady_clock::now();
+
 	print_solutions(solucoes);
+	std::cout << "Tempo: " << std::chrono::duration_cast<std::chrono::milliseconds>
+		(fim - inicio).count() << "ms\n";
 	std::cout << "Resultado final: " << funcao_objetivo << "\n\n";
-	fagoc::gen_html(curso, solucoes, caminho_destino);
+
+	gen_html(curso, solucoes, caminho_destino);
 	std::cout << "HTMLs em: " << caminho_destino << "\n\n";
 }
 

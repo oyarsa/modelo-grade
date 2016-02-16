@@ -10,6 +10,7 @@ fagoc::Curso::Curso(std::vector<int>&& creditos,
                     std::vector<std::string>&& periodos_min,
                     std::vector<std::string>&& nome_discs,
                     std::vector<int>&& capacidades,
+					std::unordered_map<std::string, int>&& nome_to_indice,
                     int num_dias_letivos,
                     int num_periodos)
     : creditos_(std::move(creditos))
@@ -23,6 +24,7 @@ fagoc::Curso::Curso(std::vector<int>&& creditos,
       , nome_disciplinas_(std::move(nome_discs))
       , capacidades_(std::move(capacidades))
       , alocados_(pre_requisitos_.size())
+	  , nome_to_indice_(std::move(nome_to_indice))
       , num_dias_letivos_(num_dias_letivos)
       , num_periodos_(num_periodos) {}
 
@@ -109,3 +111,7 @@ const std::vector<std::string>& fagoc::Curso::nome_disciplinas() const
     return nome_disciplinas_;
 }
 
+std::unordered_map<std::string, int> fagoc::Curso::nome_to_indice()
+{
+	return nome_to_indice_;
+}

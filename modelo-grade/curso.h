@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 
 namespace fagoc {
 
@@ -17,6 +18,7 @@ public:
 	      std::vector<std::string>&& periodos_minimos,
 	      std::vector<std::string>&& nome_disciplinas,
 	      std::vector<int>&& capacidades,
+		  std::unordered_map<std::string, int>&& nome_to_indice,
 	      int num_dias_letivos,
 	      int num_periodos);
 
@@ -35,6 +37,7 @@ public:
 	const std::vector<std::pair<std::string, std::string>>& disc_turma() const;
 	const std::vector<std::string>& periodos_minimos() const;
 	const std::vector<std::string>& nome_disciplinas() const;
+	std::unordered_map<std::string, int> nome_to_indice();
 	int num_dias_letivos() const;
 	int num_periodos() const;
 
@@ -50,6 +53,7 @@ private:
 	std::vector<std::string> nome_disciplinas_;
 	std::vector<int> capacidades_;
 	std::vector<int> alocados_;
+	std::unordered_map<std::string, int> nome_to_indice_;
 	int num_dias_letivos_;
 	int num_periodos_;
 };

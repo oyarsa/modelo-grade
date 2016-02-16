@@ -13,7 +13,7 @@ fagoc::ler_json(std::string arquivo)
     std::ifstream entrada(arquivo);
 
     // Mapeia os nomes das disciplinas a índices nos vetores e matrizes
-    std::unordered_map<std::string, int> disc_to_int;
+    std::unordered_map<std::string, int> nome_to_indice;
 
     Json::Value raiz;
     entrada >> raiz;
@@ -31,7 +31,7 @@ fagoc::ler_json(std::string arquivo)
     for (size_t i = 0; i < disciplinas.size(); i++) {
         auto nome = disciplinas[i]["id"].asString();
         nome_disc.push_back(nome);
-        disc_to_int[nome] = i;
+        nome_to_indice[nome] = i;
 
         creditos.push_back(disciplinas[i]["carga"].asInt());
     }
@@ -52,15 +52,15 @@ fagoc::ler_json(std::string arquivo)
     for (size_t i = 0; i < disciplinas.size(); i++) {
         const auto& prereq = disciplinas[i]["prerequisitos"];
         const auto& equiv = disciplinas[i]["equivalentes"];
-        auto disc_atual = disc_to_int[disciplinas[i]["id"].asString()];
+        auto disc_atual = nome_to_indice[disciplinas[i]["id"].asString()];
 
         for (size_t j = 0; j < prereq.size(); j++) {
-            auto prereq_atual = disc_to_int[prereq[j].asString()];
+            auto prereq_atual = nome_to_indice[prereq[j].asString()];
             prerequisitos[disc_atual][prereq_atual] = 1;
         }
 
         for (size_t j = 0; j < equiv.size(); j++) {
-            auto equiv_atual = disc_to_int[equiv[j].asString()];
+            auto equiv_atual = nome_to_indice[equiv[j].asString()];
             equivalencias[disc_atual][equiv_atual] = 1;
         }
 
@@ -108,7 +108,7 @@ fagoc::ler_json(std::string arquivo)
         auto dia_letivo_atual = horarios[i]["semana"].asInt();
 
         auto horario = num_horarios_dia * dia_letivo_atual + horario_atual;
-        auto disc_index = disc_to_int[horarios[i]["professordisciplina"].asString()];
+        auto disc_index = nome_to_indice[horarios[i]["professordisciplina"].asString()];
 
         matriz_horario[horario][disc_index] = 1;
         ofertadas[disc_index] = 1;
@@ -119,6 +119,7 @@ fagoc::ler_json(std::string arquivo)
                 move(ofertadas), move(equivalencias),
                 move(disc_turma), move(periodo_minimo),
                 move(nome_disc), move(capacidades),
+				move(nome_to_indice),
                 num_dias_letivos, num_periodos);
 
 
@@ -138,7 +139,7 @@ fagoc::ler_json(std::string arquivo)
 
         const auto& restantes = alunos[i]["restantes"];
         for (size_t j = 0; j < restantes.size(); j++) {
-            auto disc_index = disc_to_int[restantes[j].asString()];
+            auto disc_index = curso.nome_to_indice()[restantes[j].asString()];
             aprovacoes[disc_index] = 0;
         }
 
@@ -146,7 +147,7 @@ fagoc::ler_json(std::string arquivo)
 
         const auto& disc_cursadas = alunos[i]["cursadas"];
         for (size_t j = 0; j < disc_cursadas.size(); j++) {
-            auto disc_index = disc_to_int[disc_cursadas[j].asString()];
+            auto disc_index = curso.nome_to_indice()[disc_cursadas[j].asString()];
             cursadas[disc_index] = 1;
         }
 

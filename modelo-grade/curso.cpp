@@ -36,14 +36,14 @@ int fagoc::Curso::num_periodos() const
 
 void fagoc::Curso::atualiza_ofertadas(const std::vector<char>& escolhidas)
 {
-    for (std::size_t d = 0; d < nome_disciplinas_.size(); d++) {
+    for (auto d = 0u; d < nome_disciplinas_.size(); d++) {
         if (escolhidas[d]) {
             alocados_[d]++;
         }
 
         if (alocados_[d] == capacidades_[d]) {
             ofertadas_[d] = 0;
-            for (std::size_t h = 0; h < horario_.size(); h++) {
+            for (auto h = 0u; h < horario_.size(); h++) {
                 horario_[h][d] = 0;
             }
         }

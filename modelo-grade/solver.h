@@ -41,7 +41,7 @@ double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
                         std::vector<std::shared_ptr<Solucao>>& solucoes)
 {
     double sum = 0;
-    for (size_t i = 0; i < alunos.size(); i++) {
+    for (auto i = 0u; i < alunos.size(); i++) {
         Solver solver(curso, alunos[i]);
         solver.solve();
         solucoes[i] = solver.solucao();

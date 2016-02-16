@@ -64,7 +64,7 @@ void fagoc::Modelo_solver::impl::solve()
 
 	// Preferências do aluno (mesma turma/período)
 	std::vector<char> pref(num_disciplinas, 0);
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		const auto& periodo_disc = disc_turma[d].first;
 		const auto& turma_disc = disc_turma[d].second;
 
@@ -83,12 +83,12 @@ void fagoc::Modelo_solver::impl::solve()
 
 	// Carga horária
 	IloExpr carga{env};
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		carga += creditos[d] * y[d];
 	}
 	// Preferências
 	IloExpr mesma_turma{env};
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		mesma_turma += pref[d] * y[d];
 	}
 	IloExpr obj{env};
@@ -102,19 +102,19 @@ void fagoc::Modelo_solver::impl::solve()
 	 *****************************************************/
 
 	// Período mínimo
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		auto periodo_disc_num = split_curso_string(periodos_minimos[d]).first;
 		mod.add(y[d] * periodo_disc_num <= periodo_alu_num);
 	}
 	// Pré-requisitos
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		auto num_prereq = 0;
 		auto prereq_aprov = 0;
-		for (size_t p = 0; p < num_disciplinas; p++) {
+		for (auto p = 0u; p < num_disciplinas; p++) {
 			if (prerequisitos[d][p]) {
 				num_prereq++;
 			}
-			for (size_t i = 0; i < num_disciplinas; i++) {
+			for (auto i = 0u; i < num_disciplinas; i++) {
 				if (equivalencias[p][i] && aprovacoes[i]) {
 					prereq_aprov++;
 					break;
@@ -125,11 +125,11 @@ void fagoc::Modelo_solver::impl::solve()
 	}
 
 	// Co-requisitos
-	for (size_t d = 0; d < num_disciplinas; d++) {
-		for (size_t c = 0; c < num_disciplinas; c++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
+		for (auto c = 0u; c < num_disciplinas; c++) {
 			if (corequisitos[d][c]) {
 				auto coreq_cumprido = 0;
-				for (size_t i = 0; i < num_disciplinas; i++) {
+				for (auto i = 0u; i < num_disciplinas; i++) {
 					if (equivalencias[c][i] && cursadas[i]) {
 						coreq_cumprido = 1;
 						break;
@@ -141,9 +141,9 @@ void fagoc::Modelo_solver::impl::solve()
 	}
 
 	// Disciplinas equivalentes
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		IloExpr disc_equiv(env);
-		for (size_t e = 0; e < num_disciplinas; e++) {
+		for (auto e = 0u; e < num_disciplinas; e++) {
 			disc_equiv += equivalencias[d][e] * y[e];
 		}
 		mod.add(disc_equiv <= 1);
@@ -151,9 +151,9 @@ void fagoc::Modelo_solver::impl::solve()
 	}
 
 	// Cria as restrições dos horários
-	for (size_t h = 0; h < num_horas; h++) {
+	for (auto h = 0u; h < num_horas; h++) {
 		IloExpr disc_concorrente(env);
-		for (size_t d = 0; d < num_disciplinas; d++) {
+		for (auto d = 0u; d < num_disciplinas; d++) {
 			disc_concorrente += horarios[h][d] * y[d];
 		}
 		mod.add(disc_concorrente <= 1);
@@ -161,9 +161,9 @@ void fagoc::Modelo_solver::impl::solve()
 	}
 
 	// Disciplinas já aprovadas
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		auto aprovacao_equivalente = 0;
-		for (size_t i = 0; i < num_disciplinas; i++) {
+		for (auto i = 0u; i < num_disciplinas; i++) {
 			if (equivalencias[d][i] && aprovacoes[i]) {
 				aprovacao_equivalente = 1;
 				break;
@@ -173,7 +173,7 @@ void fagoc::Modelo_solver::impl::solve()
 	}
 
 	// Disciplinas ofertadas
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		mod.add(y[d] <= ofertadas[d]);
 	}
 
@@ -205,7 +205,7 @@ void fagoc::Modelo_solver::impl::solve()
 
 	solucao.reset(new Solucao{num_disciplinas, funcao_objetivo, parent.aluno().nome()});
 	// Atribui resposta às variáveis membro
-	for (size_t d = 0; d < num_disciplinas; d++) {
+	for (auto d = 0u; d < num_disciplinas; d++) {
 		if (solucao_cplex[d]) {
 			solucao->solucao_bool[d] = 1;
 			solucao->nomes_disciplinas.push_back(nome_disciplina[d]);

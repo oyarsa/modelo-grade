@@ -28,7 +28,7 @@ fagoc::ler_json(std::string arquivo)
     std::vector<std::string> nome_disc;
     std::vector<int> creditos;
 
-    for (size_t i = 0; i < disciplinas.size(); i++) {
+    for (auto i = 0u; i < disciplinas.size(); i++) {
         auto nome = disciplinas[i]["id"].asString();
         nome_disc.push_back(nome);
         nome_to_indice[nome] = i;
@@ -49,17 +49,17 @@ fagoc::ler_json(std::string arquivo)
     std::vector<std::string> periodo_minimo(num_disc);
     std::vector<int> capacidades(num_disc);
 
-    for (size_t i = 0; i < disciplinas.size(); i++) {
+    for (auto i = 0u; i < disciplinas.size(); i++) {
         const auto& prereq = disciplinas[i]["prerequisitos"];
         const auto& equiv = disciplinas[i]["equivalentes"];
         auto disc_atual = nome_to_indice[disciplinas[i]["id"].asString()];
 
-        for (size_t j = 0; j < prereq.size(); j++) {
+        for (auto j = 0u; j < prereq.size(); j++) {
             auto prereq_atual = nome_to_indice[prereq[j].asString()];
             prerequisitos[disc_atual][prereq_atual] = 1;
         }
 
-        for (size_t j = 0; j < equiv.size(); j++) {
+        for (auto j = 0u; j < equiv.size(); j++) {
             auto equiv_atual = nome_to_indice[equiv[j].asString()];
             equivalencias[disc_atual][equiv_atual] = 1;
         }
@@ -80,7 +80,7 @@ fagoc::ler_json(std::string arquivo)
     auto num_dias_letivos = 0;
     auto num_periodos = 0;
 
-    for (size_t i = 0; i < horarios.size(); i++) {
+    for (auto i = 0u; i < horarios.size(); i++) {
         auto horario_atual = horarios[i]["horario"].asInt();
         if (horario_atual + 1 > num_horarios_dia) {
             num_horarios_dia = horario_atual + 1;
@@ -103,7 +103,7 @@ fagoc::ler_json(std::string arquivo)
         num_horarios, std::vector<char>(num_disc, 0));
     std::vector<char> ofertadas(num_disc, 0);
 
-    for (size_t i = 0; i < horarios.size(); i++) {
+    for (auto i = 0u; i < horarios.size(); i++) {
         auto horario_atual = horarios[i]["horario"].asInt();
         auto dia_letivo_atual = horarios[i]["semana"].asInt();
 
@@ -130,7 +130,7 @@ fagoc::ler_json(std::string arquivo)
     const auto& alunos = raiz["alunoperfis"];
     std::vector<Aluno> vet_alunos;
 
-    for (size_t i = 0; i < alunos.size(); i++) {
+    for (auto i = 0u; i < alunos.size(); i++) {
         auto nome = alunos[i]["id"].asString();
         auto periodo = alunos[i]["periodo"].asString();
         auto turma = alunos[i]["turma"].asString();
@@ -138,7 +138,7 @@ fagoc::ler_json(std::string arquivo)
         std::vector<char> aprovacoes(num_disc, 1);
 
         const auto& restantes = alunos[i]["restantes"];
-        for (size_t j = 0; j < restantes.size(); j++) {
+        for (auto j = 0u; j < restantes.size(); j++) {
             auto disc_index = curso.nome_to_indice()[restantes[j].asString()];
             aprovacoes[disc_index] = 0;
         }
@@ -146,7 +146,7 @@ fagoc::ler_json(std::string arquivo)
         auto cursadas(aprovacoes);
 
         const auto& disc_cursadas = alunos[i]["cursadas"];
-        for (size_t j = 0; j < disc_cursadas.size(); j++) {
+        for (auto j = 0u; j < disc_cursadas.size(); j++) {
             auto disc_index = curso.nome_to_indice()[disc_cursadas[j].asString()];
             cursadas[disc_index] = 1;
         }
@@ -208,15 +208,14 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
     }
     html << "</tr>\n";
 
-    auto horarios_dia = static_cast<std::size_t>(
-        curso.num_horarios() / curso.num_dias_letivos());
+    auto horarios_dia = static_cast<std::size_t>(curso.num_horarios() / curso.num_dias_letivos());
 
-    for (std::size_t i = 0; i < horarios_dia; i++) {
+    for (auto i = 0u; i < horarios_dia; i++) {
         html << "<tr>\n";
-        for (std::size_t j = 0; j <= curso.num_horarios() - curso.num_periodos();
+        for (auto j = 0u; j <= curso.num_horarios() - curso.num_periodos();
              j += curso.num_periodos()) {
             auto encontrou = false;
-            for (std::size_t k = 0; k < curso.num_disciplinas(); k++) {
+            for (auto k = 0u; k < curso.num_disciplinas(); k++) {
                 if (curso.horario()[j + i][k] && solucao.solucao_bool[k]) {
                     html << "<td>"
                             << curso.nome_disciplinas()[k] << "</td>\n";

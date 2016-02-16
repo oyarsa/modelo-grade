@@ -2145,7 +2145,7 @@ bool CharReaderBuilder::validate(Json::Value* invalid) const
   getValidReaderKeys(&valid_keys);
   Value::Members keys = settings_.getMemberNames();
   size_t n = keys.size();
-  for (size_t i = 0; i < n; ++i) {
+  for (auto i = 0u; i < n; ++i) {
     std::string const& key = keys[i];
     if (valid_keys.find(key) == valid_keys.end()) {
       inv[key] = settings_[key];
@@ -5100,7 +5100,7 @@ bool StreamWriterBuilder::validate(Json::Value* invalid) const
   getValidWriterKeys(&valid_keys);
   Value::Members keys = settings_.getMemberNames();
   size_t n = keys.size();
-  for (size_t i = 0; i < n; ++i) {
+  for (auto i = 0u; i < n; ++i) {
     std::string const& key = keys[i];
     if (valid_keys.find(key) == valid_keys.end()) {
       inv[key] = settings_[key];

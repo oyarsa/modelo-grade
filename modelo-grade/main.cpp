@@ -27,10 +27,10 @@ int main(int argc, char* argv[])
 	if (argc != 3) {
 #if defined(_WIN32)
 		caminho_destino = "..\\saida\\";
-		arquivo_entrada = "..\\input.json";
+		arquivo_entrada = "..\\input\\input.json";
 #else
 		caminho_destino = "../saida/";
-		arquivo_entrada = "../input.json";
+		arquivo_entrada = "../input/input.json";
 #endif
 	} else {
 		arquivo_entrada = argv[1];

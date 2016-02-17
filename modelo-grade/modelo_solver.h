@@ -13,7 +13,8 @@ namespace fagoc {
 class Modelo_solver : public Solver
 {
 public:
-	Modelo_solver(const Curso& curso, const Aluno& aluno, const std::vector<std::vector<char>>& horario);
+	Modelo_solver(const Curso& curso, const Aluno& aluno, 
+				  const std::vector<std::vector<char>>& horario);
 	Modelo_solver(const Curso& curso, const Aluno& aluno);
 	virtual ~Modelo_solver();
 

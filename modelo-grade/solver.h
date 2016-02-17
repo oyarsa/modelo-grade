@@ -6,8 +6,8 @@ namespace fagoc {
 class Solver
 {
 public:
-    Solver(const Curso& curso, const Aluno& aluno) : curso_(curso), 
-		aluno_(aluno), horario_(curso_.horario()) {};
+    Solver(const Curso& curso, const Aluno& aluno) 
+		: curso_(curso), aluno_(aluno), horario_(curso_.horario()) {};
     Solver(const Curso& curso, const Aluno& aluno, 
 		   const std::vector<std::vector<char>>& horario) 
 		: curso_(curso), aluno_(aluno), horario_(horario) {};
@@ -18,6 +18,7 @@ public:
     virtual std::shared_ptr<Solucao> solucao() const = 0;
 	const Curso& curso() const;
 	const Aluno& aluno() const;
+	const std::vector<std::vector<char>>& horario() const;
 protected:
     std::shared_ptr<Solucao> solucao_ = nullptr;
     const Curso& curso_;
@@ -35,18 +36,25 @@ inline const Aluno& Solver::aluno() const
 	return aluno_;
 }
 
+inline const std::vector<std::vector<char>>& Solver::horario() const 
+{
+	return horario_;
+}
 
-template <class Solver>
+template <typename Solver>
 double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
                         std::vector<std::shared_ptr<Solucao>>& solucoes)
 {
-    double sum = 0;
-    for (auto i = 0u; i < alunos.size(); i++) {
-        Solver solver(curso, alunos[i]);
+	static_assert(std::is_base_of<fagoc::Solver, Solver>::value, 
+				  "Parametro nao e um solver");
+    auto sum = 0.0;
+    for (const auto& aluno : alunos) {
+        Solver solver{curso, aluno};
         solver.solve();
-        solucoes[i] = solver.solucao();
-        curso.atualiza_ofertadas(solucoes[i]->solucao_bool);
-        sum += solucoes[i]->funcao_objetivo;
+		const auto& solucao = solver.solucao();
+		solucoes.push_back(solucao);
+        curso.atualiza_ofertadas(solucao->solucao_bool);
+        sum += solucao->funcao_objetivo;
     }
 
     return sum;

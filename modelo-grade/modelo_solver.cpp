@@ -46,7 +46,7 @@ void fagoc::Modelo_solver::impl::solve()
 	const auto& creditos = parent.curso().creditos();
 	const auto& prerequisitos = parent.curso().pre_requisitos();
 	const auto& corequisitos = parent.curso().co_requisitos();
-	const auto& horarios = parent.curso().horario();
+	const auto& horario = parent.horario();
 	const auto& ofertadas = parent.curso().ofertadas();
 	const auto& equivalencias = parent.curso().equivalencias();
 	const auto& disc_turma = parent.curso().disc_turma();
@@ -111,9 +111,10 @@ void fagoc::Modelo_solver::impl::solve()
 		auto num_prereq = 0;
 		auto prereq_aprov = 0;
 		for (auto p = 0u; p < num_disciplinas; p++) {
-			if (prerequisitos[d][p]) {
-				num_prereq++;
+			if (!prerequisitos[d][p]) {
+				continue;
 			}
+			num_prereq++;
 			for (auto i = 0u; i < num_disciplinas; i++) {
 				if (equivalencias[p][i] && aprovacoes[i]) {
 					prereq_aprov++;
@@ -154,7 +155,7 @@ void fagoc::Modelo_solver::impl::solve()
 	for (auto h = 0u; h < num_horas; h++) {
 		IloExpr disc_concorrente(env);
 		for (auto d = 0u; d < num_disciplinas; d++) {
-			disc_concorrente += horarios[h][d] * y[d];
+			disc_concorrente += horario[h][d] * y[d];
 		}
 		mod.add(disc_concorrente <= 1);
 		disc_concorrente.end();
@@ -220,12 +221,12 @@ std::shared_ptr<fagoc::Solucao> fagoc::Modelo_solver::solucao() const
 
 
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno) 
-	: Solver(curso, aluno), impl_(std::make_unique<impl>(*this))
+	: Solver(curso, aluno), impl_{std::make_unique<impl>(*this)}
 {}
 
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno,
 									const std::vector<std::vector<char>>& horario) 
-	: Solver(curso, aluno, horario), impl_(std::make_unique<impl>(*this))
+	: Solver(curso, aluno, horario), impl_{std::make_unique<impl>(*this)}
 {}
 
 void fagoc::Modelo_solver::solve()

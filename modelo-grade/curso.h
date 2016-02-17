@@ -37,7 +37,7 @@ public:
 	const std::vector<std::pair<std::string, std::string>>& disc_turma() const;
 	const std::vector<std::string>& periodos_minimos() const;
 	const std::vector<std::string>& nome_disciplinas() const;
-	std::unordered_map<std::string, int> nome_to_indice();
+	std::unordered_map<std::string, int>& nome_to_indice();
 	int num_dias_letivos() const;
 	int num_periodos() const;
 

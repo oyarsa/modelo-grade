@@ -59,6 +59,7 @@ fagoc::ler_json(std::string arquivo)
             prerequisitos[disc_atual][prereq_atual] = 1;
         }
 
+		equivalencias[disc_atual][disc_atual] = 1;
         for (auto j = 0u; j < equiv.size(); j++) {
             auto equiv_atual = nome_to_indice[equiv[j].asString()];
             equivalencias[disc_atual][equiv_atual] = 1;
@@ -151,9 +152,8 @@ fagoc::ler_json(std::string arquivo)
             cursadas[disc_index] = 1;
         }
 
-        vet_alunos.push_back(Aluno(nome, move(aprovacoes),
-                                   move(cursadas),
-                                   periodo, turma));
+        vet_alunos.emplace_back(nome, move(aprovacoes), move(cursadas), 
+								periodo, turma);
     }
 
     return make_pair(std::move(curso), move(vet_alunos));
@@ -190,16 +190,16 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 {
     std::ostringstream html;
     const std::string dias_semana[] = {"Segunda", "Terça", "Quarta", "Quinta",
-        "Sexta", "Sábado", "Domingo"};
+									   "Sexta", "Sábado", "Domingo"};
 
     html << std::nounitbuf;
     html << "<!DOCTYPE html>\n"
-            << "<html align='center' id='nome'>\n"
+            << "<html>\n"
             << "<style type=\"text/css\">"
             << css
             << "</style>"
             << "<body>\n"
-            << "<h1>" + solucao.nome_aluno + ":<br></h1>"
+            << "<h1 align='center' id='nome'>" + solucao.nome_aluno + ":<br></h1>"
             << "<table align='center' id='horarios'>\n";
 
     html << "<tr>\n";
@@ -212,11 +212,11 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 
     for (auto i = 0u; i < horarios_dia; i++) {
         html << "<tr>\n";
-        for (auto j = 0u; j <= curso.num_horarios() - curso.num_periodos();
-             j += curso.num_periodos()) {
+		for (auto j = 0; j < curso.num_dias_letivos(); j++) {
             auto encontrou = false;
             for (auto k = 0u; k < curso.num_disciplinas(); k++) {
-                if (curso.horario()[j + i][k] && solucao.solucao_bool[k]) {
+				auto slot = j * horarios_dia + i;
+                if (curso.horario()[slot][k] && solucao.solucao_bool[k]) {
                     html << "<td>"
                             << curso.nome_disciplinas()[k] << "</td>\n";
                     encontrou = true;

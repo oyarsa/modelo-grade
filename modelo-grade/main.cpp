@@ -12,7 +12,7 @@
 void
 print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
 {
-	for (const auto solucao : solucoes) {
+	for (const auto& solucao : solucoes) {
 		std::cout << "Aluno " << solucao->nome_aluno << "\n";
 		for (const auto& disc : solucao->nomes_disciplinas) {
 			std::cout << disc << " ";
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 	auto ret = fagoc::ler_json(arquivo_entrada);
 	auto curso = ret.first;
 	auto alunos = ret.second;
-	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes(alunos.size());
+	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes{};
 
 
 	auto inicio = std::chrono::steady_clock::now();

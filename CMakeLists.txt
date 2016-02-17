@@ -44,8 +44,8 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 
-add_executable(modelo-grade ${MODELO_FILES} modelo-grade/main.cpp)
 add_library(modelo-grade-lib ${MODELO_FILES})
+add_executable(modelo-grade-exec modelo-grade/main.cpp)
 
-target_link_libraries(modelo-grade ${CPLEX_LIBRARIES})
 target_link_libraries(modelo-grade-lib ${CPLEX_LIBRARIES})
+target_link_libraries(modelo-grade-exec modelo-grade-lib)

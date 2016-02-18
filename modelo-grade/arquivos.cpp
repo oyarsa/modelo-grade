@@ -66,7 +66,7 @@ fagoc::ler_json(std::string arquivo)
         }
 
         disc_turma[disc_atual].first = disciplinas[i]["periodo"].asString();
-        disc_turma[disc_atual].second = disciplinas[i]["periodo"].asString();
+        disc_turma[disc_atual].second = disciplinas[i]["turma"].asString();
         capacidades[disc_atual] = disciplinas[i]["capacidade"].asInt();
         periodo_minimo[disc_atual] = disciplinas[i]["periodominimo"].asString();
     }

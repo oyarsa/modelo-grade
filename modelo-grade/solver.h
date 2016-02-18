@@ -40,16 +40,23 @@ inline const std::vector<std::vector<char>>& Solver::horario() const
 {
 	return horario_;
 }
-
 template <typename Solver>
 double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
                         std::vector<std::shared_ptr<Solucao>>& solucoes)
+{
+	return soluciona_alunos<Solver>(curso, alunos, solucoes, curso.horario());
+}
+
+template <typename Solver>
+double soluciona_alunos(Curso& curso, const std::vector<Aluno>& alunos,
+                        std::vector<std::shared_ptr<Solucao>>& solucoes,
+						const std::vector<std::vector<char>>& horario)
 {
 	static_assert(std::is_base_of<fagoc::Solver, Solver>::value, 
 				  "Parametro nao e um solver");
     auto sum = 0.0;
     for (const auto& aluno : alunos) {
-        Solver solver{curso, aluno};
+        Solver solver{curso, aluno, horario};
         solver.solve();
 		const auto& solucao = solver.solucao();
 		solucoes.push_back(solucao);

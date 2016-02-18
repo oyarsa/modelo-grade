@@ -42,7 +42,6 @@ int main(int argc, char* argv[])
 	auto alunos = ret.second;
 	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes{};
 
-
 	auto inicio = std::chrono::steady_clock::now();
 	auto funcao_objetivo = fagoc::soluciona_alunos<fagoc::Modelo_solver>(
 		curso, alunos, solucoes);

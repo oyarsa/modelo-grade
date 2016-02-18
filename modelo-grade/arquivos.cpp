@@ -48,6 +48,7 @@ fagoc::ler_json(std::string arquivo)
     std::vector<std::pair<std::string, std::string>> disc_turma(num_disc);
     std::vector<std::string> periodo_minimo(num_disc);
     std::vector<int> capacidades(num_disc);
+    std::vector<char> ofertadas(num_disc, 1);
 
     for (auto i = 0u; i < disciplinas.size(); i++) {
         const auto& prereq = disciplinas[i]["prerequisitos"];
@@ -69,6 +70,7 @@ fagoc::ler_json(std::string arquivo)
         disc_turma[disc_atual].second = disciplinas[i]["turma"].asString();
         capacidades[disc_atual] = disciplinas[i]["capacidade"].asInt();
         periodo_minimo[disc_atual] = disciplinas[i]["periodominimo"].asString();
+		ofertadas[disc_atual] = disciplinas[i]["ofertada"].asInt();
     }
 
     /**********************************************
@@ -102,7 +104,6 @@ fagoc::ler_json(std::string arquivo)
     auto num_horarios = num_horarios_dia * num_dias_letivos;
     std::vector<std::vector<char>> matriz_horario(
         num_horarios, std::vector<char>(num_disc, 0));
-    std::vector<char> ofertadas(num_disc, 0);
 
     for (auto i = 0u; i < horarios.size(); i++) {
         auto horario_atual = horarios[i]["horario"].asInt();
@@ -112,7 +113,6 @@ fagoc::ler_json(std::string arquivo)
         auto disc_index = nome_to_indice[horarios[i]["professordisciplina"].asString()];
 
         matriz_horario[horario][disc_index] = 1;
-        ofertadas[disc_index] = 1;
     }
 
     Curso curso(move(creditos), move(prerequisitos),

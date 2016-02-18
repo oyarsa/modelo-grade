@@ -52,7 +52,7 @@ void fagoc::Modelo_solver::impl::solve()
 	const auto& disc_turma = parent.curso().disc_turma();
 	const auto& periodos_minimos = parent.curso().periodos_minimos();
 	const auto num_disciplinas = parent.curso().num_disciplinas();
-	const auto num_horas = parent.curso().num_horarios();
+	const auto num_horas = parent.horario().size();
 
 	// Variáveis do aluno
 	const auto& aprovacoes = parent.aluno().aprovacoes();
@@ -191,7 +191,6 @@ void fagoc::Modelo_solver::impl::solve()
 		IloCplex cplex(mod);
 		cplex.setOut(env.getNullStream());
 		cplex.solve();
-
 
 		funcao_objetivo = cplex.getObjValue();
 		cplex.getValues(solucao_cplex, y);

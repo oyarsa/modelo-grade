@@ -9,6 +9,7 @@
 struct fagoc::Modelo_solver::impl
 {
 	explicit impl(const Solver& parent);
+	impl& operator=(const impl&) = delete;
 	~impl();
 
 	void solve();

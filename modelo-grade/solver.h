@@ -11,6 +11,7 @@ public:
     Solver(const Curso& curso, const Aluno& aluno, 
 		   const std::vector<std::vector<char>>& horario) 
 		: curso_(curso), aluno_(aluno), horario_(horario) {};
+	Solver& operator=(const Solver&) = delete;
     virtual ~Solver() = default;
 
     // Soluciona a instância do problema e guarda a solução no atributo 'solucao'

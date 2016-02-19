@@ -12,9 +12,6 @@ endif()
 include_directories(SYSTEM ${CPLEX_INCLUDE_DIRS})
 
 add_definitions(-DIL_STD)
-string (REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
-if (WIN32)
-endif()
 
 set(MODELO_FILES
     modelo-grade/aluno.h
@@ -44,8 +41,9 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 endif()
 
 if (MSVC)
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MD")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /Za")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MD /Z7")
+  string (REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /Za /wd4100 -D_CRT_SECURE_NO_WARNINGS")
 endif()
 
 add_library(modelo-grade-lib ${MODELO_FILES})

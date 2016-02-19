@@ -69,7 +69,9 @@ license you like.
 // //////////////////////////////////////////////////////////////////////
 
 
-
+#ifdef _MSC_VER
+#pragma warning(disable:4512)
+#endif
 
 
 #ifndef JSON_AMALGATED_H_INCLUDED
@@ -2032,7 +2034,9 @@ JSON_API std::ostream& operator<<(std::ostream&, const Value& root);
 // //////////////////////////////////////////////////////////////////////
 
 
-
+#ifdef _MSC_VER
+#pragma warning(default:4512)
+#endif
 
 
 #endif //ifndef JSON_AMALGATED_H_INCLUDED

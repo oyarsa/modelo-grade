@@ -1,7 +1,18 @@
-#include "solucao.h"
+#ifdef _MSC_VER
+	#pragma warning(push)
+	#pragma warning(disable:4224)
+	#pragma warning(disable:4180)
+	#pragma warning(disable:4512)
+#endif
+
 #include <ilcp/cp.h>
 #include <ilcplex/ilocplexi.h>
 
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#endif
+
+#include "solucao.h"
 #include "curso.h"
 #include "aluno.h"
 #include "modelo_solver.h"

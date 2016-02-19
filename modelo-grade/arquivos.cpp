@@ -236,7 +236,13 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
             << "</body>\n"
             << "</html>\n";
 
-    std::ofstream arquivo_saida(destino + "\\" + solucao.nome_aluno + ".html");
+#if defined(_WIN32)
+    auto nome_arquivo = destino + "\\" + solucao.nome_aluno + ".html";
+#else
+    auto nome_arquivo = destino + "/" + solucao.nome_aluno + ".html";
+#endif
+
+    std::ofstream arquivo_saida(nome_arquivo);
     arquivo_saida << std::nounitbuf << html.str() << std::endl;
 
     // E também retorna a string (a mesma que foi escrita) para quem chamou

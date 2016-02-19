@@ -16,6 +16,7 @@ public:
 	Modelo_solver(const Curso& curso, const Aluno& aluno, 
 				  const std::vector<std::vector<char>>& horario);
 	Modelo_solver(const Curso& curso, const Aluno& aluno);
+	Modelo_solver(const Modelo_solver&) = delete;
 	virtual ~Modelo_solver();
 
 	void solve() override;

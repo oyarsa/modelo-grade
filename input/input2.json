@@ -15,7 +15,8 @@
                                 "E",
                                 "F"
                             ],
-                    "turma": "A"
+                    "turma": "A",
+                    "ofertada": true
                 },
                 {
                     "cursadas":
@@ -34,7 +35,8 @@
                                 "E",
                                 "F"
                             ],
-                    "turma": "A"
+                    "turma": "A",
+                    "ofertada": true
                 },
                 {
                     "cursadas":
@@ -53,7 +55,8 @@
                                 "E",
                                 "F"
                             ],
-                    "turma": "B"
+                    "turma": "B",
+                    "ofertada": true
                 },
                 {
                     "cursadas":
@@ -72,7 +75,8 @@
                                 "B",
                                 "A2"
                             ],
-                    "turma": "A"
+                    "turma": "A",
+                    "ofertada": true
                 },
                 {
                     "cursadas":
@@ -91,7 +95,8 @@
                                 "A2",
                                 "E"
                             ],
-                    "turma": "B"
+                    "turma": "B",
+                    "ofertada": true
                 }
             ],
     "disciplinas":
@@ -104,8 +109,7 @@
                     "nome": "A1",
                     "periodo": 1,
                     "turma": "B",
-                    "periodominimo" : 1,
-                    "ofertada": true
+                    "periodominimo" : 1
                 },
                 {
                     "capacidade": 10,
@@ -115,8 +119,7 @@
                     "nome": "B",
                     "periodo": 1,
                     "turma": "A",
-                    "periodominimo" : 1,
-                    "ofertada": true
+                    "periodominimo" : 1
                 },
                 {
                     "capacidade": 10,
@@ -126,8 +129,7 @@
                     "nome": "C",
                     "periodo": 1,
                     "turma": "B",
-                    "periodominimo" : 1,
-                    "ofertada": true
+                    "periodominimo" : 1
                 },
                 {
                     "capacidade": 10,
@@ -137,8 +139,7 @@
                     "nome": "D",
                     "periodo": 1,
                     "turma": "B",
-                    "periodominimo" : 1,
-                    "ofertada": true
+                    "periodominimo" : 1
                 },
                 {
                     "capacidade": 10,
@@ -152,8 +153,7 @@
                                 "A1"
                             ],
                     "turma": "B",
-                    "periodominimo" : 2,
-                    "ofertada": true
+                    "periodominimo" : 2
                 },
                 {
                     "capacidade": 10,
@@ -163,8 +163,7 @@
                     "nome": "E",
                     "periodo": 1,
                     "turma": "A",
-                    "periodominimo" : 1,
-                    "ofertada": true
+                    "periodominimo" : 1
                 },
                 {
                     "capacidade": 10,
@@ -174,8 +173,7 @@
                     "nome": "F",
                     "periodo": 2,
                     "turma": "A",
-                    "periodominimo" : 2,
-                    "ofertada": true
+                    "periodominimo" : 2
                 }
             ],
     "professores":

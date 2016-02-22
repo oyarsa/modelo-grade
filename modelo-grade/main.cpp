@@ -8,14 +8,14 @@
 #include "modelo_solver.h"
 
 void
-print_solutions(const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes)
+print_solutions(const std::vector<fagoc::Solucao>& solucoes)
 {
 	for (const auto& solucao : solucoes) {
-		std::cout << "Aluno " << solucao->nome_aluno << "\n";
-		for (const auto& disc : solucao->nomes_disciplinas) {
+		std::cout << "Aluno " << solucao.nome_aluno << "\n";
+		for (const auto& disc : solucao.nomes_disciplinas) {
 			std::cout << disc << " ";
 		}
-		std::cout << solucao->funcao_objetivo << "\n\n";
+		std::cout << solucao.funcao_objetivo << "\n\n";
 	}
 }
 
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	auto ret = fagoc::ler_json(arquivo_entrada);
 	auto curso = ret.first;
 	auto alunos = ret.second;
-	std::vector<std::shared_ptr<fagoc::Solucao>> solucoes{};
+	std::vector<fagoc::Solucao> solucoes{};
 
 	auto inicio = std::chrono::steady_clock::now();
 	auto funcao_objetivo = fagoc::soluciona_alunos<fagoc::Modelo_solver>(

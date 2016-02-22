@@ -25,52 +25,42 @@ fagoc::ler_json(std::string arquivo)
     // Lê uma primeira vez para contar o número de disciplinas e associar
     // os nomes a índices
     const auto& disciplinas = raiz["disciplinas"];
-    std::vector<std::string> nome_disc;
-    std::vector<int> creditos;
+	auto num_disc = disciplinas.size();
 
-    for (auto i = 0u; i < disciplinas.size(); i++) {
-        auto nome = disciplinas[i]["id"].asString();
-        nome_disc.push_back(nome);
-        nome_to_indice[nome] = i;
-
-        creditos.push_back(disciplinas[i]["carga"].asInt());
+    for (auto i = 0u; i < num_disc; i++) {
+        nome_to_indice[disciplinas[i]["id"].asString()] = i;
     }
 
-    auto num_disc = creditos.size();
-
     // Lê uma segunda vez, dessa vez registrando de fato as disciplinas na memória
-    std::vector<std::vector<char>> prerequisitos(num_disc,
-                                                 std::vector<char>(num_disc, 0));
-    std::vector<std::vector<char>> corequisitos(num_disc,
-                                                std::vector<char>(num_disc, 0));
-    std::vector<std::vector<char>> equivalencias(num_disc,
-                                                 std::vector<char>(num_disc, 0));
-    std::vector<std::pair<std::string, std::string>> disc_turma(num_disc);
-    std::vector<std::string> periodo_minimo(num_disc);
-    std::vector<int> capacidades(num_disc);
     std::vector<char> ofertadas(num_disc, 1);
+	std::vector<Disciplina> disciplinas_vector;
 
-    for (auto i = 0u; i < disciplinas.size(); i++) {
+    for (auto i = 0u; i < num_disc; i++) {
+        auto disc_atual = nome_to_indice[disciplinas[i]["id"].asString()];
         const auto& prereq = disciplinas[i]["prerequisitos"];
         const auto& equiv = disciplinas[i]["equivalentes"];
-        auto disc_atual = nome_to_indice[disciplinas[i]["id"].asString()];
+		Disciplina disc{num_disc};
 
         for (auto j = 0u; j < prereq.size(); j++) {
             auto prereq_atual = nome_to_indice[prereq[j].asString()];
-            prerequisitos[disc_atual][prereq_atual] = 1;
+            disc.prerequisitos[prereq_atual] = 1;
         }
 
-		equivalencias[disc_atual][disc_atual] = 1;
+		disc.equivalentes[disc_atual] = 1;
         for (auto j = 0u; j < equiv.size(); j++) {
             auto equiv_atual = nome_to_indice[equiv[j].asString()];
-            equivalencias[disc_atual][equiv_atual] = 1;
+            disc.equivalentes[equiv_atual] = 1;
         }
 
-        disc_turma[disc_atual].first = disciplinas[i]["periodo"].asString();
-        disc_turma[disc_atual].second = disciplinas[i]["turma"].asString();
-        capacidades[disc_atual] = disciplinas[i]["capacidade"].asInt();
-        periodo_minimo[disc_atual] = disciplinas[i]["periodominimo"].asString();
+		disc.nome = disciplinas[i]["id"].asString();
+        disc.periodo = disciplinas[i]["periodo"].asString();
+        disc.turma = disciplinas[i]["turma"].asString();
+        disc.capacidade = disciplinas[i]["capacidade"].asInt();
+        disc.periodo_minimo = disciplinas[i]["periodominimo"].asString();
+		disc.credito = disciplinas[i]["carga"].asInt();
 		ofertadas[disc_atual] = disciplinas[i]["ofertada"].asBool();
+
+		disciplinas_vector.emplace_back(std::move(disc));
     }
 
     /**********************************************
@@ -115,11 +105,9 @@ fagoc::ler_json(std::string arquivo)
         matriz_horario[horario][disc_index] = 1;
     }
 
-    Curso curso(move(creditos), move(prerequisitos),
-                move(corequisitos), move(matriz_horario),
-                move(ofertadas), move(equivalencias),
-                move(disc_turma), move(periodo_minimo),
-                move(nome_disc), move(capacidades),
+    Curso curso(move(disciplinas_vector),
+		        move(matriz_horario),
+                move(ofertadas),
 				move(nome_to_indice),
                 num_dias_letivos, num_periodos);
 
@@ -160,7 +148,7 @@ fagoc::ler_json(std::string arquivo)
 }
 
 void fagoc::gen_html(const Curso& curso,
-                     const std::vector<std::shared_ptr<Solucao>>& solucoes,
+                     const std::vector<Solucao>& solucoes,
                      std::string destino)
 {
 #if defined(_WIN32)
@@ -178,7 +166,7 @@ void fagoc::gen_html(const Curso& curso,
     std::ostringstream html_pkg;
 
     for (const auto& solucao : solucoes) {
-        html_pkg << gen_html_aluno(curso, *solucao, destino, css);
+        html_pkg << gen_html_aluno(curso, solucao, destino, css);
     }
 
     saida << std::nounitbuf << html_pkg.str() << std::endl;
@@ -218,7 +206,8 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 				auto slot = j * horarios_dia + i;
                 if (curso.horario()[slot][k] && solucao.solucao_bool[k]) {
                     html << "<td>"
-                            << curso.nome_disciplinas()[k] << "</td>\n";
+                         << curso.disciplinas()[k].nome 
+						 << "</td>\n";
                     encontrou = true;
                     break;
                 }

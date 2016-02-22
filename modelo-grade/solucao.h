@@ -6,6 +6,7 @@ namespace fagoc {
 
 struct Solucao
 {
+	Solucao() = default;
 	Solucao(std::size_t n, double fo, std::string nome)
 		: funcao_objetivo{fo}, solucao_bool(n), nome_aluno(nome) {}
 

@@ -24,7 +24,7 @@ struct fagoc::Modelo_solver::impl
 	~impl();
 
 	void solve();
-	std::shared_ptr<Solucao> solucao = nullptr;
+	Solucao solucao;
 	IloEnv env;
 	const Solver& parent;
 };
@@ -40,7 +40,7 @@ std::pair<int, std::string> split_curso_string(const std::string& curso_str)
 
 
 fagoc::Modelo_solver::impl::impl(const Solver& parent)
-	: env{}, parent{parent} 
+	: solucao{}, env{}, parent{parent}
 {}
 
 fagoc::Modelo_solver::impl::~impl()
@@ -54,15 +54,9 @@ void fagoc::Modelo_solver::impl::solve()
 	 *     INICIALIZAÇÃO DE VARIÁVEIS E REFERÊNCIAS        *
 	 ******************************************************/
 
-	const auto& nome_disciplina = parent.curso().nome_disciplinas();
-	const auto& creditos = parent.curso().creditos();
-	const auto& prerequisitos = parent.curso().pre_requisitos();
-	const auto& corequisitos = parent.curso().co_requisitos();
+	const auto& disciplinas = parent.curso().disciplinas();
 	const auto& horario = parent.horario();
 	const auto& ofertadas = parent.curso().ofertadas();
-	const auto& equivalencias = parent.curso().equivalencias();
-	const auto& disc_turma = parent.curso().disc_turma();
-	const auto& periodos_minimos = parent.curso().periodos_minimos();
 	const auto num_disciplinas = parent.curso().num_disciplinas();
 	const auto num_horas = parent.horario().size();
 
@@ -77,10 +71,8 @@ void fagoc::Modelo_solver::impl::solve()
 	// Preferências do aluno (mesma turma/período)
 	std::vector<char> pref(num_disciplinas, 0);
 	for (auto d = 0u; d < num_disciplinas; d++) {
-		const auto& periodo_disc = disc_turma[d].first;
-		const auto& turma_disc = disc_turma[d].second;
-
-		if (periodo_disc == periodo_aluno && turma_disc == turma_aluno) {
+		if (disciplinas[d].periodo == periodo_aluno
+			&& disciplinas[d].turma == turma_aluno) {
 			pref[d] = 1;
 		}
 	}
@@ -96,7 +88,7 @@ void fagoc::Modelo_solver::impl::solve()
 	// Carga horária
 	IloExpr carga{env};
 	for (auto d = 0u; d < num_disciplinas; d++) {
-		carga += creditos[d] * y[d];
+		carga += disciplinas[d].credito * y[d];
 	}
 	// Preferências
 	IloExpr mesma_turma{env};
@@ -115,7 +107,7 @@ void fagoc::Modelo_solver::impl::solve()
 
 	// Período mínimo
 	for (auto d = 0u; d < num_disciplinas; d++) {
-		auto periodo_disc_num = split_curso_string(periodos_minimos[d]).first;
+		auto periodo_disc_num = split_curso_string(disciplinas[d].periodo_minimo).first;
 		mod.add(y[d] * periodo_disc_num <= periodo_alu_num);
 	}
 	// Pré-requisitos
@@ -123,12 +115,12 @@ void fagoc::Modelo_solver::impl::solve()
 		auto num_prereq = 0;
 		auto prereq_aprov = 0;
 		for (auto p = 0u; p < num_disciplinas; p++) {
-			if (!prerequisitos[d][p]) {
+			if (!disciplinas[d].prerequisitos[p]) {
 				continue;
 			}
 			num_prereq++;
 			for (auto i = 0u; i < num_disciplinas; i++) {
-				if (equivalencias[p][i] && aprovacoes[i]) {
+				if (disciplinas[p].equivalentes[i] && aprovacoes[i]) {
 					prereq_aprov++;
 					break;
 				}
@@ -140,10 +132,10 @@ void fagoc::Modelo_solver::impl::solve()
 	// Co-requisitos
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		for (auto c = 0u; c < num_disciplinas; c++) {
-			if (corequisitos[d][c]) {
+			if (disciplinas[d].corequisitos[c]) {
 				auto coreq_cumprido = 0;
 				for (auto i = 0u; i < num_disciplinas; i++) {
-					if (equivalencias[c][i] && cursadas[i]) {
+					if (disciplinas[c].equivalentes[i] && cursadas[i]) {
 						coreq_cumprido = 1;
 						break;
 					}
@@ -157,7 +149,7 @@ void fagoc::Modelo_solver::impl::solve()
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		IloExpr disc_equiv(env);
 		for (auto e = 0u; e < num_disciplinas; e++) {
-			disc_equiv += equivalencias[d][e] * y[e];
+			disc_equiv += disciplinas[d].equivalentes[e] * y[e];
 		}
 		mod.add(disc_equiv <= 1);
 		disc_equiv.end();
@@ -177,7 +169,7 @@ void fagoc::Modelo_solver::impl::solve()
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		auto aprovacao_equivalente = 0;
 		for (auto i = 0u; i < num_disciplinas; i++) {
-			if (equivalencias[d][i] && aprovacoes[i]) {
+			if (disciplinas[d].equivalentes[i] && aprovacoes[i]) {
 				aprovacao_equivalente = 1;
 				break;
 			}
@@ -215,17 +207,17 @@ void fagoc::Modelo_solver::impl::solve()
 		cp.getValues(y, solucao_cplex);
 	}
 
-	solucao.reset(new Solucao{num_disciplinas, funcao_objetivo, parent.aluno().nome()});
+	solucao = Solucao{num_disciplinas, funcao_objetivo, parent.aluno().nome()};
 	// Atribui resposta às variáveis membro
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		if (solucao_cplex[d]) {
-			solucao->solucao_bool[d] = 1;
-			solucao->nomes_disciplinas.push_back(nome_disciplina[d]);
+			solucao.solucao_bool[d] = 1;
+			solucao.nomes_disciplinas.push_back(disciplinas[d].nome);
 		}
 	}
 }
 
-std::shared_ptr<fagoc::Solucao> fagoc::Modelo_solver::solucao() const
+const fagoc::Solucao& fagoc::Modelo_solver::solucao() const
 {
 	return impl_->solucao;
 }

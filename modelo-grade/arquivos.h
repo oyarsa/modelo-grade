@@ -19,7 +19,7 @@ std::pair<Curso, std::vector<Aluno>> ler_json(std::string arquivo);
 // Gera uma representação em HTML dos horários de todos os alunos, assim como
 // um arquivo com o horário de todos juntos
 void gen_html(const Curso& curso, 
-			  const std::vector<std::shared_ptr<fagoc::Solucao>>& solucoes, 
+			  const std::vector<fagoc::Solucao>& solucoes, 
 			  std::string destino);
 
 // Escreve um arquivo HTML com o horário do aluno, e retorna a string gerada 

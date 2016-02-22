@@ -24,6 +24,7 @@ set(MODELO_FILES
     modelo-grade/modelo_solver.cpp
     modelo-grade/solucao.h
     modelo-grade/solver.h
+    modelo-grade/disciplina.h
     modelo-grade/jsoncpp.cxx
     )
 

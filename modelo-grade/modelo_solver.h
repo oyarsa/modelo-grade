@@ -20,7 +20,7 @@ public:
 	virtual ~Modelo_solver();
 
 	void solve() override;
-	std::shared_ptr<Solucao> solucao() const override;
+	const Solucao& solucao() const override;
 private:
 	struct impl;
 	std::unique_ptr<impl> impl_;

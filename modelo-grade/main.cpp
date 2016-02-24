@@ -36,8 +36,8 @@ int main(int argc, char* argv[])
 	}
 
 	auto ret = fagoc::ler_json(arquivo_entrada);
-	auto curso = ret.first;
-	auto alunos = ret.second;
+	auto curso = std::move(ret.first);
+	auto alunos = std::move(ret.second);
 	std::vector<fagoc::Solucao> solucoes{};
 
 	auto inicio = std::chrono::steady_clock::now();

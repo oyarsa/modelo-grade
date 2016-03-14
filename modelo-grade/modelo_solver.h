@@ -14,8 +14,10 @@ class Modelo_solver : public Solver
 {
 public:
 	Modelo_solver(const Curso& curso, const Aluno& aluno, 
-				  const std::vector<std::vector<char>>& horario);
-	Modelo_solver(const Curso& curso, const Aluno& aluno);
+				  const std::vector<std::vector<char>>& horario,
+				  double tempo_limite = 0);
+	Modelo_solver(const Curso& curso, const Aluno& aluno,
+				  double tempo_limite = 0);
 	Modelo_solver(const Modelo_solver&) = delete;
 	virtual ~Modelo_solver();
 

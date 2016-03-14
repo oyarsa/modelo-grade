@@ -52,7 +52,8 @@ fagoc::ler_json(std::string arquivo)
             disc.equivalentes[equiv_atual] = 1;
         }
 
-		disc.nome = disciplinas[i]["id"].asString();
+		disc.id = disciplinas[i]["id"].asString();
+		disc.nome = disciplinas[i]["nome"].asString();
         disc.periodo = disciplinas[i]["periodo"].asString();
         disc.turma = disciplinas[i]["turma"].asString();
         disc.capacidade = disciplinas[i]["capacidade"].asInt();
@@ -128,16 +129,20 @@ fagoc::ler_json(std::string arquivo)
 
         const auto& restantes = alunos[i]["restantes"];
         for (auto j = 0u; j < restantes.size(); j++) {
-            auto disc_index = curso.nome_to_indice()[restantes[j].asString()];
-            aprovacoes[disc_index] = 0;
+            auto disc_index = curso.id_to_indice().find(restantes[j].asString());
+			if (disc_index != curso.id_to_indice().end()) {
+				aprovacoes[disc_index->second] = 0;
+			}
         }
 
-        auto cursadas(aprovacoes);
+        auto cursadas = aprovacoes;
 
         const auto& disc_cursadas = alunos[i]["cursadas"];
         for (auto j = 0u; j < disc_cursadas.size(); j++) {
-            auto disc_index = curso.nome_to_indice()[disc_cursadas[j].asString()];
-            cursadas[disc_index] = 1;
+            auto disc_index = curso.id_to_indice().find(disc_cursadas[j].asString());
+			if (disc_index != curso.id_to_indice().end()) {
+				cursadas[disc_index->second] = 1;
+			}
         }
 
         vet_alunos.emplace_back(nome, move(aprovacoes), move(cursadas), 
@@ -206,7 +211,7 @@ std::string fagoc::gen_html_aluno(const Curso& curso, const Solucao& solucao,
 				auto slot = j * horarios_dia + i;
                 if (curso.horario()[slot][k] && solucao.solucao_bool[k]) {
                     html << "<td>"
-                         << curso.disciplinas()[k].nome 
+                         << curso.disciplinas()[k].id 
 						 << "</td>\n";
                     encontrou = true;
                     break;

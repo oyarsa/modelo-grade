@@ -28,7 +28,7 @@ public:
 	std::size_t num_horarios() const;
 	const std::vector<std::vector<char>>& horario() const;
 	const std::vector<char>& ofertadas() const;
-	std::unordered_map<std::string, int>& nome_to_indice();
+	std::unordered_map<std::string, int>& id_to_indice();
 	int num_dias_letivos() const;
 	int num_periodos() const;
 
@@ -37,7 +37,7 @@ private:
 	std::vector<std::vector<char>> horario_;
 	std::vector<char> ofertadas_;
 	std::vector<int> alocados_;
-	std::unordered_map<std::string, int> nome_to_indice_;
+	std::unordered_map<std::string, int> id_to_indice_;
 	int num_dias_letivos_;
 	int num_periodos_;
 };

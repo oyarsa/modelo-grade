@@ -19,14 +19,16 @@
 
 struct fagoc::Modelo_solver::impl
 {
-	explicit impl(const Solver& parent);
+	explicit impl(const Modelo_solver& parent, double tempo_limite);
 	impl& operator=(const impl&) = delete;
 	~impl();
 
 	void solve();
+
+	double tempo_limite;
 	Solucao solucao;
 	IloEnv env;
-	const Solver& parent;
+	const Modelo_solver& parent;
 };
 
 std::pair<int, std::string> split_curso_string(const std::string& curso_str)
@@ -39,8 +41,8 @@ std::pair<int, std::string> split_curso_string(const std::string& curso_str)
 }
 
 
-fagoc::Modelo_solver::impl::impl(const Solver& parent)
-	: solucao{}, env{}, parent{parent}
+fagoc::Modelo_solver::impl::impl(const Modelo_solver& parent, double tempo_limite)
+	: solucao{}, env{}, parent{parent}, tempo_limite(tempo_limite)
 {}
 
 fagoc::Modelo_solver::impl::~impl()
@@ -119,12 +121,17 @@ void fagoc::Modelo_solver::impl::solve()
 				continue;
 			}
 			num_prereq++;
+			if (aprovacoes[p]) {
+				prereq_aprov++;
+			}
+			/*
 			for (auto i = 0u; i < num_disciplinas; i++) {
 				if (disciplinas[p].equivalentes[i] && aprovacoes[i]) {
 					prereq_aprov++;
 					break;
 				}
 			}
+			*/
 		}
 		mod.add(num_prereq * y[d] <= prereq_aprov);
 	}
@@ -133,6 +140,7 @@ void fagoc::Modelo_solver::impl::solve()
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		for (auto c = 0u; c < num_disciplinas; c++) {
 			if (disciplinas[d].corequisitos[c]) {
+				/*
 				auto coreq_cumprido = 0;
 				for (auto i = 0u; i < num_disciplinas; i++) {
 					if (disciplinas[c].equivalentes[i] && cursadas[i]) {
@@ -140,12 +148,15 @@ void fagoc::Modelo_solver::impl::solve()
 						break;
 					}
 				}
+				*/
+				auto coreq_cumprido = cursadas[c];
 				mod.add(y[d] <= y[c] + coreq_cumprido);
 			}
 		}
 	}
 
 	// Disciplinas equivalentes
+	/*
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		IloExpr disc_equiv(env);
 		for (auto e = 0u; e < num_disciplinas; e++) {
@@ -154,6 +165,7 @@ void fagoc::Modelo_solver::impl::solve()
 		mod.add(disc_equiv <= 1);
 		disc_equiv.end();
 	}
+	*/
 
 	// Cria as restrições dos horários
 	for (auto h = 0u; h < num_horas; h++) {
@@ -167,6 +179,7 @@ void fagoc::Modelo_solver::impl::solve()
 
 	// Disciplinas já aprovadas
 	for (auto d = 0u; d < num_disciplinas; d++) {
+		/*
 		auto aprovacao_equivalente = 0;
 		for (auto i = 0u; i < num_disciplinas; i++) {
 			if (disciplinas[d].equivalentes[i] && aprovacoes[i]) {
@@ -174,6 +187,8 @@ void fagoc::Modelo_solver::impl::solve()
 				break;
 			}
 		}
+		*/
+		auto aprovacao_equivalente = aprovacoes[d];
 		mod.add(y[d] <= 1 - aprovacao_equivalente);
 	}
 
@@ -186,33 +201,41 @@ void fagoc::Modelo_solver::impl::solve()
 	 *                RESOLUÇÃO DO MODELO                   *
 	 ********************************************************/
 
+
 	// Se o número de disciplinas for menor que 30, utiliza
 	// o CPLEX. Se for maior, a versão community não resolve, então
 	// utiliza-se o CP Optimizer
 	IloNumArray solucao_cplex(env);
 	double funcao_objetivo;
 	if (num_disciplinas <= 30) {
-		IloCplex cplex(mod);
+		IloCplex cplex{mod};
+		// Se o tempo limite foi configurado, aplicá-lo ao CPLEX
+		if (tempo_limite != 0) {
+			cplex.setParam(IloCplex::Param::TimeLimit, tempo_limite);
+		}
 		cplex.setOut(env.getNullStream());
 		cplex.solve();
 
 		funcao_objetivo = cplex.getObjValue();
 		cplex.getValues(solucao_cplex, y);
 	} else {
-		IloCP cp(mod);
+		IloCP cp{mod};
+		// Se o tempo limite foi configurado, aplicá-lo ao CPLEX
+		if (tempo_limite != 0) {
+			cp.setParameter(IloCP::TimeLimit, tempo_limite);
+		}
 		cp.setOut(env.getNullStream());
 		cp.solve();
 
 		funcao_objetivo = cp.getObjValue();
 		cp.getValues(y, solucao_cplex);
 	}
-
 	solucao = Solucao{num_disciplinas, funcao_objetivo, parent.aluno().nome()};
 	// Atribui resposta às variáveis membro
 	for (auto d = 0u; d < num_disciplinas; d++) {
 		if (solucao_cplex[d]) {
 			solucao.solucao_bool[d] = 1;
-			solucao.nomes_disciplinas.push_back(disciplinas[d].nome);
+			solucao.nomes_disciplinas.push_back(disciplinas[d].id);
 		}
 	}
 }
@@ -223,18 +246,20 @@ const fagoc::Solucao& fagoc::Modelo_solver::solucao() const
 }
 
 
-fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno) 
-	: Solver(curso, aluno), impl_{std::make_unique<impl>(*this)}
+fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno, 
+									double tempo_limite) 
+	: Solver(curso, aluno), impl_{std::make_unique<impl>(*this, tempo_limite)}
 {}
 
 fagoc::Modelo_solver::Modelo_solver(const Curso& curso, const Aluno& aluno,
-									const std::vector<std::vector<char>>& horario) 
-	: Solver(curso, aluno, horario), impl_{std::make_unique<impl>(*this)}
+									const std::vector<std::vector<char>>& horario,
+									double tempo_limite) 
+	: Solver(curso, aluno, horario), impl_{std::make_unique<impl>(*this, tempo_limite)}
 {}
+
+fagoc::Modelo_solver::~Modelo_solver() {}
 
 void fagoc::Modelo_solver::solve()
 {
 	impl_->solve();
 }
-
-fagoc::Modelo_solver::~Modelo_solver() {}

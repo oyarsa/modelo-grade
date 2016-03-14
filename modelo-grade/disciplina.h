@@ -20,6 +20,7 @@ struct Disciplina
 	std::string turma;
 	std::string periodo;
 	std::string periodo_minimo;
+	std::string id;
 	std::string nome;
 	int capacidade;
 };

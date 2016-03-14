@@ -10,7 +10,7 @@ fagoc::Curso::Curso(std::vector<Disciplina>&& disciplinas,
       , horario_(std::move(horario))
       , ofertadas_(std::move(ofertadas))
       , alocados_(ofertadas_.size())
-	  , nome_to_indice_(std::move(nome_to_indice))
+	  , id_to_indice_(std::move(nome_to_indice))
       , num_dias_letivos_{num_dias_letivos}
       , num_periodos_{num_periodos} {}
 
@@ -30,7 +30,7 @@ void fagoc::Curso::atualiza_ofertadas(const std::vector<char>& escolhidas,
 									  std::vector<std::vector<char>>& horario)
 {
 	for (const auto& disc : disciplinas_) {
-		auto index = nome_to_indice_[disc.nome];
+		auto index = id_to_indice_[disc.id];
 		if (escolhidas[index]) {
 			alocados_[index]++;
 		}
@@ -74,7 +74,7 @@ const std::vector<char>& fagoc::Curso::ofertadas() const
     return ofertadas_;
 }
 
-std::unordered_map<std::string, int>& fagoc::Curso::nome_to_indice()
+std::unordered_map<std::string, int>& fagoc::Curso::id_to_indice()
 {
-	return nome_to_indice_;
+	return id_to_indice_;
 }
